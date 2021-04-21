@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.HomeFragment">
+
+    <ImageView
+        android:id="@+id/announcement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/shape_cycle"
+        android:src="@mipmap/announcement"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/announcement"
+        android:layout_alignLeft="@+id/announcement"
+        android:textSize="22dp"
+        android:text="@string/announcement"
+        android:layout_marginLeft="30dp"/>
+
+    <ImageView
+        android:id="@+id/store"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/announcement"
+        android:layout_marginLeft="10dp"
+        android:layout_alignTop="@+id/announcement"
+        android:background="@drawable/shape_cycle"
+        android:src="@mipmap/shopping"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/store"
+        android:layout_alignLeft="@+id/store"
+        android:textSize="22dp"
+        android:text="@string/store"
+        android:layout_marginLeft="30dp"/>
+
+    <ImageView
+        android:id="@+id/training"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/store"
+        android:layout_alignTop="@+id/store"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/shape_cycle"
+        android:src="@mipmap/training"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/training"
+        android:layout_alignLeft="@+id/training"
+        android:textSize="22dp"
+        android:text="@string/training"
+        android:layout_marginLeft="30dp"/>
+
+    <Button
+        android:id="@+id/btnOvul"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="170dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="#FFF"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:drawableTop="@mipmap/ovul_icon"
+        android:background="@drawable/shape_oval"
+        android:textSize="22dp"
+        android:text="@string/icon_ovul"/>
+
+    <Button
+        android:id="@+id/btnTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btnOvul"
+        android:layout_toRightOf="@+id/btnOvul"
+        android:layout_marginLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:drawableTop="@mipmap/temper_icon"
+        android:background="@drawable/shape_oval"
+        android:text="@string/icon_blut_temp"
+        android:textSize="22dp"
+        android:textColor="#FFF"/>
+
+    <Button
+        android:id="@+id/btnPreg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnOvul"
+        android:background="@drawable/shape_oval"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:drawableTop="@mipmap/preg_icon"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:textColor="#FFF"
+        android:textSize="22dp"
+        android:text="@string/icon_pregnancy"/>
+
+</RelativeLayout>

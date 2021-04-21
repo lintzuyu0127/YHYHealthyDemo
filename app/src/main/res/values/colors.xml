@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00bcd4</color>
+    <color name="colorPrimaryDark">#0097a7</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <!-- 自找的 -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="orange">#FFA500</color>
+    <color name="red">#ff0000</color>
+    <color name="transparent_gray">#90000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="greenDark">#00a400</color>
+    <color name="color_period_5">#CF6194</color>
+    <color name="color_period_6">#D5AD45</color>
+    <color name="color_period_7">#7793DD</color>
+
+</resources>

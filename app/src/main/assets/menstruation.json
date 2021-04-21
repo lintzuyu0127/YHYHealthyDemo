@@ -1,0 +1,146 @@
+{
+  "success": [
+    {
+      "testDate": "2021-02-05",
+      "temperature": 35.05,
+      "firstDay": true,
+      "cycleStatus": [
+        1,
+        4
+      ]
+    },
+    {
+      "testDate": "2021-02-06",
+      "temperature": 35.05,
+      "firstDay": false,
+      "cycleStatus": [
+        1,
+        4
+      ]
+    },
+    {
+      "testDate": "2021-02-07",
+      "temperature": 35.02,
+      "firstDay": false,
+      "cycleStatus": [
+        1,
+        4
+      ]
+    },
+    {
+      "testDate": "2021-02-08",
+      "temperature": 35.03,
+      "firstDay": false,
+      "cycleStatus": [
+        1,
+        4
+      ]
+    },
+    {
+      "testDate": "2021-02-09",
+      "temperature": 35.02,
+      "firstDay": false,
+      "cycleStatus": [
+        1,
+        4
+      ]
+    },
+    {
+      "testDate": "2021-02-14",
+      "temperature": 35.92,
+      "firstDay": false,
+      "cycleStatus": [
+        5
+      ]
+    },
+    {
+      "testDate": "2021-02-15",
+      "temperature": 35.05,
+      "firstDay": false,
+      "cycleStatus": [
+        5
+      ]
+    },
+    {
+      "testDate": "2021-02-16",
+      "temperature": 35.04,
+      "firstDay": false,
+      "cycleStatus": [
+        5
+      ]
+    },
+    {
+      "testDate": "2021-02-17",
+      "temperature": 34.0,
+      "firstDay": false,
+      "cycleStatus": [
+        6
+      ]
+    },
+    {
+      "testDate": "2021-02-18",
+      "temperature": 33.0,
+      "firstDay": false,
+      "cycleStatus": [
+        6
+      ]
+    },
+    {
+      "testDate": "2021-02-19",
+      "temperature": 34.0,
+      "firstDay": false,
+      "cycleStatus": [
+        6
+      ]
+    },
+    {
+      "testDate": "2021-02-20",
+      "temperature": 36.0,
+      "firstDay": false,
+      "cycleStatus": [
+        5
+      ]
+    },
+    {
+      "testDate": "2021-02-21",
+      "temperature": 36.08,
+      "firstDay": false,
+      "cycleStatus": [
+        5
+      ]
+    },
+    {
+      "testDate": "2021-02-22",
+      "temperature": 36.90,
+      "firstDay": false,
+      "cycleStatus": [
+        5
+      ]
+    },
+    {
+      "testDate": "2021-02-23",
+      "temperature": 36.23,
+      "firstDay": false,
+      "cycleStatus": [
+        5
+      ]
+    },
+    {
+      "testDate": "2021-02-24",
+      "temperature": 35.50,
+      "firstDay": true,
+      "cycleStatus": [
+        4
+      ]
+    },
+    {
+      "testDate": "2021-02-28",
+      "temperature": 35.40,
+      "firstDay": false,
+      "cycleStatus": [
+        4
+      ]
+    }
+  ],
+  "errorCode": 0
+}

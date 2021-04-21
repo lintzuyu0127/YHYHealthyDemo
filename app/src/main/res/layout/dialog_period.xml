@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="20dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/real_period"
+            android:textSize="22sp"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/text_to_date"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:gravity="center"
+            android:cursorVisible="false"
+            android:clickable="false"
+            android:focusableInTouchMode="false"
+            android:background="@drawable/shape_period_pick_date"
+            android:layout_weight="1"
+            android:hint="開始日期"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:text="@string/to"/>
+        <EditText
+            android:id="@+id/text_from_date"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:cursorVisible="false"
+            android:clickable="false"
+            android:focusableInTouchMode="false"
+            android:background="@drawable/shape_period_pick_date"
+            android:hint="結束日期"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/btnDateDelete"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:text="@string/delete"
+            android:textColor="@color/red"
+            android:background="@null"/>
+        <Button
+            android:id="@+id/btnDateCancel"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:layout_toRightOf="@id/btnDateDelete"
+            android:background="@null"
+            android:text="@string/dialog_cancel"/>
+
+        <Button
+            android:id="@+id/btnDateSave"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:background="@null"
+            android:text="@string/save"
+            android:layout_toRightOf="@id/btnDateCancel"
+            android:textColor="@color/colorPrimaryDark"/>
+
+    </RelativeLayout>
+<!--    <Button-->
+<!--        android:id="@+id/btnSendDate"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="30dp"-->
+<!--        android:layout_marginRight="30dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:textSize="16sp"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:background="@drawable/shape_login_background"-->
+<!--        android:text="@string/save"/>-->
+</LinearLayout>

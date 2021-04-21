@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/yhy_bg"
+    android:orientation="vertical"
+    tools:context=".TemperatureActivity">
+
+    <include layout="@layout/app_bar"/>
+
+    <LinearLayout
+        android:id="@+id/ly_ble_temperature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp">
+
+        <Button
+            android:id="@+id/btnSeletSupervise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/shape_for_temperature"
+            android:layout_weight="1"
+            android:textSize="18dp"
+            android:text="觀測"/>
+        <Button
+            android:id="@+id/btnSelectRemote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/shape_for_temperature"
+            android:layout_weight="1"
+            android:textSize="18dp"
+            android:text="遠端"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnAddTempUser"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:drawableLeft="@drawable/ic_baseline_person_add_24"
+        android:paddingBottom="5dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:gravity="center"
+        android:visibility="visible"
+        android:text="@string/temp_add_supervise"/>
+    <Button
+        android:id="@+id/btnAddRemote"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:drawableLeft="@drawable/ic_baseline_person_add_24"
+        android:paddingBottom="5dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/temp_add_remote"/>
+    <!-- 成員區 RecyclerView-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTempUser"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/bt_add_temp"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSignUser"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/bt_add_temp"
+        android:background="@drawable/shape_for_ble"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvRemoteUser"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/bt_add_temp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"/>
+
+</LinearLayout>
