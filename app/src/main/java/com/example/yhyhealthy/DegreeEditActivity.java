@@ -3,11 +3,14 @@ package com.example.yhyhealthy;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,11 +32,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.example.yhyhealthy.module.ApiProxy;
 import com.example.yhyhealthy.tools.ImageUtils;
+import com.example.yhyhealthy.tools.RotateTransformation;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -61,11 +68,12 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
     private Button btnSave;
     private ImageView takePhoto;
     private ImageView photoShow;        //照片顯示
-    private String photoPath = "";      //照片位置全域宣告
+    private String photoPath = "";      //原始照片位置全域宣告
+    private File tmpPhoto;       //照片壓縮後的位置
 
     //更新使用者需要此id
     private int targetId = 0;
-    private File file;
+    private File headShotFile;
 
     //api
     private ApiProxy proxy;
@@ -122,12 +130,16 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
 
         //避免大頭貼沒資料而閃退
         if (headShot != null){
-            file = new File(headShot);
-            Uri imageUri = Uri.fromFile(file);
-            Glide.with(this)
-                    .load(imageUri)
-                    .signature(new ObjectKey(Long.toString(System.currentTimeMillis())))
-                    .into(photoShow);
+            headShotFile = new File(headShot);
+            Uri imageUri = Uri.fromFile(headShotFile);
+
+            //怕會Lag所以用Thread執行緒
+            runOnUiThread(()->{
+                Glide.with(this)
+                        .load(imageUri)
+                        .signature(new ObjectKey(Long.toString(System.currentTimeMillis())))
+                        .into(photoShow);
+            });
         }
 
     }
@@ -214,7 +226,7 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
     private void updateToApi(){
         proxy = ApiProxy.getInstance(); //實例化
 
-        String base64Str = ImageUtils.imageToBase64(photoPath);   //照片
+        String base64Str = ImageUtils.imageToBase64(tmpPhoto.toString());   //壓縮後的照片
         String Name = userName.getText().toString().trim();  //名稱
         String Birthday = userBirthday.getText().toString(); //生日
         float Height = Float.parseFloat(userHeight.getText().toString()); //身高
@@ -251,6 +263,12 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
                         int errorCode = object.getInt("errorCode");
                         if(errorCode == 0){
                             Toasty.success(DegreeEditActivity.this, R.string.update_success, Toast.LENGTH_SHORT, true).show();
+
+                            //如果壓縮後的照片存在就砍掉
+                            if(tmpPhoto.exists())
+                                tmpPhoto.delete();
+
+                            //回到上一頁
                             setResult(RESULT_OK);
                             finish();
                         }else {
@@ -280,10 +298,17 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
         if (requestCode == Activity.DEFAULT_KEYS_DIALER && resultCode == -1){
 
             new Thread(()->{
+
+                Bitmap bitmap = BitmapFactory.decodeFile(photoPath); //取得bitmap
+
+                //壓縮圖片
+                Bitmap after = Bitmap.createScaledBitmap(bitmap, 900,600, true);
+
+                rotateBitmap(after); //旋轉圖片
+
                 //在BitmapFactory中以檔案URI路徑取得相片檔案，並處理為AtomicReference<Bitmap>，方便後續旋轉圖片
                 AtomicReference<Bitmap> getHighImage = new AtomicReference<>(BitmapFactory.decodeFile(photoPath));
                 Matrix matrix = new Matrix();
-                matrix.setRotate(90f);//轉90度
                 getHighImage.set(Bitmap.createBitmap(getHighImage.get()
                         ,0,0
                         ,getHighImage.get().getWidth()
@@ -294,6 +319,7 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
                     Glide.with(this)
                             .load(getHighImage.get())
                             .centerCrop()
+                            .transform(new RotateTransformation(90,this))
                             .into(photoShow);
                 });
             }).start();
@@ -303,10 +329,64 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
         }
     }
 
+
+    //旋轉圖片
+    private void rotateBitmap(Bitmap bitmap) {
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(readPictureDegree(photoPath));
+
+        Bitmap after = Bitmap.createBitmap(bitmap, 0,0, bitmap.getWidth(), bitmap.getHeight(), matrix,true);
+
+        saveBitmap(after); //存擋
+    }
+
+    //儲存圖片
+    private void saveBitmap(Bitmap bitmap) {
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        tmpPhoto = new File(directory, "newPicture" + ".jpg");
+
+        FileOutputStream fOut;
+        try {
+            fOut = new FileOutputStream(tmpPhoto);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+            fOut.flush();
+            fOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //獲取圖片旋轉角度
+    private static int readPictureDegree(String path){
+        int degree = 0;
+        try {
+            ExifInterface exifInterface = new ExifInterface(path);
+            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                                                            ExifInterface.ORIENTATION_NORMAL);
+            switch (orientation){
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    degree = 90;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    degree = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    degree = 270;
+                    break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return degree;
+    }
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         //如果照片還存在本機端,要做刪除
-        if(file.exists()) file.delete();
+        if(headShotFile.exists()) headShotFile.delete();
     }
 }

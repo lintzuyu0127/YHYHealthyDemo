@@ -1,6 +1,8 @@
 
 package com.example.yhyhealthy;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -51,7 +53,7 @@ public class DegreeListEditActivity extends AppPage implements DegreeListEditAda
     private int position;
 
     //本機照片儲存位置全域
-    private String tmpPhoto;
+    private File tmpPhoto;
 
     //
     private static final int EDIT_CODE = 1;
@@ -129,36 +131,29 @@ public class DegreeListEditActivity extends AppPage implements DegreeListEditAda
 
     //將圖檔存到本機內
     public void saveBitmap(Bitmap bitmap) {
-        FileOutputStream fOut;
-        try {
-            File dir = new File("/sdcard/demo/");
-            if (!dir.exists()) {
-                dir.mkdir();
-            }
 
-            //取得本地端照片位置
-            tmpPhoto = "/sdcard/demo/takePicture.jpg";
-            fOut = new FileOutputStream(tmpPhoto);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+            ContextWrapper cw = new ContextWrapper(getApplicationContext());
+            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            tmpPhoto = new File(directory, "takePicture" + ".jpg");
 
+            FileOutputStream fOut;
             try {
+                fOut = new FileOutputStream(tmpPhoto);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
                 fOut.flush();
                 fOut.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override  //編輯使用者
     public void onEditClick(BleUserData.SuccessBean data) {
+
         //大頭貼的資料轉成bitmap
         Bitmap bitmap = ImageUtils.base64ToBitmap(data.getHeadShot());
 
-        //將bitmap存到本地端手機+避免沒資料而閃退
+        //將大頭貼bitmap存到本地端手機+避免沒資料而閃退 因為後台沒給url所以暫用將照片存到本地端
         if(bitmap != null)
             saveBitmap(bitmap);
 
@@ -172,7 +167,7 @@ public class DegreeListEditActivity extends AppPage implements DegreeListEditAda
         bundle.putString("birthday", data.getBirthday());
         bundle.putString("weight", String.valueOf(data.getWeight()));
         bundle.putString("height", String.valueOf(data.getBleConnectListUserHeight()));
-        bundle.putString("HeadShot", tmpPhoto);
+        bundle.putString("HeadShot", tmpPhoto.toString());
         intent.putExtras(bundle);
         startActivityForResult(intent, EDIT_CODE);
     }

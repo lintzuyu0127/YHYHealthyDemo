@@ -21,9 +21,12 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.yhyhealthy.adapter.BluetoothLeAdapter;
 import com.example.yhyhealthy.adapter.DegreeMainAdapter;
@@ -108,6 +111,9 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         setContentView(R.layout.activity_degree_main);
         setTitle(R.string.title_temp);
         setActionButton(R.drawable.ic_baseline_menu_white_24, manager);
+
+        //休眠禁止
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         proxy = ApiProxy.getInstance();
 
@@ -495,14 +501,14 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
 
     //上傳觀測的體溫量測資料到後端 (可作為日後的歷史資料用)
     private void updateDegreeValueToApi(int targetId, double degree) {
-        DateTime dt = new DateTime();
-        String measureTimeStr = dt.toString("yyyy-MM-dd,HH:mm:ss"); //日期&時間格式
+        DateTime dt1 = new DateTime();
+        String degreeMeasureStr = dt1.toString("yyyy-MM-dd,HH:mm:ss");
 
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("targetId", targetId);
+            jsonObject.put("targetId",targetId);
             jsonObject.put("celsius", degree);
-            jsonObject.put("measureTime", measureTimeStr);
+            jsonObject.put("measuredTime",degreeMeasureStr);
             jsonObject.put("first", false);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -518,7 +524,6 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
             e.printStackTrace();
         }
 
-        //執行上傳api
         proxy.buildPOST(BLE_USER_ADD_VALUE, object.toString(), addValueListener);
     }
 
@@ -584,9 +589,6 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             mBleService = ((BleService.LocalBinder) service).getService();
-
-            //auto connect to the device upon successful start-up init
-//            mBleService.connect(mBluetoothAdapter, deviceAddress);
         }
 
         @Override
@@ -614,33 +616,32 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
                 case BleService.ACTION_GATT_CONNECTED:
                     Log.d(TAG, "onReceive: 藍芽連接中....");
                     break;
+
                 case BleService.ACTION_GATT_DISCONNECTED:
                     Log.d(TAG, "onReceive: 藍芽斷開並釋放資源");
                     mBleService.disconnect();
                     mBleService.release();
                     updateBleStatus(deviceName, deviceAddress, getString(R.string.ble_device_not_connected));
                     //在這裡加上移除計時器功能
-                    mHandler.removeCallbacks(requestDegree);
+                    //mHandler.removeCallbacks(requestDegree);
                     break;
+
                 case BleService.ACTION_CONNECTING_FAIL:
                     Log.d(TAG, "onReceive: 藍芽連結失敗並斷開");
                     mBleService.disconnect();
                     updateBleStatus(deviceName, deviceAddress, getString(R.string.ble_device_fail_connected));
                     break;
+
                 case BleService.ACTION_NOTIFY_SUCCESS:
                     //這裡才將連線成功顯示出來且要將資料寫回javaBean
                     updateBleStatus(deviceName, deviceAddress, getString(R.string.ble_device_connected));
                     break;
+
                 case BleService.ACTION_DATA_AVAILABLE:
                     Log.d(TAG, "onReceive: 體溫原始資料" + ByteUtils.byteArrayToString(data));
-                    String[] str = ByteUtils.byteArrayToHexString(data).split(",");
-                    String degreeStr = str[2];
-                    String batteryStr = str[3];
-                    double degree = Double.parseDouble(degreeStr)/100;
-                    double battery = Double.parseDouble(batteryStr);
-
+                    String receiverInfo  = ByteUtils.byteArrayToString(data);
                     //更新體溫跟電量
-                    updateBleData(degree, battery,deviceAddress);
+                    updateBleData(bleUserName, receiverInfo, deviceAddress);
 
                 default:
                     break;
@@ -649,14 +650,49 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
     }
 
     /*** 更新體溫跟電量 ***/
-    private void updateBleData(double degree, double battery, String macAddress) {
+    private void updateBleData(String name, String receiverData, String macAddress) {
+        String[] str = receiverData.split(","); //以,分割
+        String degreeStr = str[2];
+        String batteryStr = str[3];
+        double degree = Double.parseDouble(degreeStr)/100;
+        double battery = Double.parseDouble(batteryStr);
+
         if (degree != 0){
             //將溫度電量等資訊傳到adapter
             dAdapter.updateByMac(degree,battery,macAddress);
 
             //如果chart存在就將資料直接傳遞
 
+            //假如體溫超過37.5出現警示
+            if (degree > 30)
+                feverDialog(name,degree);
         }
+    }
+
+    //發燒警告 2021/04/22
+    private void feverDialog(String bleUserName, double degree) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.fever_dialog, null);
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+
+        //顯示發燒者
+        TextView feverName = view.findViewById(R.id.tvFeverName);
+        feverName.setText(bleUserName);
+
+        //顯示體溫
+        TextView feverDegree = view.findViewById(R.id.tvFeverDegree);
+        feverDegree.setText(String.valueOf(degree));
+
+        ImageView close = view.findViewById(R.id.ivClosefever);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();  //關閉視窗
+            }
+        });
+
+        dialog.show();
     }
 
     /**** 更新連線後的資訊 ******/
@@ -822,6 +858,20 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         sendCommand(data.getBleMac());  //command + device : 判斷用
     }
 
+    @Override  //停止量測
+    public void onBleStopConnect(BleUserData.SuccessBean data, int position) {
+
+        mBleService.disconnect(); //斷線
+        mBleService.release();    //釋放資源
+        updateBleStatus(data.getBleDeviceName(), data.getBleMac(),getString(R.string.ble_device_not_connected));
+
+        //移除佇列
+        bleOnClickList.remove(data.getBleMac());
+
+        //停止自己的定時量測功能
+
+    }
+
     @Override //藍芽圖表介面
     public void onBleChart(BleUserData.SuccessBean data, int position) {
         
@@ -866,8 +916,8 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         if (mBleService != null){
             unregisterReceiver(mBleReceiver);
             mBleService = null;
-            //mBleService.disconnect();
-            //mBleService.release();
+//            mBleService.disconnect();
+//            mBleService.release();
         }
 
         unbindService(mServiceConnection);

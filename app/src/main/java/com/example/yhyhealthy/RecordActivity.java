@@ -41,6 +41,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -136,7 +137,6 @@ public class RecordActivity extends DeviceBaseActivity implements View.OnClickLi
     private BleDeviceListAdapter mDeviceListAdapter;
     private List<BluetoothDevice> mBluetoothDeviceList;
     private List<String> mRssiList;
-    private String correctDeviceName = "";
     private String deviceAddress;
 
     private TextView bleConnectStatus;  //藍芽連線狀態
@@ -159,6 +159,7 @@ public class RecordActivity extends DeviceBaseActivity implements View.OnClickLi
     //量測進度
     private ProgressBar measureProgress;
     private LinearLayout linearLayout;
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,6 +167,9 @@ public class RecordActivity extends DeviceBaseActivity implements View.OnClickLi
         getSupportActionBar().hide();
         setContentView(R.layout.activity_record);
         setTitle(R.string.title_ovul_edit);
+
+        //休眠禁止
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         proxy = ApiProxy.getInstance();  //api初始化
 
@@ -281,6 +285,10 @@ public class RecordActivity extends DeviceBaseActivity implements View.OnClickLi
     private void parserJson(JSONObject JsonResult) {
         record = Record.newInstance(JsonResult.toString());
         Log.d(TAG, "解析後台過來資料: " + record.toJSONString());
+
+        //2021/04/21 辨識結果
+        photoResult.setText(record.getSuccess().getMeasure().getParamName());
+        changeRecordData.getMeasure().setParam(record.getSuccess().getMeasure().getParam());
 
         //體重
         String userWeight = String.valueOf(record.getSuccess().getMeasure().getWeight());
@@ -450,7 +458,7 @@ public class RecordActivity extends DeviceBaseActivity implements View.OnClickLi
         sendCommand(deviceAddress);  //量測command
 
         //計時3分鐘,每10秒執行一次onTick方法
-        CountDownTimer countDownTimer = new CountDownTimer(180000, 1000){
+        countDownTimer = new CountDownTimer(180000, 1000){
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -638,9 +646,7 @@ public class RecordActivity extends DeviceBaseActivity implements View.OnClickLi
     private void updateToApi() {
         //需要日期上傳
         changeRecordData.setTestDate(strDay);
-
-        Log.d(TAG, "更新後台的資料: " + changeRecordData.toJSONString());
-
+        //Log.d(TAG, "上傳更新的資料: " + changeRecordData.toJSONString());
         proxy.buildPOST(RECORD_UPDATE, changeRecordData.toJSONString(), changeRecordListener);
     }
 
@@ -680,15 +686,13 @@ public class RecordActivity extends DeviceBaseActivity implements View.OnClickLi
             JSONObject jsonObject = new JSONObject(result.toString());
             int errorCode = jsonObject.getInt("errorCode");
             if (errorCode == 0){
-                boolean success = jsonObject.getBoolean("success");
-                if (success){
-                    Toasty.success(RecordActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
-                    setResult(RESULT_OK);
-                    finish();
-                }else {
-                    Log.d(TAG, "parserUpdateResult: 錯誤code : " + errorCode);
-                }
+                Toasty.success(RecordActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
+                setResult(RESULT_OK);
+                finish();
+            }else {
+                Log.d(TAG, "parserUpdateResult: 錯誤code : " + errorCode);
             }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -819,6 +823,10 @@ public class RecordActivity extends DeviceBaseActivity implements View.OnClickLi
             if (TextUtils.isEmpty(action)) {
                 return;
             }
+
+            String correctDeviceName = intent.getStringExtra(BleService.EXTRA_DEVICE_NAME);
+            byte[] data = intent.getByteArrayExtra(BleService.EXTRA_DATA);
+
             switch (action) {
                 case BleService.ACTION_GATT_CONNECTED:
                     Toasty.info(RecordActivity.this, getString(R.string.ble_connected), Toast.LENGTH_SHORT,true).show();
@@ -826,20 +834,26 @@ public class RecordActivity extends DeviceBaseActivity implements View.OnClickLi
                 case BleService.ACTION_GATT_DISCONNECTED:
                     Toasty.info(RecordActivity.this, getString(R.string.ble_not_connect), Toast.LENGTH_SHORT,true).show();
                     mBleService.release();
+                    bleConnectStatus.setText(getString(R.string.ble_is_not_connected));
+                    countDownTimer.cancel();  //取消定時器
                     break;
+
                 case BleService.ACTION_CONNECTING_FAIL:
                     Toasty.info(RecordActivity.this, getString(R.string.ble_not_connect), Toast.LENGTH_SHORT,true).show();
                     mBleService.disconnect();
+                    bleConnectStatus.setText(getString(R.string.ble_connected_fail));
+                    countDownTimer.cancel();  //取消定時器
                     break;
+
                 case BleService.ACTION_NOTIFY_SUCCESS: //通知成功後變更textView顯示內容
                     deviceAddress = intent.getStringExtra(BleService.EXTRA_MAC);
                     bleConnectStatus.setText(correctDeviceName + getString(R.string.ble_device_connected));
                     bleConnectStatus.setTextColor(Color.RED);
-                    startMeasure.setVisibility(View.VISIBLE);  //量測按鈕顯示 2021/04/20
+                    startMeasure.setVisibility(View.VISIBLE);        //量測按鈕顯示 2021/04/20
+                    searchBluetooth.setVisibility(View.INVISIBLE);   //搜尋按鈕隱藏 2021/04/21
                     break;
                 case BleService.ACTION_DATA_AVAILABLE:  //2021/03/15
-                    byte[] data = intent.getByteArrayExtra(BleService.EXTRA_DATA);
-                    Log.d(TAG, "收到的原始數據: " + ByteUtils.byteArrayToString(data));
+//                    Log.d(TAG, "收到的原始數據: " + ByteUtils.byteArrayToString(data));
                     String[] str = ByteUtils.byteArrayToString(data).split(","); //以,切割
                     String degreeStr = str[2];
                     double degree = Double.parseDouble(degreeStr)/100;

@@ -271,10 +271,7 @@ public class OvulationActivity extends AppPage implements View.OnClickListener, 
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
                         if (errorCode == 0){
-                            boolean success = object.getBoolean("success");
-                            if(success){
-                                parserJson(result); //解析json資料
-                            }
+                            parserJson(result); //解析json資料
                         }else {
                             Toasty.error(OvulationActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
@@ -299,6 +296,7 @@ public class OvulationActivity extends AppPage implements View.OnClickListener, 
     //2021/01/13 解析單日資料
     @SuppressLint("SetTextI18n")
     private void parserJson(JSONObject result) {
+        Log.d(TAG, "parserJson: " + result.toString());
         record = Record.newInstance(result.toString());
 
         //唾液辨識結果
@@ -326,7 +324,7 @@ public class OvulationActivity extends AppPage implements View.OnClickListener, 
 
         //基礎體溫
         String bodyDegree = String.valueOf(record.getSuccess().getMeasure().getTemperature());
-        temperature.setText(getString(R.string.body_degree) + " " + bodyDegree + " \u2103");
+        temperature.setText(bodyDegree + " \u2103");
 
         //根據唾液辨識結果得到的機率
         int salivaRate = record.getSuccess().getOvuRate().getSalivaRate();
@@ -809,6 +807,7 @@ public class OvulationActivity extends AppPage implements View.OnClickListener, 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PERIOD_RECORD && resultCode == -1){
+            widget.removeDecorators(); //移除之前的週期資料
             //重刷資料
             initCalendar();
         }

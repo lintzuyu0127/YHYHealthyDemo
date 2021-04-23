@@ -420,9 +420,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginRight="4dp"
-            android:layout_marginLeft="4dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/shape_ovual_result">
             <TextView
                 android:id="@+id/tvChartRemind"

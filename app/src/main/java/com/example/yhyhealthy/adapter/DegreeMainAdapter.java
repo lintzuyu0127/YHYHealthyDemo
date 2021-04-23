@@ -3,6 +3,7 @@ package com.example.yhyhealthy.adapter;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,8 @@ import java.util.List;
  * ************************/
 
 public class DegreeMainAdapter extends RecyclerView.Adapter<DegreeMainAdapter.ViewHolder>{
+
+    private static final String TAG = "DegreeMainAdapter";
 
     private Context context;
 
@@ -65,7 +68,7 @@ public class DegreeMainAdapter extends RecyclerView.Adapter<DegreeMainAdapter.Vi
                 if (!TextUtils.isEmpty(data.getBleMac())){
                     if (data.getBleMac().equals(mac)){
                         data.setBattery(String.valueOf(battery) + "%");
-                        data.setDegree(degree,todayWithTime);
+                        data.setDegree(degree,todayWithTime);  //將得到的體溫跟時間往資料塞,圖表需要用到
                         notifyItemChanged(i); //刷新
                         updateBeforeApi(mac); //上傳後台前的檢查
                     }
@@ -112,16 +115,26 @@ public class DegreeMainAdapter extends RecyclerView.Adapter<DegreeMainAdapter.Vi
 
         //根據藍芽連線狀態變更icon及功能
         if (data.getBleConnectStatus() != null){
-            if (data.getBleConnectStatus().contains("已連線")){
-                holder.bleConnect.setImageResource(R.drawable.ic_baseline_play_circle_outline_24);
-                holder.bleConnect.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        listener.onBleMeasuring(data);
-                    }
-                });
+            if (data.getBleConnectStatus().contains("連線")){
+//                if(data.getBattery() != null){
+//                    holder.bleConnect.setImageResource(R.drawable.ic_baseline_close_24);
+//                    holder.bleConnect.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            listener.onBleStopConnect(data, position);
+//                        }
+//                    });
+//                }else {
+                    holder.bleConnect.setImageResource(R.drawable.ic_baseline_play_circle_outline_24);
+                    holder.bleConnect.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            listener.onBleMeasuring(data);
+                        }
+                    });
+//                }
 
-            }else if (data.getBleConnectStatus().contains("已斷開")){
+            }else if (data.getBleConnectStatus().contains("斷開")){
                 holder.bleConnect.setImageResource(R.drawable.ic_baseline_add_24);
                 holder.bleConnect.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -166,6 +179,7 @@ public class DegreeMainAdapter extends RecyclerView.Adapter<DegreeMainAdapter.Vi
         void onBleConnect(BleUserData.SuccessBean data, int position);
         void onBleChart(BleUserData.SuccessBean data, int position);
         void onBleMeasuring(BleUserData.SuccessBean data);
+        void onBleStopConnect(BleUserData.SuccessBean data, int position);
         void onSymRecord(BleUserData.SuccessBean data, int position);
         void passTarget(int targetId, double degree);
     }
