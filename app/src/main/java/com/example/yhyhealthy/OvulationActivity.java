@@ -625,22 +625,17 @@ public class OvulationActivity extends AppPage implements View.OnClickListener, 
                 JSONObject object = new JSONObject(result.toString());
                 int errorCode = object.getInt("errorCode");
                 if (errorCode == 0){
-                    boolean success = object.getBoolean("success");
+                    //要砍掉sharePref檔案內的起始日跟結束日
+                    DeletePeriodDate();
 
-                    if (success){ //2021/02/22
+                    //清除之前日期的make
+                    widget.removeDecorators();
 
-                        //要砍掉sharePref檔案內的起始日跟結束日
-                        DeletePeriodDate();
+                    //重新載入資料
+                    initCalendar();
 
-                        //清除之前日期的make
-                        widget.removeDecorators();
-
-                        //重新載入資料
-                        initCalendar();
-
-                        //關閉對話框
-                        dialog.dismiss();
-                    }
+                    //關閉對話框
+                    dialog.dismiss();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -671,19 +666,16 @@ public class OvulationActivity extends AppPage implements View.OnClickListener, 
                 JSONObject object = new JSONObject(result.toString());
                 int errorCode = object.getInt("errorCode");
                 if(errorCode == 0){
-                    boolean success = object.getBoolean("success");
-                    if(success){
-                        Toasty.success(OvulationActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
+                    Toasty.success(OvulationActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
 
-                        //清除之前日期mark
-                        widget.removeDecorators();
+                    //清除之前日期mark
+                    widget.removeDecorators();
 
-                        //重新載入資料 2021/02/22
-                        initCalendar();
+                    //重新載入資料 2021/02/22
+                    initCalendar();
 
-                        //關閉對話框
-                        dialog.dismiss();
-                    }
+                    //關閉對話框
+                    dialog.dismiss();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

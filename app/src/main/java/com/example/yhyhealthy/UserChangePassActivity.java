@@ -91,10 +91,7 @@ public class UserChangePassActivity extends AppPage {
                         JSONObject jsonObject = new JSONObject(result.toString());
                         int errorCode = jsonObject.getInt("errorCode");
                         if (errorCode == 0){
-                            boolean success = jsonObject.getBoolean("success");
-                            if (success){
-                                Toasty.success(UserChangePassActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
-                            }
+                            Toasty.success(UserChangePassActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
                         }else {
                             Toasty.error(UserChangePassActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }

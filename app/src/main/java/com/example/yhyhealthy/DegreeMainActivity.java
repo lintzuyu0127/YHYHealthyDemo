@@ -100,8 +100,8 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
 
     //Other
     boolean isBleList = true;
-    private int statusPosition;
     private BleUserData.SuccessBean statusMemberBean;
+    private int statusPosition;
     private String bleUserName; //使用者名稱
 
     @Override
@@ -159,7 +159,7 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         }
     };
 
-    //每5分鐘執行一次藍芽command
+    //每3分鐘執行一次藍芽command
     private Runnable requestDegree = new Runnable() {
         @Override
         public void run() {
@@ -168,7 +168,7 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
                     sendCommand(bleOnClickList.get(i));
                 }
             }
-            mHandler.postDelayed(this, 1000 * 60 * 5); //5分鐘
+            mHandler.postDelayed(this, 1000 * 60 * 3); //3分鐘
         }
     };
 
@@ -241,6 +241,7 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
                 rvRemote.setVisibility(View.GONE);
                 selectedAccount.setVisibility(View.GONE);
                 isBleList = true;
+                initBleConnectList(); //初始化觀測者列表
                 break;
             case R.id.btnRemote: //遠端者onClick
                 btnSupervise.setBackgroundResource(R.drawable.shape_for_temperature);
@@ -251,7 +252,7 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
                 rvRemote.setVisibility(View.VISIBLE);
                 selectedAccount.setVisibility(View.VISIBLE);
                 isBleList = false;
-                initRemoteAccountList();   //取得監控者帳號List  2021/03/25
+                initRemoteAccountList();   //初始化監控者帳號List  2021/03/25
                 break;
             case R.id.btnAddLocal: //新增觀測者
                 Intent intent = new Intent(this, DegreeAddActivity.class);
@@ -380,11 +381,8 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
                         if (errorCode == 0){
-                            boolean success = object.getBoolean("success");
-                            if (success){
-                                Toasty.success(DegreeMainActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
-                                initRemoteAccountList(); //重刷資料
-                            }
+                            Toasty.success(DegreeMainActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
+                            initRemoteAccountList(); //重刷資料
                         }else {
                             Log.d(TAG, "新增觀測者失敗後台回覆碼: " + errorCode);
                         }
@@ -621,7 +619,7 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
                     Log.d(TAG, "onReceive: 藍芽斷開並釋放資源");
                     mBleService.disconnect();
                     mBleService.release();
-                    updateBleStatus(deviceName, deviceAddress, getString(R.string.ble_device_not_connected));
+//                    updateBleStatus(deviceName, deviceAddress, getString(R.string.ble_device_not_connected));
                     //在這裡加上移除計時器功能
                     //mHandler.removeCallbacks(requestDegree);
                     break;
@@ -629,19 +627,19 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
                 case BleService.ACTION_CONNECTING_FAIL:
                     Log.d(TAG, "onReceive: 藍芽連結失敗並斷開");
                     mBleService.disconnect();
-                    updateBleStatus(deviceName, deviceAddress, getString(R.string.ble_device_fail_connected));
+//                    updateBleStatus(deviceName, deviceAddress, getString(R.string.ble_device_fail_connected));
                     break;
 
                 case BleService.ACTION_NOTIFY_SUCCESS:
                     //這裡才將連線成功顯示出來且要將資料寫回javaBean
-                    updateBleStatus(deviceName, deviceAddress, getString(R.string.ble_device_connected));
+                    updateConnectedStatus(deviceName, deviceAddress, getString(R.string.ble_device_connected));
                     break;
 
                 case BleService.ACTION_DATA_AVAILABLE:
                     Log.d(TAG, "onReceive: 體溫原始資料" + ByteUtils.byteArrayToString(data));
                     String receiverInfo  = ByteUtils.byteArrayToString(data);
                     //更新體溫跟電量
-                    updateBleData(bleUserName, receiverInfo, deviceAddress);
+                    updateBleData(receiverInfo, deviceAddress);
 
                 default:
                     break;
@@ -649,8 +647,18 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         }
     }
 
+    /**** 更新藍芽連線後的資訊 ******/
+    private void updateConnectedStatus(String devName, String devAddress, String bleStatus){
+        if (devAddress != null){
+            statusMemberBean.setBleMac(devAddress);
+            statusMemberBean.setBleConnectStatus(devName+bleStatus);
+            dAdapter.updateItem(statusMemberBean, statusPosition);
+            //dAdapter.updateBluetoothDevice(bleUserName,devName, devAddress,bleStatus);
+        }
+    }
+
     /*** 更新體溫跟電量 ***/
-    private void updateBleData(String name, String receiverData, String macAddress) {
+    private void updateBleData(String receiverData, String macAddress) {
         String[] str = receiverData.split(","); //以,分割
         String degreeStr = str[2];
         String batteryStr = str[3];
@@ -665,12 +673,12 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
 
             //假如體溫超過37.5出現警示
             if (degree > 30)
-                feverDialog(name,degree);
+                feverDialog(dAdapter.findNameByMac(macAddress),degree); //發燒警告彈跳視窗
         }
     }
 
     //發燒警告 2021/04/22
-    private void feverDialog(String bleUserName, double degree) {
+    private void feverDialog(String userName, double degree) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.fever_dialog, null);
         builder.setView(view);
@@ -678,7 +686,7 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
 
         //顯示發燒者
         TextView feverName = view.findViewById(R.id.tvFeverName);
-        feverName.setText(bleUserName);
+        feverName.setText(userName);
 
         //顯示體溫
         TextView feverDegree = view.findViewById(R.id.tvFeverDegree);
@@ -693,15 +701,6 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         });
 
         dialog.show();
-    }
-
-    /**** 更新連線後的資訊 ******/
-    private void updateBleStatus(String devName, String devAddress, String bleStatus){
-        if (devName != null){
-            statusMemberBean.setBleConnectStatus(devName+bleStatus); //連線狀態
-            statusMemberBean.setBleMac(devAddress);                  //藍芽位址
-            dAdapter.updateItem(statusMemberBean, statusPosition);
-        }
     }
 
     /***  對藍芽設備下命令 *****/
@@ -843,11 +842,10 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
 
     @Override //藍芽連線介面
     public void onBleConnect(BleUserData.SuccessBean data, int position) {
-
-        bleUserName = data.getBleConnectListUserName(); //取的使用者的名稱
-        statusPosition = position;               //使用者在recyclerView item位置
         statusMemberBean = data;
-        initBle();
+        statusPosition = position;
+        //bleUserName = data.getBleConnectListUserName(); //取的使用者的名稱
+        initBle();  //初始化藍芽
     }
 
     @Override //啟動量測
@@ -863,7 +861,6 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
 
         mBleService.disconnect(); //斷線
         mBleService.release();    //釋放資源
-        updateBleStatus(data.getBleDeviceName(), data.getBleMac(),getString(R.string.ble_device_not_connected));
 
         //移除佇列
         bleOnClickList.remove(data.getBleMac());
@@ -913,10 +910,11 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
         if (mBleService != null){
             unregisterReceiver(mBleReceiver);
             mBleService = null;
-//            mBleService.disconnect();
+//            mBleService.disconnect();  //斷開藍芽
 //            mBleService.release();
         }
 

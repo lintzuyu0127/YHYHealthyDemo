@@ -270,10 +270,7 @@ public class UserBasicActivity extends AppPage implements View.OnClickListener {
                         JSONObject jsonObject = new JSONObject(result.toString());
                         int errorCode = jsonObject.getInt("errorCode");
                         if (errorCode == 0){
-                            boolean success = jsonObject.getBoolean("success");
-                            if (success){
-                                Toasty.success(UserBasicActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
-                            }
+                            Toasty.success(UserBasicActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
                         }else {
                             Toasty.error(UserBasicActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }

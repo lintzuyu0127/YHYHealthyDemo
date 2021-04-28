@@ -191,12 +191,9 @@ public class RemoteListEditActivity extends AppPage implements RemoteListAdapter
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
                         if (errorCode == 0){
-                            boolean success = object.getBoolean("success");
-                            if (success){
-                                Toasty.success(RemoteListEditActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
-                                initData();//重刷資料
-                                alertDialog.dismiss();//關閉視窗
-                            }
+                            Toasty.success(RemoteListEditActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
+                            initData();//重刷資料
+                            alertDialog.dismiss();//關閉視窗
                         }else {
                             Log.d(TAG, "新增觀測者失敗後台回覆碼: " + errorCode);
                         }
@@ -287,11 +284,8 @@ public class RemoteListEditActivity extends AppPage implements RemoteListAdapter
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
                         if (errorCode == 0){
-                            boolean success = object.getBoolean("success");
-                            if (success){
-                                Toasty.success(RemoteListEditActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
-                                dialog.dismiss(); //關閉視窗
-                            }
+                            Toasty.success(RemoteListEditActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
+                            dialog.dismiss(); //關閉視窗
                         }else {
                             Log.d(TAG, "更新觀測者之授權碼失敗後台回覆碼: " + errorCode);
                         }

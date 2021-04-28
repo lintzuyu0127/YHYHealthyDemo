@@ -226,7 +226,12 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
     private void updateToApi(){
         proxy = ApiProxy.getInstance(); //實例化
 
-        String base64Str = ImageUtils.imageToBase64(tmpPhoto.toString());   //壓縮後的照片
+        String base64Str = null;  //2021/04/25
+
+        //若沒有拍照的話tmpPhoto有可能為空指針
+        if(tmpPhoto != null)  //2021/04/25
+            base64Str = ImageUtils.imageToBase64(tmpPhoto.toString());   //壓縮後的照片
+
         String Name = userName.getText().toString().trim();  //名稱
         String Birthday = userBirthday.getText().toString(); //生日
         float Height = Float.parseFloat(userHeight.getText().toString()); //身高
@@ -244,6 +249,7 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        //執行上傳到後端
         proxy.buildPOST(BLE_USER_UPDATE, json.toString(), updateListener);
     }
 
@@ -299,12 +305,16 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
 
             new Thread(()->{
 
-                Bitmap bitmap = BitmapFactory.decodeFile(photoPath); //取得bitmap
+                //取得bitmap
+                Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
 
-                //壓縮圖片
-                Bitmap after = Bitmap.createScaledBitmap(bitmap, 900,600, true);
-
-                rotateBitmap(after); //旋轉圖片
+                //取得旋轉度數
+                int rotate = readPictureDegree(photoPath);
+                if (rotate == 0){ //判斷是否要旋轉圖片,不用的就直接存檔
+                    saveBitmap(bitmap);
+                }else {
+                    rotateBitmap(bitmap); //對原圖進行旋轉
+                }
 
                 //在BitmapFactory中以檔案URI路徑取得相片檔案，並處理為AtomicReference<Bitmap>，方便後續旋轉圖片
                 AtomicReference<Bitmap> getHighImage = new AtomicReference<>(BitmapFactory.decodeFile(photoPath));
@@ -319,7 +329,7 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
                     Glide.with(this)
                             .load(getHighImage.get())
                             .centerCrop()
-                            .transform(new RotateTransformation(90,this))
+                            .transform(new RotateTransformation(rotate,this))
                             .into(photoShow);
                 });
             }).start();
@@ -332,17 +342,17 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
 
     //旋轉圖片
     private void rotateBitmap(Bitmap bitmap) {
-
         Matrix matrix = new Matrix();
         matrix.postRotate(readPictureDegree(photoPath));
-
         Bitmap after = Bitmap.createBitmap(bitmap, 0,0, bitmap.getWidth(), bitmap.getHeight(), matrix,true);
-
         saveBitmap(after); //存擋
     }
 
     //儲存圖片
     private void saveBitmap(Bitmap bitmap) {
+        //壓縮照片
+        Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/6, bitmap.getHeight()/6, true);
+
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
         tmpPhoto = new File(directory, "newPicture" + ".jpg");
@@ -350,7 +360,7 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
         FileOutputStream fOut;
         try {
             fOut = new FileOutputStream(tmpPhoto);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+            newBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
             fOut.flush();
             fOut.close();
         } catch (IOException e) {

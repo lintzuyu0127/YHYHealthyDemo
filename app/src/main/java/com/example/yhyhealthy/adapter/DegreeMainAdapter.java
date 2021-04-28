@@ -58,6 +58,20 @@ public class DegreeMainAdapter extends RecyclerView.Adapter<DegreeMainAdapter.Vi
         }
     }
 
+    //連線成功
+    public void updateBluetoothDevice(String bleUserName, String deviceName, String deviceMac, String deviceStatus){
+        if (dataList.size() != 0) {
+            for (int j = 0; j < dataList.size(); j++) {
+                BleUserData.SuccessBean data = dataList.get(j);
+                if (data.getBleConnectListUserName().equals(bleUserName)){
+                    data.setBleMac(deviceMac);
+                    data.setBleConnectStatus(deviceName+deviceStatus);
+                    notifyItemChanged(j); //刷新
+                }
+            }
+        }
+    }
+
     //更新溫度電量項目
     public void updateByMac(double degree, double battery, String mac){
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd HH:mm");
@@ -75,6 +89,20 @@ public class DegreeMainAdapter extends RecyclerView.Adapter<DegreeMainAdapter.Vi
                 }
             }
         }
+    }
+
+    //藉由mac取得使用者名稱 2021/04/28
+    public String findNameByMac(String mac){
+        if (dataList.size() != 0){
+            for(int i = 0; i < dataList.size(); i++){
+                BleUserData.SuccessBean data = dataList.get(i);
+                if (!TextUtils.isEmpty(data.getBleMac())){
+                    if (data.getBleMac().equals(mac))
+                        return data.getBleConnectListUserName();
+                }
+            }
+        }
+        return null;
     }
 
     //上傳後台前的檢查
