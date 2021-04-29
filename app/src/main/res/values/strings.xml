@@ -333,5 +333,9 @@
     <string name="ble_fail">連結失敗</string>
     <string name="fever_alarm">您發燒了!!!</string>
     <string name="fever_degree_is">您目前體溫是:</string>
+    <string name="ble_unconnected">已斷開</string>
+    <string name="ble_device_name">藍芽設備:</string>
+    <string name="ble_disconnect_release">已斷開並釋放資源</string>
+    <string name="ble_is_connecting">連接中...</string>
 
 </resources>

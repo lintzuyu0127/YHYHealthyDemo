@@ -102,7 +102,6 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
     boolean isBleList = true;
     private BleUserData.SuccessBean statusMemberBean;
     private int statusPosition;
-    private String bleUserName; //使用者名稱
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -613,28 +612,31 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
             switch (action){
                 case BleService.ACTION_GATT_CONNECTED:
                     Log.d(TAG, "onReceive: 藍芽連接中....");
+                    Toasty.info(DegreeMainActivity.this, getString(R.string.ble_device_name) + deviceName + getString(R.string.ble_is_connecting), Toast.LENGTH_SHORT,true).show();
                     break;
 
-                case BleService.ACTION_GATT_DISCONNECTED:
+                case BleService.ACTION_GATT_DISCONNECTED:  //自動斷線
                     Log.d(TAG, "onReceive: 藍芽斷開並釋放資源");
-                    mBleService.disconnect();
-                    mBleService.release();
-//                    updateBleStatus(deviceName, deviceAddress, getString(R.string.ble_device_not_connected));
-                    //在這裡加上移除計時器功能
-                    //mHandler.removeCallbacks(requestDegree);
+                    Toasty.info(DegreeMainActivity.this, getString(R.string.ble_device_name) + deviceName + getString(R.string.ble_disconnect_release), Toast.LENGTH_SHORT,true).show();
+                    mBleService.closeGatt(deviceAddress);
+                    updateDisconnectedStatus(deviceName, deviceAddress, getString(R.string.ble_unconnected));
+                    break;
+                case BleService.ACTION_GATT_DISCONNECTED_SPECIFIC: //手動停止量測並斷開連結
+                    Toasty.info(DegreeMainActivity.this, getString(R.string.ble_device_name) + deviceName + getString(R.string.ble_unconnected), Toast.LENGTH_SHORT,true).show();
+                    updateDisconnectedStatus(deviceName,deviceAddress,getString(R.string.ble_unconnected));
                     break;
 
                 case BleService.ACTION_CONNECTING_FAIL:
                     Log.d(TAG, "onReceive: 藍芽連結失敗並斷開");
                     mBleService.disconnect();
-//                    updateBleStatus(deviceName, deviceAddress, getString(R.string.ble_device_fail_connected));
                     break;
 
+                //這裡才將連線成功顯示出來且要將資料寫回javaBean
                 case BleService.ACTION_NOTIFY_SUCCESS:
-                    //這裡才將連線成功顯示出來且要將資料寫回javaBean
                     updateConnectedStatus(deviceName, deviceAddress, getString(R.string.ble_device_connected));
                     break;
 
+                //藍芽受到command後回覆的資料
                 case BleService.ACTION_DATA_AVAILABLE:
                     Log.d(TAG, "onReceive: 體溫原始資料" + ByteUtils.byteArrayToString(data));
                     String receiverInfo  = ByteUtils.byteArrayToString(data);
@@ -647,13 +649,28 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         }
     }
 
+    /******  更新藍芽斷開後的資訊  *******/
+    //斷線狀態回傳給adapter
+    private void updateDisconnectedStatus(String deviceName, String deviceAddress, String bleStatus){
+
+        if(deviceAddress != null){
+            if(dAdapter.findNameByMac(deviceAddress) != null){
+                dAdapter.disconnectedDevice(deviceAddress, bleStatus, deviceName);
+                //移除佇列 2021/04/28
+                bleOnClickList.remove(deviceAddress);
+            }else {
+                Toasty.info(this, "藍芽連接失敗,請重新連接", Toast.LENGTH_SHORT, true).show();
+            }
+
+        }
+    }
+
     /**** 更新藍芽連線後的資訊 ******/
     private void updateConnectedStatus(String devName, String devAddress, String bleStatus){
         if (devAddress != null){
             statusMemberBean.setBleMac(devAddress);
             statusMemberBean.setBleConnectStatus(devName+bleStatus);
             dAdapter.updateItem(statusMemberBean, statusPosition);
-            //dAdapter.updateBluetoothDevice(bleUserName,devName, devAddress,bleStatus);
         }
     }
 
@@ -770,7 +787,6 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         });
         mAlertDialog.show();
     }
-
     /** 顯示掃描到的物件 ****/
     private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
         @Override
@@ -844,7 +860,7 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
     public void onBleConnect(BleUserData.SuccessBean data, int position) {
         statusMemberBean = data;
         statusPosition = position;
-        //bleUserName = data.getBleConnectListUserName(); //取的使用者的名稱
+
         initBle();  //初始化藍芽
     }
 
@@ -856,17 +872,12 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         sendCommand(data.getBleMac());  //command + device : 判斷用
     }
 
-    @Override  //停止量測
-    public void onBleStopConnect(BleUserData.SuccessBean data, int position) {
-
-        mBleService.disconnect(); //斷線
-        mBleService.release();    //釋放資源
-
+    @Override  //停止量測 2021/04/29
+    public void onBleDisconnected(BleUserData.SuccessBean data, int position) {
+        //停止量測並斷開連結
+        mBleService.closeGatt(data.getBleMac());
         //移除佇列
         bleOnClickList.remove(data.getBleMac());
-
-        //停止自己的定時量測功能
-
     }
 
     @Override //藍芽圖表介面
@@ -914,8 +925,8 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         if (mBleService != null){
             unregisterReceiver(mBleReceiver);
             mBleService = null;
-//            mBleService.disconnect();  //斷開藍芽
-//            mBleService.release();
+            //mBleService.disconnect();  //斷開藍芽
+            //mBleService.release();
         }
 
         unbindService(mServiceConnection);
@@ -923,6 +934,9 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
 
         if (mHandler != null)
             mHandler.removeCallbacks(requestDegree);
+
+        //清除所有ble佇列
+        bleOnClickList.clear();
     }
 
 }

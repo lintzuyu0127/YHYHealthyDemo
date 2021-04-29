@@ -24,6 +24,8 @@ import java.util.UUID;
 
 import es.dmoral.toasty.Toasty;
 
+import static android.text.TextUtils.isEmpty;
+
 public class BleService extends Service {
 
     private final String TAG = BleService.class.getSimpleName();
@@ -60,6 +62,8 @@ public class BleService extends Service {
     public final static String EXTRA_MAC = "com.example.yhyhealthy.EXTRA_MAC";
     // 藍芽名稱
     public final static String EXTRA_DEVICE_NAME = "com.example.yhyhealthy.EXTRA_DEVICE_NAME";
+    // 藍芽斷開指定設備
+    public final static String ACTION_GATT_DISCONNECTED_SPECIFIC = "com.example.yhyhealthy.ACTION_GATT_DISCONNECTED_SPECIFIC";
 
 
     // 服務標誌
@@ -261,6 +265,19 @@ public class BleService extends Service {
         Toasty.info(BleService.this, getString(R.string.ble_release), Toast.LENGTH_SHORT).show();
     }
 
+    /** **
+     * 針對mac進行斷線處理
+     * 2021/04/29
+     * */
+    public void closeGatt(String mac){
+        if (!isEmpty(mac) && gattArrayMap.containsKey(mac)){
+            BluetoothGatt mBluetoothGatt = gattArrayMap.get(mac);
+            mBluetoothGatt.disconnect();
+            mBluetoothGatt.close();
+            broadcastUpdate(ACTION_GATT_DISCONNECTED_SPECIFIC, mBluetoothGatt);
+        }
+    }
+
     /**
      * 設置藍牙設備在數據改變時，通知App
      */
@@ -326,6 +343,7 @@ public class BleService extends Service {
         filter.addAction(BleService.EXTRA_DATA);
         filter.addAction(BleService.EXTRA_MAC);
         filter.addAction(BleService.EXTRA_DEVICE_NAME);
+        filter.addAction(BleService.ACTION_GATT_DISCONNECTED_SPECIFIC);
         return filter;
     }
 }
