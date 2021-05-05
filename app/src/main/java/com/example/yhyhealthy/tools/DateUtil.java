@@ -30,4 +30,18 @@ public class DateUtil {
         }
         return formatStr;
     }
+
+    //年/月/時:分 --> 時:分
+    public static String fromDateToTime(String str){
+        SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd HH:mm");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
+        String formatStr= "";
+        try {
+            formatStr = sdf2.format(sdf1.parse(str));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return formatStr;
+    }
+
 }

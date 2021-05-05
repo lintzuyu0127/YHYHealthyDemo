@@ -120,6 +120,19 @@ public class DegreeMainAdapter extends RecyclerView.Adapter<DegreeMainAdapter.Vi
         }
     }
 
+    //2021/05/03
+    public BleUserData.SuccessBean getDegreeByMac(String mac){
+        for (int i = 0; i < dataList.size(); i++){
+            BleUserData.SuccessBean data = dataList.get(i);
+            if (!TextUtils.isEmpty(data.getBleMac())){
+                if (data.getBleMac().equals(mac)){
+                    return data;
+                }
+            }
+        }
+        return null;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -158,16 +171,17 @@ public class DegreeMainAdapter extends RecyclerView.Adapter<DegreeMainAdapter.Vi
                             listener.onBleMeasuring(data);
                         }
                     });
-                }else {  //disconnect icon show
+                }else {  //停止量測並斷開連結(close icon show)
                     holder.bleConnect.setImageResource(R.drawable.ic_baseline_close_24);
                     holder.bleConnect.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            listener.onBleDisconnected(data, position);
+                            listener.onBleDisconnected(data);
                         }
                     });
                 }
-            }else if(data.getBleConnectStatus().contains(bleUnConnect)){  //已斷開 (add icon show)
+                //已斷開 (add icon show)
+            }else if(data.getBleConnectStatus().contains(bleUnConnect)){
                 holder.textBleBattery.setText(""); //清除電池顯示 2021/04/26
                 holder.textDegree.setText("");     //清除溫度顯示 2021/04/26
                 data.setBattery("");               //清除電池data 2021/04/26 for 判斷icon用
@@ -215,7 +229,7 @@ public class DegreeMainAdapter extends RecyclerView.Adapter<DegreeMainAdapter.Vi
         void onBleConnect(BleUserData.SuccessBean data, int position);
         void onBleChart(BleUserData.SuccessBean data, int position);
         void onBleMeasuring(BleUserData.SuccessBean data);
-        void onBleDisconnected(BleUserData.SuccessBean data, int position);
+        void onBleDisconnected(BleUserData.SuccessBean data);
         void onSymRecord(BleUserData.SuccessBean data, int position);
         void passTarget(int targetId, double degree);
     }

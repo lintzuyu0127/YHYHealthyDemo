@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ import com.example.yhyhealthy.adapter.RemoteAdapter;
 import com.example.yhyhealthy.dataBean.BleUserData;
 import com.example.yhyhealthy.dataBean.RemoteAccountApi;
 import com.example.yhyhealthy.dataBean.ScannedData;
+import com.example.yhyhealthy.dialog.ChartDialog;
 import com.example.yhyhealthy.module.ApiProxy;
 import com.example.yhyhealthy.tools.ByteUtils;
 import com.example.yhyhealthy.tools.SpacesItemDecoration;
@@ -93,15 +95,22 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
     private BluetoothLeAdapter bluetoothLeAdapter;
     private Handler mHandler = new Handler();
     private AlertDialog mAlertDialog;
-    private List<String> bleOnClickList = new ArrayList<>();
 
     //Api
     private ApiProxy proxy;
 
+    //圖表
+    private ChartDialog chartDialog;
+
+
     //Other
-    boolean isBleList = true;
+    boolean isBleList = true;  //判斷目前是觀測者列表還是遠端觀測者列表
     private BleUserData.SuccessBean statusMemberBean;
     private int statusPosition;
+
+    //ble定時用
+    private MyRun myRun;
+    private ArrayMap<String, Runnable> bleScheduleMap = new ArrayMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +128,7 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         initView();
 
         //啟動定時器功能
-        requestDegree.run();
+        //requestDegree.run();
     }
 
     private void initView() {
@@ -155,19 +164,6 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
             }else { //編輯遠端帳號列表資料
                 startActivity(new Intent(DegreeMainActivity.this, RemoteListEditActivity.class));
             }
-        }
-    };
-
-    //每3分鐘執行一次藍芽command
-    private Runnable requestDegree = new Runnable() {
-        @Override
-        public void run() {
-            if (!bleOnClickList.isEmpty()){
-                for (int i = 0; i < bleOnClickList.size(); i++){
-                    sendCommand(bleOnClickList.get(i));
-                }
-            }
-            mHandler.postDelayed(this, 1000 * 60 * 3); //3分鐘
         }
     };
 
@@ -612,12 +608,12 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
             switch (action){
                 case BleService.ACTION_GATT_CONNECTED:
                     Log.d(TAG, "onReceive: 藍芽連接中....");
-                    Toasty.info(DegreeMainActivity.this, getString(R.string.ble_device_name) + deviceName + getString(R.string.ble_is_connecting), Toast.LENGTH_SHORT,true).show();
+                    //Toasty.info(DegreeMainActivity.this, getString(R.string.ble_device_name) + deviceName + getString(R.string.ble_is_connecting), Toast.LENGTH_SHORT,true).show();
                     break;
 
                 case BleService.ACTION_GATT_DISCONNECTED:  //自動斷線
                     Log.d(TAG, "onReceive: 藍芽斷開並釋放資源");
-                    Toasty.info(DegreeMainActivity.this, getString(R.string.ble_device_name) + deviceName + getString(R.string.ble_disconnect_release), Toast.LENGTH_SHORT,true).show();
+                    //Toasty.info(DegreeMainActivity.this, getString(R.string.ble_device_name) + deviceName + getString(R.string.ble_disconnect_release), Toast.LENGTH_SHORT,true).show();
                     mBleService.closeGatt(deviceAddress);
                     updateDisconnectedStatus(deviceName, deviceAddress, getString(R.string.ble_unconnected));
                     break;
@@ -633,6 +629,7 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
 
                 //這裡才將連線成功顯示出來且要將資料寫回javaBean
                 case BleService.ACTION_NOTIFY_SUCCESS:
+                    Log.d(TAG, "onReceive: notify啟動成功");
                     updateConnectedStatus(deviceName, deviceAddress, getString(R.string.ble_device_connected));
                     break;
 
@@ -656,12 +653,13 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         if(deviceAddress != null){
             if(dAdapter.findNameByMac(deviceAddress) != null){
                 dAdapter.disconnectedDevice(deviceAddress, bleStatus, deviceName);
-                //移除佇列 2021/04/28
-                bleOnClickList.remove(deviceAddress);
-            }else {
-                Toasty.info(this, "藍芽連接失敗,請重新連接", Toast.LENGTH_SHORT, true).show();
-            }
 
+                //移除佇列 2021/04/28
+                bleScheduleMap.remove(deviceAddress);
+
+            }else { //藍芽連接失敗,請重新連接
+                Toasty.info(this, getString(R.string.ble_connected_fail_and_try_again), Toast.LENGTH_SHORT, true).show();
+            }
         }
     }
 
@@ -687,9 +685,12 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
             dAdapter.updateByMac(degree,battery,macAddress);
 
             //如果chart存在就將資料直接傳遞
+            if(chartDialog != null && chartDialog.isShowing())
+                //以mac分開dataBean 2021/05/03
+                chartDialog.update(dAdapter.getDegreeByMac(macAddress));
 
             //假如體溫超過37.5出現警示
-            if (degree > 30)
+            if (degree > 37.5)
                 feverDialog(dAdapter.findNameByMac(macAddress),degree); //發燒警告彈跳視窗
         }
     }
@@ -858,8 +859,8 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
 
     @Override //藍芽連線介面
     public void onBleConnect(BleUserData.SuccessBean data, int position) {
-        statusMemberBean = data;
-        statusPosition = position;
+        statusMemberBean = data;     //使用者資料
+        statusPosition = position;   //使用者RecyclerView't item位置
 
         initBle();  //初始化藍芽
     }
@@ -867,22 +868,33 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
     @Override //啟動量測
     public void onBleMeasuring(BleUserData.SuccessBean data) {
 
-        bleOnClickList.add(data.getBleMac()); //將mac資料塞入List讓其定時跑
+        //2021/05/05 增加定時功能
+        myRun = new MyRun(data.getBleMac());
+        Thread thread = new Thread(myRun);
+        thread.start();
+
+        bleScheduleMap.put(data.getBleMac(), myRun); //塞定時資料給arrayMap
 
         sendCommand(data.getBleMac());  //command + device : 判斷用
     }
 
     @Override  //停止量測 2021/04/29
-    public void onBleDisconnected(BleUserData.SuccessBean data, int position) {
+    public void onBleDisconnected(BleUserData.SuccessBean data) {
         //停止量測並斷開連結
         mBleService.closeGatt(data.getBleMac());
+        //移除定時
+        mHandler.removeCallbacks(bleScheduleMap.get(data.getBleMac()));
         //移除佇列
-        bleOnClickList.remove(data.getBleMac());
+        bleScheduleMap.remove(data.getBleMac());
     }
 
-    @Override //藍芽圖表介面
+    @Override //藍芽圖表介面呼叫
     public void onBleChart(BleUserData.SuccessBean data, int position) {
-        
+        if(data.getBleMac() != null){
+            chartDialog = new ChartDialog(this, data);
+            chartDialog.setCancelable(false);
+            chartDialog.show();
+        }
     }
 
     @Override  // 症狀輸入  2021/04/14
@@ -902,6 +914,23 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
     public void passTarget(int targetId, double degree) {
         //上傳觀測的體溫量測資料到後端
         updateDegreeValueToApi(targetId, degree);
+    }
+
+    //定時fxn 2021/05/05
+    public class MyRun implements Runnable{
+
+        private String mac;
+
+        public MyRun(String mac) {
+            this.mac = mac;
+        }
+
+        @Override
+        public void run() {
+            Log.d(TAG, "每3分鐘sendCommand: " + mac);
+            sendCommand(mac);
+            mHandler.postDelayed(this, 1000 * 60 * 3);
+        }
     }
 
     @Override  //新增觀測者資料返回
@@ -932,11 +961,17 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         unbindService(mServiceConnection);
         mBleService = null;
 
+        //移除所有的handler
         if (mHandler != null)
-            mHandler.removeCallbacks(requestDegree);
+            mHandler.removeCallbacksAndMessages(null);
 
-        //清除所有ble佇列
-        bleOnClickList.clear();
+        //移除所有在佇列中的藍芽設備
+        if(!bleScheduleMap.isEmpty())
+            bleScheduleMap.clear();
+
+        //關閉彈跳視窗
+        if(chartDialog != null && chartDialog.isShowing())
+            chartDialog.dismiss();
     }
 
 }

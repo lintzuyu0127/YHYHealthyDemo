@@ -270,10 +270,6 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
                         if(errorCode == 0){
                             Toasty.success(DegreeEditActivity.this, R.string.update_success, Toast.LENGTH_SHORT, true).show();
 
-                            //如果壓縮後的照片存在就砍掉
-                            if(tmpPhoto.exists())
-                                tmpPhoto.delete();
-
                             //回到上一頁
                             setResult(RESULT_OK);
                             finish();

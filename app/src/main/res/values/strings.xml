@@ -337,5 +337,10 @@
     <string name="ble_device_name">藍芽設備:</string>
     <string name="ble_disconnect_release">已斷開並釋放資源</string>
     <string name="ble_is_connecting">連接中...</string>
+    <string name="ble_connected_fail_and_try_again">藍芽連接失敗,請重新連接</string>
+    <string name="start_measuring">開始</string>
+    <string name="stop_measuring">結束</string>
+    <string name="next_measuring">下次量測:</string>
+
 
 </resources>

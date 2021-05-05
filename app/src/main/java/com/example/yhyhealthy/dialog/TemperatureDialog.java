@@ -24,9 +24,10 @@ import java.util.Calendar;
 /*****
  *  新增觀測者 Dialog
  *  照片,名稱,性別,生日,身高,體重
+ *  目前沒用到
 * ****/
 
-public class TemperatureDiaolg extends Dialog {
+public class TemperatureDialog extends Dialog {
 
     private Context context;
     private Button save;
@@ -45,7 +46,7 @@ public class TemperatureDiaolg extends Dialog {
 
     private PriorityListener listener;
 
-    public TemperatureDiaolg (Context context, int theme, PriorityListener listener){
+    public TemperatureDialog(Context context, int theme, PriorityListener listener){
         super(context, theme);
         this.context = context;
         this.listener = listener;

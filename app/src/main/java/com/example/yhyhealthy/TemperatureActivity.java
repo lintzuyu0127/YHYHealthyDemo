@@ -17,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.yhyhealthy.adapter.RecyclerViewAdapter;
@@ -25,11 +24,8 @@ import com.example.yhyhealthy.adapter.RemoteAdapter;
 import com.example.yhyhealthy.adapter.BluetoothLeAdapter;
 import com.example.yhyhealthy.dataBean.Remote;
 import com.example.yhyhealthy.dataBean.ScannedData;
-import com.example.yhyhealthy.dialog.ChartDialog;
-import com.example.yhyhealthy.dialog.TemperatureDiaolg;
 import com.example.yhyhealthy.dataBean.Member;
 import com.example.yhyhealthy.tools.SpacesItemDecoration;
-
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
