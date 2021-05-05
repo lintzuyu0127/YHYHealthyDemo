@@ -42,7 +42,7 @@ public class UserChangeVerificActivity extends AppPage {
         getSupportActionBar().hide(); //title隱藏
         setContentView(R.layout.activity_user_change_verific);
         setTitle(getString(R.string.Title_change_verification_style));
-        setActionButton(R.drawable.ic_baseline_backup_white_32, save);
+        setActionButton(R.string.update, save);
 
         proxy = ApiProxy.getInstance();
 

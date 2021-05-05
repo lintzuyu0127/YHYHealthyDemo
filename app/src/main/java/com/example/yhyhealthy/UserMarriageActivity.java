@@ -42,7 +42,7 @@ public class UserMarriageActivity extends AppPage implements CompoundButton.OnCh
         getSupportActionBar().hide();
         setContentView(R.layout.activity_user_marriage);
         setTitle(getString(R.string.setting_marriage));
-        setActionButton(R.drawable.ic_baseline_backup_white_32, save);
+        setActionButton(R.string.update, save);
 
         initData();
 

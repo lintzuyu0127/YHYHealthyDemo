@@ -67,10 +67,11 @@ public class AppPage extends AppCompatActivity {
     }
 
     protected void setActionButton(int resId, View.OnClickListener listener){
-        View btnMore = findViewById(R.id.btnMore);
+        TextView btnMore = findViewById(R.id.btnMore);
         if (btnMore != null){
             btnMore.setVisibility(View.VISIBLE);
-            btnMore.setBackgroundResource(resId);
+//            btnMore.setBackgroundResource(resId);
+            btnMore.setText(resId);
             btnMore.setOnClickListener(listener);
         }
     }

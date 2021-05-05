@@ -52,7 +52,7 @@ public class RemoteListEditActivity extends AppPage implements RemoteListAdapter
         getSupportActionBar().hide(); //title隱藏
         setContentView(R.layout.activity_remote_list_edit);
         setTitle(R.string.title_manager_remote_list);
-        setActionButton(R.drawable.ic_baseline_edit_24, edit);
+        setActionButton(R.string.edit, edit);
 
         rvRemoteView = findViewById(R.id.rvRemoteEdit);
 

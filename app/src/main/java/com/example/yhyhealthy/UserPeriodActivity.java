@@ -58,7 +58,7 @@ public class UserPeriodActivity extends AppPage implements View.OnClickListener 
         getSupportActionBar().hide(); //title隱藏
         setContentView(R.layout.activity_user_period);
         setTitle(getString(R.string.setting_period));
-        setActionButton(R.drawable.ic_baseline_backup_white_32, save);
+        setActionButton(R.string.update, save);
 
         initView();
 

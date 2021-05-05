@@ -118,7 +118,7 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         getSupportActionBar().hide(); //title隱藏
         setContentView(R.layout.activity_degree_main);
         setTitle(R.string.title_temp);
-        setActionButton(R.drawable.ic_baseline_menu_white_24, manager);
+        setActionButton(R.string.edit, manager);
 
         //休眠禁止
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

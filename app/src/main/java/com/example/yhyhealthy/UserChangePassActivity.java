@@ -37,7 +37,7 @@ public class UserChangePassActivity extends AppPage {
         getSupportActionBar().hide(); //title隱藏
         setContentView(R.layout.activity_user_change_pass);
         setTitle(getString(R.string.setting_change_password));
-        setActionButton(R.drawable.ic_baseline_backup_white_32, save);
+        setActionButton(R.string.update, save);
 
         proxy = ApiProxy.getInstance();
 

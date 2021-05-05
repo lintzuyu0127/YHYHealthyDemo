@@ -58,7 +58,7 @@ public class UserBasicActivity extends AppPage implements View.OnClickListener {
         getSupportActionBar().hide(); //title隱藏
         setContentView(R.layout.activity_user_basic);
         setTitle(R.string.setting_basic_info);
-        setActionButton(R.drawable.ic_baseline_backup_white_32, save);
+        setActionButton(R.string.update, save);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
