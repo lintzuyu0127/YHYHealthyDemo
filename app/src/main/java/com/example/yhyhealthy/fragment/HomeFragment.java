@@ -2,16 +2,21 @@ package com.example.yhyhealthy.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.yhyhealthy.DegreeMainActivity;
 import com.example.yhyhealthy.OvulationActivity;
 import com.example.yhyhealthy.R;
+import com.example.yhyhealthy.TeachVideoActivity;
 import com.example.yhyhealthy.TemperatureActivity;
 import com.example.yhyhealthy.UserBasicActivity;
 import com.example.yhyhealthy.UserMarriageActivity;
@@ -26,8 +31,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "HomeFragment";
 
-    private View view;
-    private Button ovulation, temperature;
+    private View      view;
+    private Button    ovulation, temperature;
+    private ImageView guid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,9 +43,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         ovulation = view.findViewById(R.id.btnOvul);
         temperature = view.findViewById(R.id.btnTemp);
+        guid = view.findViewById(R.id.training);
 
         ovulation.setOnClickListener(this);
         temperature.setOnClickListener(this);
+        guid.setOnClickListener(this);
 
         return view;
     }
@@ -56,6 +64,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.btnTemp:
 //                target = TemperatureActivity.class;
                 target = DegreeMainActivity.class;
+                break;
+            case R.id.training: //教學影片 2021/05/05
+                target = TeachVideoActivity.class;
                 break;
         }
 

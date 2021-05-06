@@ -927,9 +927,9 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
 
         @Override
         public void run() {
-            Log.d(TAG, "每3分鐘sendCommand: " + mac);
+            Log.d(TAG, "每5分鐘sendCommand: " + mac);
             sendCommand(mac);
-            mHandler.postDelayed(this, 1000 * 60 * 3);
+            mHandler.postDelayed(this, 1000 * 60 * 5);
         }
     }
 

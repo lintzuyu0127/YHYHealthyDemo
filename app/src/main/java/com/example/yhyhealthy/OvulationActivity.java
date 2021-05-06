@@ -311,7 +311,10 @@ public class OvulationActivity extends AppPage implements View.OnClickListener, 
                     ovulationResult.setText(getString(R.string.non_period));
                     break;
                 case "FollicularORLutealPhase":
-                    ovulationResult.setText(getString(R.string.in_cell));
+                    ovulationResult.setText(getString(R.string.in_low_cell));
+                    break;
+                case "HighFollicularORLutealPhase":
+                    ovulationResult.setText(getString(R.string.in_high_cell));
                     break;
                 case "Unrecognizable":
                     ovulationResult.setText(getString(R.string.unknow));

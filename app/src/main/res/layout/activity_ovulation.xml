@@ -202,7 +202,8 @@
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="8dp"
                             android:textSize="22dp"
-                            android:background="@drawable/shape_ovual_setting"
+                            android:background="@drawable/shape_for_period_edit"
+                            android:textColor="@color/white"
                             android:text="@string/ovual_setting"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/guideline26"
@@ -215,7 +216,8 @@
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:textSize="22dp"
-                            android:background="@drawable/shape_ovual_setting"
+                            android:background="@drawable/shape_for_period_edit"
+                            android:textColor="@color/white"
                             android:text="@string/ovual_edit"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/btnPeriodSetting"
@@ -240,25 +242,27 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:scaleType="fitStart"
+                            android:layout_marginLeft="8dp"
                             android:src="@drawable/ic_baseline_brightness_1_24"/>
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:scaleType="fitStart"
                             android:src="@drawable/ic_baseline_brightness_2_24"/>
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:scaleType="fitStart"
                             android:src="@drawable/ic_baseline_brightness_3_24"/>
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_weight="1"
                             android:gravity="center"
+                            android:visibility="invisible"
                             android:src="@drawable/ic_baseline_brightness_4_24"/>
                     </LinearLayout>
                     <LinearLayout
@@ -270,26 +274,28 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:layout_gravity="left"
+                            android:layout_marginLeft="8dp"
                             android:text="@string/period"/>
                         <TextView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:layout_gravity="left"
                             android:text="@string/ovul_period"/>
                         <TextView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:layout_gravity="left"
                             android:text="@string/ovul_no"/>
                         <TextView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/ovul_luteal"/>
+                            android:visibility="invisible"
+                            android:text="@string/ovul_high_luteal"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -299,19 +305,85 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_weight="1"
+                            android:scaleType="fitStart"
+                            android:layout_marginLeft="8dp"
+                            android:src="@drawable/ic_baseline_brightness_8_24"/>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_weight="1"
                             android:gravity="center"
+                            android:visibility="invisible"
+                            android:src="@drawable/ic_baseline_brightness_2_24"/>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_weight="1"
+                            android:scaleType="fitStart"
+                            android:src="@drawable/ic_baseline_brightness_9_24"/>
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:visibility="invisible"
+                            android:src="@drawable/ic_baseline_brightness_4_24"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="24dp"
+                            android:layout_weight="1"
+                            android:layout_gravity="left"
+                            android:layout_marginLeft="8dp"
+                            android:text="@string/ovul_high_luteal"/>
+                        <TextView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:visibility="invisible"
+                            android:text="@string/ovul_period"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="24dp"
+                            android:layout_weight="1"
+                            android:layout_gravity="left"
+                            android:text="@string/ovul_low_luteal"/>
+                        <TextView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:visibility="invisible"
+                            android:text="@string/ovul_high_luteal"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_weight="1"
+                            android:scaleType="fitStart"
+                            android:layout_marginLeft="8dp"
                             android:src="@drawable/shape_dash_5"/>
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:scaleType="fitStart"
                             android:src="@drawable/shape_dash_6"/>
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:scaleType="fitStart"
                             android:src="@drawable/shape_dash_7"/>
                         <ImageView
                             android:layout_width="24dp"
@@ -329,19 +401,20 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:layout_gravity="left"
+                            android:layout_marginLeft="8dp"
                             android:text="@string/per_period"/>
                         <TextView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:layout_gravity="left"
                             android:text="@string/per_ovul"/>
                         <TextView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_weight="1"
-                            android:gravity="center"
+                            android:layout_gravity="left"
                             android:text="@string/per_ovul_day"/>
                         <TextView
                             android:layout_width="24dp"
