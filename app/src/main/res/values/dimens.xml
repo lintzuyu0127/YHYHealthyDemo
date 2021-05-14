@@ -1,4 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="font_18">18dp</dimen>
+    <dimen name="font_training">22dp</dimen>
+
+    <dimen name="font_18">18sp</dimen>
+
+    <dimen name="font_ovulation_saliva">18sp</dimen>
+    <dimen name="font_basal_body_temp">18sp</dimen>
+    <dimen name="font_day_of_menstruation">20sp</dimen>
+    <dimen name="font_chart_period">16sp</dimen>
+    <dimen name="font_chart_ovulation">16sp</dimen>
+    <dimen name="font_chart_remind">14sp</dimen>
+
+    <dimen name="font_login_register">22sp</dimen>
+    <dimen name="font_login_forget">22sp</dimen>
+
+    <dimen name="title_yhy_healthy">22dp</dimen>
+    <dimen name="title_announcement">20sp</dimen>
+    <dimen name="title_training">20sp</dimen>
+    <dimen name="title_ovulation">20sp</dimen>
+    <dimen name="title_bluetooth_temperature">20sp</dimen>
+    <dimen name="title_pregnancy">20sp</dimen>
+    <dimen name="title_monitor">20sp</dimen>
+
+    <dimen name="greenish_yellow">12sp</dimen>
+    <dimen name="record_take_photo">12sp</dimen>
+    <dimen name="font_last_recognition_ovulation">18sp</dimen>
+    <dimen name="font_analysis_result">22sp</dimen>
+    <dimen name="font_record_id_photo">12sp</dimen>
+    <dimen name="font_tvAnalysis">22sp</dimen>
+    <dimen name="font_record_FollicularORLutealPhase">22sp</dimen>
+    <dimen name="font_record_HighFollicularORLutealPhase">22sp</dimen>
+    <dimen name="font_FollicularORLutealPhase">18sp</dimen>
+    <dimen name="font_HighFollicularORLutealPhase">18sp</dimen>
+    <dimen name="font_unknow">22sp</dimen>
+    <dimen name="basal_body_degree">18sp</dimen>
+    <dimen name="font_record_ble_status">18sp</dimen>
+    <dimen name="font_record_body_weight">22sp</dimen>
+    <dimen name="font_record_input_body_weight">14sp</dimen>
+    <dimen name="font_non_menstrual_bleeding">22sp</dimen>
+    <dimen name="font_chest_pain">22sp</dimen>
+    <dimen name="font_intercourse">22sp</dimen>
+    <dimen name="font_secretions">22sp</dimen>
+    <dimen name="font_secretions_all">18sp</dimen>
+    <dimen name="font_ble_paired_devices">18sp</dimen>
+    <dimen name="font_setting_detail">22dp</dimen>
+    <dimen name="font_temperature_unit">24dp</dimen>
+    <dimen name="font_bluetooth_rename">24dp</dimen>
+    <dimen name="font_personal_info">24dp</dimen>
+    <dimen name="font_history_funs_and_day">22dp</dimen>
+    <dimen name="font_title_history">22dp</dimen>
+    <dimen name="font_title_history_download">22dp</dimen>
 </resources>

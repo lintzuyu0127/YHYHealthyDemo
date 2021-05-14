@@ -15,6 +15,7 @@ import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
@@ -102,7 +103,6 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
     //圖表
     private ChartDialog chartDialog;
 
-
     //Other
     boolean isBleList = true;  //判斷目前是觀測者列表還是遠端觀測者列表
     private BleUserData.SuccessBean statusMemberBean;
@@ -111,6 +111,8 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
     //ble定時用
     private MyRun myRun;
     private ArrayMap<String, Runnable> bleScheduleMap = new ArrayMap<>();
+    private CountDownTimer countDownTimer = null;
+    private ArrayMap<String, CountDownTimer> bleCountDownMap = new ArrayMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,9 +128,6 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         proxy = ApiProxy.getInstance();
 
         initView();
-
-        //啟動定時器功能
-        //requestDegree.run();
     }
 
     private void initView() {
@@ -455,7 +454,7 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
                         }else if (errorCode == 32){
                             Toasty.error(DegreeMainActivity.this, getString(R.string.remote_auth_code_error), Toast.LENGTH_SHORT, true).show();
                         }else {
-                            Log.d(TAG, "後台回覆之錯誤代碼: " + errorCode);
+                            Log.d(TAG, getString(R.string.json_error_code) + errorCode);
                         }
                     } catch (JSONException e) {
 
@@ -537,7 +536,7 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
                         if (errorCode == 0){
                             Toasty.success(DegreeMainActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
                         }else {
-                            Log.d(TAG, "新增體溫量測資料失敗代碼: " + errorCode);
+                            Log.d(TAG, getString(R.string.json_error_code) + errorCode);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -635,7 +634,6 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
 
                 //藍芽受到command後回覆的資料
                 case BleService.ACTION_DATA_AVAILABLE:
-                    Log.d(TAG, "onReceive: 體溫原始資料" + ByteUtils.byteArrayToString(data));
                     String receiverInfo  = ByteUtils.byteArrayToString(data);
                     //更新體溫跟電量
                     updateBleData(receiverInfo, deviceAddress);
@@ -656,6 +654,10 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
 
                 //移除佇列 2021/04/28
                 bleScheduleMap.remove(deviceAddress);
+                bleCountDownMap.remove(deviceAddress);
+                //移除定時
+                countDownTimer.cancel();
+                mHandler.removeCallbacks(myRun);
 
             }else { //藍芽連接失敗,請重新連接
                 Toasty.info(this, getString(R.string.ble_connected_fail_and_try_again), Toast.LENGTH_SHORT, true).show();
@@ -868,24 +870,40 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
     @Override //啟動量測
     public void onBleMeasuring(BleUserData.SuccessBean data) {
 
-        //2021/05/05 增加定時功能
-        myRun = new MyRun(data.getBleMac());
-        Thread thread = new Thread(myRun);
-        thread.start();
+        //5分鐘內每5秒讀一次體溫資料 2021/05/12
+        countDownTimer = new CountDownTimer(60000*5, 5000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                sendCommand(data.getBleMac());
+            }
 
-        bleScheduleMap.put(data.getBleMac(), myRun); //塞定時資料給arrayMap
+            @Override
+            public void onFinish() {
+                //2021/05/05 增加定時功能
+                myRun = new MyRun(data.getBleMac());
+                Thread thread = new Thread(myRun);
+                thread.start();
 
-        sendCommand(data.getBleMac());  //command + device : 判斷用
+                bleScheduleMap.put(data.getBleMac(), myRun); //塞定時資料給arrayMap
+
+            }
+        };
+        countDownTimer.start();
+        bleCountDownMap.put(data.getBleMac(), countDownTimer);
     }
 
     @Override  //停止量測 2021/04/29
     public void onBleDisconnected(BleUserData.SuccessBean data) {
         //停止量測並斷開連結
         mBleService.closeGatt(data.getBleMac());
-        //移除定時
+        //移除5分鐘的定時
         mHandler.removeCallbacks(bleScheduleMap.get(data.getBleMac()));
-        //移除佇列
+        //移除5分鐘的佇列
         bleScheduleMap.remove(data.getBleMac());
+        //移除5秒的定時
+        countDownTimer.cancel();
+        //移除5秒的佇列
+        bleCountDownMap.remove(data.getBleMac());
     }
 
     @Override //藍芽圖表介面呼叫
@@ -968,6 +986,13 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         //移除所有在佇列中的藍芽設備
         if(!bleScheduleMap.isEmpty())
             bleScheduleMap.clear();
+
+        if (!bleCountDownMap.isEmpty())
+            bleCountDownMap.clear();
+
+        //移除5秒定時
+        if (countDownTimer != null)
+            countDownTimer.cancel();
 
         //關閉彈跳視窗
         if(chartDialog != null && chartDialog.isShowing())

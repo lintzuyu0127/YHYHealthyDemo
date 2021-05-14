@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.provider.ContactsContract;
@@ -38,8 +40,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         if (view != null) return view;
-        view = inflater.inflate(R.layout.fragment_home, container, false);
+            view = inflater.inflate(R.layout.fragment_home, container, false);
 
         ovulation = view.findViewById(R.id.btnOvul);
         temperature = view.findViewById(R.id.btnTemp);

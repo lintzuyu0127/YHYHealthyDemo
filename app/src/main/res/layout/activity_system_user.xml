@@ -72,18 +72,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:src="@drawable/ic_baseline_arrow_forward_ios_32dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
-        app:layout_constraintTop_toTopOf="@+id/textView10"
-        android:src="@drawable/ic_baseline_arrow_forward_ios_32dp" />
+        app:layout_constraintTop_toTopOf="@+id/textView10" />
 
     <ImageView
         android:id="@+id/ivSettingPeriod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:src="@drawable/ic_baseline_arrow_forward_ios_32dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
-        app:layout_constraintTop_toTopOf="@+id/textView18"
-        android:src="@drawable/ic_baseline_arrow_forward_ios_32dp" />
+        app:layout_constraintTop_toTopOf="@+id/textView18" />
 
     <ImageView
         android:id="@+id/ivSettingPreg"
@@ -100,8 +102,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:src="@drawable/ic_baseline_arrow_forward_ios_32dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
-        app:layout_constraintTop_toTopOf="@+id/textView14"
-        android:src="@drawable/ic_baseline_arrow_forward_ios_32dp" />
+        app:layout_constraintTop_toTopOf="@+id/textView14" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

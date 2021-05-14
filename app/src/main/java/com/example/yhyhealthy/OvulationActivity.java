@@ -15,6 +15,7 @@ import android.os.IBinder;
 import android.text.TextUtils;
 import android.util.JsonReader;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -312,9 +313,11 @@ public class OvulationActivity extends AppPage implements View.OnClickListener, 
                     break;
                 case "FollicularORLutealPhase":
                     ovulationResult.setText(getString(R.string.in_low_cell));
+                    ovulationResult.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.font_FollicularORLutealPhase));
                     break;
                 case "HighFollicularORLutealPhase":
                     ovulationResult.setText(getString(R.string.in_high_cell));
+                    ovulationResult.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.font_HighFollicularORLutealPhase));
                     break;
                 case "Unrecognizable":
                     ovulationResult.setText(getString(R.string.unknow));

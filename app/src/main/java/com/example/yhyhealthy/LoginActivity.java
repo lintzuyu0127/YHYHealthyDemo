@@ -98,8 +98,10 @@ public class LoginActivity extends AppPage implements View.OnClickListener {
     private void userLoginApi() {
 
         //帳號與密碼不得為空
-        if(TextUtils.isEmpty(account.getText().toString()) || TextUtils.isEmpty(password.getText().toString()))
+        if(TextUtils.isEmpty(account.getText().toString()) || TextUtils.isEmpty(password.getText().toString())){
+            Toasty.error(LoginActivity.this, R.string.account_not_empty, Toast.LENGTH_SHORT, true).show();
             return;
+        }
 
         //需要給後台的info : account & password
         JSONObject jsonObject = new JSONObject();
@@ -255,6 +257,5 @@ public class LoginActivity extends AppPage implements View.OnClickListener {
             e.printStackTrace();
         }
     }
-
 
 }

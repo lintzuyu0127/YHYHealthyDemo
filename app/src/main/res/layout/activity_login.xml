@@ -112,7 +112,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
-                    android:textSize="22sp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="@dimen/font_login_register"
                     android:textColor="#3A3B3F"
                     android:text="@string/register"/>
                 <View
@@ -126,8 +127,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="5dp"
-                    android:textSize="22sp"
+                    android:textSize="@dimen/font_login_forget"
                     android:textColor="#3A3B3F"
                     android:text="@string/forget"/>
 

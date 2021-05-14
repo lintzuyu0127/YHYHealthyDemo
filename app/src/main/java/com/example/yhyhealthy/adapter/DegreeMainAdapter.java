@@ -161,8 +161,19 @@ public class DegreeMainAdapter extends RecyclerView.Adapter<DegreeMainAdapter.Vi
             String bleConnect = context.getString(R.string.ble_device_connected);
             String bleUnConnect = context.getString(R.string.ble_unconnected);
 
-            //已連線
-            if (data.getBleConnectStatus().contains(bleConnect)){
+            //斷線先判斷
+            if (data.getBleConnectStatus().contains(bleUnConnect)){
+                holder.textBleBattery.setText(""); //清除電池顯示 2021/04/26
+                holder.textDegree.setText("");     //清除溫度顯示 2021/04/26
+                data.setBattery("");               //清除電池data 2021/04/26 for 判斷icon用
+                holder.bleConnect.setImageResource(R.drawable.ic_baseline_add_box_24);
+                holder.bleConnect.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        listener.onBleConnect(data, position); //藍芽連線
+                    }
+                });
+            }else if (data.getBleConnectStatus().contains(bleConnect)){ //已連線
                 if(holder.textBleBattery.getText().toString().isEmpty()) {
                     holder.bleConnect.setImageResource(R.drawable.ic_baseline_play_circle_outline_24);
                     holder.bleConnect.setOnClickListener(new View.OnClickListener() {
@@ -180,18 +191,6 @@ public class DegreeMainAdapter extends RecyclerView.Adapter<DegreeMainAdapter.Vi
                         }
                     });
                 }
-                //已斷開 (add icon show)
-            }else if(data.getBleConnectStatus().contains(bleUnConnect)){
-                holder.textBleBattery.setText(""); //清除電池顯示 2021/04/26
-                holder.textDegree.setText("");     //清除溫度顯示 2021/04/26
-                data.setBattery("");               //清除電池data 2021/04/26 for 判斷icon用
-                holder.bleConnect.setImageResource(R.drawable.ic_baseline_add_box_24);
-                holder.bleConnect.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        listener.onBleConnect(data, position); //藍芽連線
-                    }
-                });
             }
         }else {
             //啟動藍芽連線

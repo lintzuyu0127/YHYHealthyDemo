@@ -70,7 +70,6 @@ public class AppPage extends AppCompatActivity {
         TextView btnMore = findViewById(R.id.btnMore);
         if (btnMore != null){
             btnMore.setVisibility(View.VISIBLE);
-//            btnMore.setBackgroundResource(resId);
             btnMore.setText(resId);
             btnMore.setOnClickListener(listener);
         }

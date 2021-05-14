@@ -118,7 +118,7 @@ public class RegisterActivity extends AppPage {
 
                         }else {
                             //請輸入正確的信箱位址
-                            Toasty.error(RegisterActivity.this, getString(R.string.please_input_currect_address), Toast.LENGTH_SHORT, true).show();
+                            Toasty.error(RegisterActivity.this, getString(R.string.please_input_correct_address), Toast.LENGTH_SHORT, true).show();
                         }
                     }
                 }

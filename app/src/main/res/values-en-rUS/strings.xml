@@ -1,0 +1,397 @@
+<resources>
+    <string name="app_name">YHYHealthy</string>
+
+    <!-- 標題title -->
+    <string name="title_home">YHY Helathy</string>
+    <string name="title_record">Record History</string>
+    <string name="title_edu">Healthy Education</string>
+    <string name="title_setting">Setting</string>
+
+    <!-- 登入 & 註冊 -->
+    <string name="account">Account</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="forget">Forget</string>
+    <string name="register">Register</string>
+    <string name="account_register">Account register</string>
+    <string name="confirm_password">Password Confirm</string>
+    <string name="email_account">eMail</string>
+    <string name="please_input_account">Please input a account</string>
+    <string name="please_input_password">Please input a password</string>
+    <string name="verification">Verification Style</string>
+    <string name="please_confirm_password">Confirm Again</string>
+
+    <!-- 第三方庫 : slycalendar 專用 -->
+    <string name="slycalendar_cancel">Cancel</string>
+    <string name="slycalendar_save">Confirm</string>
+    <string name="dateFormat" translatable="false">MM/dd/yyyy</string>
+    <string name="timeFormat" translatable="false">MM/dd/yyyy</string>
+    <string name="slycalendar_period" translatable="false">%1$s – %2$s</string>
+
+    <string name="email_is_vaild">信箱無效</string>
+    <string name="register_successed">註冊成功</string>
+    <string name="password_confirm_error">密碼不一致</string>
+    <string name="account_info_empty">帳號不得空白</string>
+    <string name="password_is_empty">密碼不得空白</string>
+    <string name="email">mail</string>
+    <string name="phone">message</string>
+    <string name="phone_verification">目前簡訊功能尚未啟用</string>
+    <!-- -->
+    <string name="announcement">Notices</string>
+    <string name="store">Shopping</string>
+    <string name="training">Training</string>
+
+    <string name="icon_ovul">排卵紀錄</string>
+    <string name="icon_blut_temp">藍芽體溫</string>
+    <string name="icon_pregnancy">懷孕紀錄</string>
+    <string name="icon_breath">呼吸監側</string>
+
+    <string name="title_ovul">排卵紀錄</string>
+    <string name="title_temp">藍芽體溫</string>
+    <string name="title_ovul_edit">排卵紀錄編輯</string>
+    <string name="title_article_catalog">文章分類</string>
+    <string name="title_video_catalog">影片分類</string>
+    <string name="title_add_ble_user">新增觀測者資料</string>
+
+    <string name="calendar">Calendar</string>
+    <string name="record">Record</string>
+    <string name="chart">Diagram</string>
+    <string name="ovual_setting">Cycle\nSetting</string>
+    <string name="ovual_edit">Edit\nCycle</string>
+    <string name="ovual_add">Add\nCycle</string>
+    <string name="period">Menstrual\nPeriod</string>
+    <string name="ovul_period">Ovulation\nPeriod</string>
+    <string name="ovul_no">Non-Ovulation\nPeriod</string>
+    <string name="ovul_high_luteal">High Follicular/Luteal Phase</string>
+    <string name="ovul_low_luteal">Low Follicular/Luteal Phase</string>
+    <string name="per_period">Expected\nMenstrual Period</string>
+    <string name="per_ovul">Expected\nOvulation Period</string>
+    <string name="per_ovul_day">Expected\nDay of Ovulation</string>
+    <string name="save">Save</string>
+    <string name="to">to</string>
+    <string name="ovulation_bleeding">Non-Menstrual Bleeding</string>
+    <string name="breast_pain">Chest Pain</string>
+    <string name="sleep_together">Intercourse</string>
+    <string name="input_weight">please input body weight</string>
+    <string name="fluid">Secretions</string>
+    <string name="fluid_color">Color</string>
+    <string name="fluid_taste">Scent</string>
+    <string name="fluid_type">Texture</string>
+    <string name="fluid_symp">Symptoms</string>
+    <string name="normal">normal</string>
+    <string name="brown">Brown</string>
+    <string name="yellow">Yellow</string>
+    <string name="milky">Milky</string>
+    <string name="white">Egg-white</string>
+    <string name="greenish_yellow">Green-yellow</string>
+    <string name="fishy">Fishy</string>
+    <string name="stink">Stink</string>
+    <string name="liquid">Liquid</string>
+    <string name="thick">Thick</string>
+    <string name="liquid_milky">Liquid Milky</string>
+    <string name="allergy">Allergy</string>
+    <string name="hot">Hot</string>
+    <string name="pain">Pain</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- 第三方月曆庫:顯示中文星期 -->
+    <string-array name="custom_weekdays">
+        <item>一</item>
+        <item>二</item>
+        <item>三</item>
+        <item>四</item>
+        <item>五</item>
+        <item>六</item>
+        <item>日</item>
+    </string-array>
+
+    <!-- 第三方月曆庫:顯示中文月份 -->
+    <string-array name="custom_months">
+        <item>1月</item>
+        <item>2月</item>
+        <item>3月</item>
+        <item>4月</item>
+        <item>5月</item>
+        <item>6月</item>
+        <item>7月</item>
+        <item>8月</item>
+        <item>9月</item>
+        <item>10月</item>
+        <item>11月</item>
+        <item>12月</item>
+    </string-array>
+
+    <string-array name="unit_arr">
+        <item>@string/celsius</item>
+        <item>@string/fahrenheit</item>
+    </string-array>
+
+    <!-- 衛教 -->
+    <string name="article">文章</string>
+    <string name="video">影片</string>
+    <string name="discuss">討論區</string>
+    <string name="onlinecall">線上諮詢</string>
+
+    <!-- 權限 messages-->
+    <string name="permission_required">權限需求</string>
+    <string name="permission_message">您必須授予相關的權限才能進行相機辨識程序</string>
+    <string name="permission_warning">所有的權限都是必要的,拒絕的話將無法使用相關的服務</string>
+
+    <!-- 歷史資料查詢頁面 -->
+    <string name="please_select_fun_and_date">Please Select a Record\nand Date First</string>
+    <string name="select_function">功能 : </string>
+
+    <string-array name="functions">
+        <item>Ovulation Record</item>
+        <item>Bluetooth Temperature</item>
+        <item>Pregnancy Reports</item>
+        <item>Breath Monitoring</item>
+    </string-array>
+
+    <!-- -->
+    <string name="temp_add_supervise">新增觀測者</string>
+    <string name="temp_add_remote">新增監看者</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+
+    <!-- 隱私權 -->
+    <string name="privacy_title1">服 務 條 款＆</string>
+    <string name="privacy_title2">隱 私 權 政 策 聲 明</string>
+    <string name="privacy_agree1">同意</string>
+    <string name="privacy_agree2">條款服務</string>
+    <string name="privacy_agree3">隱私權聲明</string>
+    <string name="privacy_confirm">確認</string>
+    <string name="privacy_not_pass">請確認服務條款</string>
+
+    <!-- 拍照 -->
+    <string name="camera_take">拍照</string>
+    <string name="camera_identify">辨識</string>
+
+    <!-- 圖表 -->
+    <string name="chart_remind">Reminder:\nThe usual basal body temperature of a woman has two phases: A cold phase, which begins at the beginning of menstruation and lasts until ovulation and a hot phase, which lasts for 12-14 days after ovulation.</string>
+
+    <string name="No_sup_Bluetooth">不支援藍牙設備</string>
+    <string name="ble_stop_in_10">10秒後停止掃描</string>
+    <string name="ble_start_scanner">開始掃描</string>
+
+    <string name="system_setting">System Setting</string>
+    <string name="system_user_setting">Personal Setting</string>
+    <string name="system_video">Video Tutorials</string>
+    <string name="system_provision">Terms of use</string>
+    <string name="system_version">APP Version</string>
+    <string name="system_logout">Sign out</string>
+    <string name="user_height">身高</string>
+    <string name="user_weight">體重</string>
+
+    <string name="not_connect">未連線</string>
+    <string name="add_new_remote_account">新增遠端監控帳號</string>
+    <string name="please_input_other_account">請輸入對方的帳號</string>
+    <string name="please_input_authorization">請輸入對方的授權碼</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_save">Save</string>
+    <string name="api_unavailable">無法取得網路服務請稍後再試</string>
+    <string name="body_degree">基礎體溫 :</string>
+    <string name="please_request_permiss">請返回上一頁重新申請權限</string>
+    <string name="param_name">唾液辨識:</string>
+    <string name="setting_temperature_unit">Temperature Unit</string>
+    <string name="setting_ble_connect">藍芽連線</string>
+    <string name="setting_observation">觀測者編輯</string>
+    <string name="setting_change_password">密碼變更</string>
+    <string name="setting_ble_scanner">掃描藍芽裝置</string>
+    <string name="setting_basic_info">Personal Information</string>
+    <string name="setting_verification_style">驗證方式</string>
+    <string name="real_period">實際經期設定</string>
+    <string name="setting_autho_code">遠端授權碼</string>
+    <string name="setting_marriage">Marital Status</string>
+    <string name="setting_marriage_status">已婚/未婚</string>
+    <string name="setting_contraception_status">是否避孕</string>
+    <string name="setting_child_status">小孩(無/有)</string>
+    <string name="setting_period">Cycle Setting</string>
+    <string name="setting_pregnancy">Pregnancy Setting</string>
+    <string name="setting_device_no">裝置序號</string>
+    <string name="setting_user_basic">個人設定</string>
+    <string name="please_input_old_ps">Please input old password</string>
+    <string name="please_input_new_ps">Please input new password</string>
+    <string name="not_allow_empty">This is not allow empty</string>
+    <string name="setting_account">Account Setting</string>
+    <string name="please_input_name">請輸入名稱</string>
+    <string name="please_input_gender">請選擇性別</string>
+    <string name="please_input_email">Please input email address</string>
+    <string name="please_input_birthday">請選擇出生年月日</string>
+    <string name="please_input_area_code">請輸入國際區碼</string>
+    <string name="please_input_phone">Please input cell phone number</string>
+    <string name="please_input_height">請輸入身高</string>
+    <string name="please_input_weight">請輸入體重</string>
+    <string name="cycle_length">週期長度</string>
+    <string name="period_length">經期長度</string>
+    <string name="last_date">上次經期開始日</string>
+    <string name="end_date">上次經期結束日</string>
+    <string name="edit">編輯</string>
+    <string name="delete">刪除</string>
+    <string name="account_is_error">account or password is not correct</string>
+    <string name="account_is_not_empty">account is not allow empty</string>
+    <string name="please_input_comp_code">please input verification code</string>
+    <string name="need_comp_code">please get verification form email or text messages</string>
+    <string name="comp_code_is_not_empty">Verification code is not allow empty</string>
+    <string name="comp_code_error">Verification code is error</string>
+    <string name="tel_code">area code</string>
+    <string name="please_input_correct_address">Please input a valid Email address</string>
+    <string name="account_has_already">The account is already exists</string>
+    <string name="register_success">Register Succeed,please go to email and input verification code</string>
+    <string name="account_less_six">Account is not allow less six words</string>
+    <string name="password_less_six">Password is not allow less six words</string>
+    <string name="comp_code_correct">Verification Success and Login Again</string>
+    <string name="change_verification_success">Verification update succeed</string>
+    <string name="login_success">Login Succeed</string>
+
+    <string name="account_not_register">account is not exist</string>
+    <string name="name_is_not_empty">Name is not allow empty</string>
+    <string name="mail_is_not_empty">Email is not allow empty</string>
+    <string name="birthday_is_not_empty">Birthday is not allow empty</string>
+    <string name="update_success">上傳更新成功</string>
+    <string name="start_is_not_empty">起始日不得空白</string>
+    <string name="end_is_not_empty">結束日不得空白</string>
+    <string name="cycle_is_not_empty">週期不得空白</string>
+    <string name="period_is_not_empty">經期長度不得空白</string>
+    <string name="need_weight_and_height">身高體重需有資料</string>
+    <string name="weight_is_not_empty">體重不得空白</string>
+    <string name="height_is_not_empty">身高不得空白</string>
+    <string name="end_is_not_before_last">結束日不得小於起始日</string>
+    <string name="days_is_not_allow_future">不得選擇未來日期</string>
+    <string name="change_password_success">密碼變更成功,請使用新密碼登入</string>
+    <string name="logout_success">Logout Succeed</string>
+    <string name="Title_change_verification_style">修改驗證</string>
+    <string name="progressdialog_else">請求中</string>
+    <string name="progressdialog_register">註冊中</string>
+    <string name="progressdialog_wait">請稍候...</string>
+    <string name="verification_style">驗證方式</string>
+    <string name="verification_success">變更驗證方式成功</string>
+    <string name="failure">失敗</string>
+    <string name="api_no_respond">後台無回應,請檢察網路連線</string>
+    <string name="forget_password">忘記密碼</string>
+    <string name="sure">Sure</string>
+    <string name="please_input_new_password">請輸入新密碼</string>
+    <string name="data_change_success">Change password is succeed, please input new password to login</string>
+    <string name="start_period_date">經期開始日</string>
+    <string name="end_period_date">經期結束日</string>
+    <string name="json_error_code">json error code:</string>
+    <string name="camera_only_today">照相辨識僅限今日</string>
+    <string name="in_period">Ovulation</string>
+    <string name="non_period">Non-Ovulation</string>
+    <string name="in_low_cell">Low Follicular/Luteal Phase</string>
+    <string name="in_high_cell">High Follicular/Luteal Phase</string>
+    <string name="unknow">Unrecognizable</string>
+    <string name="camera_not_action">Action Canceled</string>
+    <string name="take_photo_again">Again</string>
+    <string name="identify">Identify</string>
+    <string name="please_chose_really_day">請選擇實際經期日:</string>
+    <string name="delete_really_day">做刪除動作</string>
+    <string name="your_chose_day">you are chose is:</string>
+    <string name="period_out_day">out of Range</string>
+    <string name="period_Day_no_data">No data</string>
+    <string name="period_day">Today is the</string>
+    <string name="day">th Day of Menstrual Period</string>
+    <string name="period_out_range">out of Range</string>
+    <string name="function_only_today">only Today</string>
+    <string name="connect_to_ble">開始連接</string>
+    <string name="ble_device_connected">connected</string>
+    <string name="ble_stop_in_5">5 mins times out</string>
+    <string name="ble_start_connected">connecting..</string>
+    <string name="device_list">Paired Devices</string>
+    <string name="ble_connected">Bluetooth is connected</string>
+    <string name="ble_not_connect">Bluetooth is disconnected</string>
+    <string name="ble_release">Bluetooth is release</string>
+    <string name="no_date">no data</string>
+    <string name="nothing">你沒有新增任何資料</string>
+    <string name="please_select_one_account">請選擇一組帳號</string>
+    <string name="title_manager_ble_list">觀測者列表編輯</string>
+    <string name="delete_success">刪除成功</string>
+    <string name="update_auth_code">更新授權碼</string>
+    <string name="please_press_submit">請按下更新按鈕變更授權碼</string>
+    <string name="update">更新</string>
+    <string name="update_auth_code_success">更新授權碼成功</string>
+    <string name="plese_input_serial_no">請輸入裝置序號</string>
+    <string name="device_has_registered">已註冊之裝置</string>
+    <string name="device_no_aleard_have">裝置序號錯誤</string>
+    <string name="you_chose_account_no_data">你選擇的帳號底下無資料</string>
+    <string name="remote_auth_code_error">遠端授權碼錯誤</string>
+    <string name="title_manager_remote_list">遠端監控者編輯</string>
+    <string name="remove">刪除</string>
+    <string name="ble_device_fail_connected">連結失敗</string>
+    <string name="ble_device_not_connected">斷開</string>
+    <string name="setting_ble_change_name">rename Bluetooth device</string>
+    <string name="please_chose_unit">Please chose unit</string>
+    <string name="celsius">Celsius</string>
+    <string name="fahrenheit">Fahrenheit</string>
+    <string name="your_chose_unit_is_celsius">You chose celsius</string>
+    <string name="your_chose_unit_is_fahrenheit">You chose fahrenheit</string>
+    <string name="title_symptom">症狀</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="title_edit_degree">編輯觀測者資料</string>
+    <string name="measuring">量測中</string>
+    <string name="measure_donw">量測完畢</string>
+    <string name="ble_is_not_connected">設備已斷開</string>
+    <string name="ble_connected_fail">設備連接失敗</string>
+    <string name="degree_alarm">37.5°C - 38°C\n(99.5°F -100.4°F):\nRemove extra clothing, \nblankets,offer plenty of\nwater or oral electrolyte\nsolutions.Wait for 30\nminutes,then take the\ntemperature again.</string>
+    <string name="ble_fail">連結失敗</string>
+    <string name="fever_alarm">您發燒了!!!</string>
+    <string name="fever_degree_is">您目前體溫是:</string>
+    <string name="ble_unconnected">unconnected</string>
+    <string name="ble_device_name">藍芽設備:</string>
+    <string name="ble_disconnect_release">Bluetooth is disconnect and release</string>
+    <string name="ble_is_connecting">connecting...</string>
+    <string name="ble_connected_fail_and_try_again">connected fail and reconnected</string>
+    <string name="start_measuring">Start:</string>
+    <string name="stop_measuring">End:</string>
+    <string name="next_measuring">next time:</string>
+    <string name="saliva_result">Saliva Result :</string>
+    <string name="change_of_ovulation">Change of\nOvulation :</string>
+    <string name="basal_body_temp">Basal Body\nTemperature:</string>
+    <string name="body_weight">Body Weight(kg)</string>
+    <string name="analysis_result">Analysis Result:</string>
+    <string name="record_take_picture">new Picture</string>
+    <string name="account_not_empty">account or password is not allow empty</string>
+    <string name="ble_is_disconnect_and_release">Bluetooth is disconnect and release</string>
+    <string name="history_select_function">Select Record</string>
+    <string name="history_select_days">Select Date</string>
+    <string name="title_history">Record History</string>
+    <string name="history_download">Download</string>
+    <string name="please_select_function">Please select functions:</string>
+    <string name="functions_is_not_allow_empty">You need to select less one</string>
+
+    <!-- symptom -->
+    <string name="headache">Headache</string>
+    <string name="fatigue">Fatigue</string>
+    <string name="soreMusclesJoints">Sore Muscles Joints</string>
+    <string name="soreThroat">Sore Throat</string>
+    <string name="cough">Cough</string>
+    <string name="runnyNose">Runny Nose</string>
+    <string name="diarrhea">Diarrhea</string>
+    <string name="chestTightness">Chest Tightness</string>
+    <string name="shortnessBreath">Shortness Breath</string>
+    <string name="taste">Taste</string>
+    <string name="vomiting">Vomiting</string>
+    <string name="symptom_sputum">Sputum</string>
+    <string name="symptom_nose">Nose</string>
+    <string name="symptom_color">Color</string>
+    <string name="symptom_type">Type</string>
+    <string name="symptom_none">None</string>
+    <string name="symptom_green">Green</string>
+    <string name="symptom_yellow">Yellow</string>
+    <string name="symptom_white">White</string>
+    <string name="symptom_rest_color">Rust Color</string>
+    <string name="symptom_gray_black">Gray Black</string>
+    <string name="symptom_foamy">Foamy</string>
+    <string name="symptom_slimy">Slimy</string>
+    <string name="symptom_transparent">Transparent</string>
+    <string name="symptom_milky">Milky</string>
+    <string name="symptom_yellow_green">Yellow Green</string>
+    <string name="symptom_pink">Pink</string>
+    <string name="symptom_brown">Brown</string>
+    <string name="symptom_black">Black</string>
+    <string name="symptom_waterLike">Water Like</string>
+    <string name="symptom_stickyPus">Sticky Pus</string>
+</resources>
