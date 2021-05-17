@@ -28,28 +28,24 @@
     <string name="dateFormat" translatable="false">MM/dd/yyyy</string>
     <string name="timeFormat" translatable="false">MM/dd/yyyy</string>
     <string name="slycalendar_period" translatable="false">%1$s – %2$s</string>
-
-    <string name="email_is_vaild">信箱无效</string>
-    <string name="register_successed">注册成功</string>
-    <string name="password_confirm_error">密码不一致</string>
-    <string name="account_info_empty">帐号不得空白</string>
     <string name="password_is_empty">密码不得空白</string>
     <string name="email">信箱</string>
     <string name="phone">简讯</string>
-    <string name="phone_verification">目前简讯功能尚未启用</string>
-    <!-- -->
+
     <string name="announcement">公告</string>
     <string name="store">购物</string>
     <string name="training">教学</string>
 
-    <string name="icon_ovul">排卵纪录</string>
-    <string name="icon_blut_temp">蓝芽体温</string>
+    <string name="icon_ovulation">排卵纪录</string>
+    <string name="icon_temperature">蓝芽体温</string>
     <string name="icon_pregnancy">怀孕纪录</string>
     <string name="icon_breath">呼吸监侧</string>
 
     <string name="title_ovul">排卵纪录</string>
     <string name="title_temp">蓝芽体温</string>
+    <string name="title_pregnancy">怀孕纪录</string>
     <string name="title_ovul_edit">排卵纪录编辑</string>
+    <string name="Recognized_ovulation">排卵辨识</string>
     <string name="title_article_catalog">文章分类</string>
     <string name="title_video_catalog">影片分类</string>
     <string name="title_add_ble_user">新增观测者资料</string>
@@ -174,8 +170,6 @@
     <string name="chart_remind">提醒:\n 女性正常基础体温为低温和高温期两个阶段:\n 从月经开始到排卵前是低温期\n 排卵后会持续12-14天高温期\n直到下次月经来的第一天为止</string>
 
     <string name="No_sup_Bluetooth">不支援蓝牙设备</string>
-    <string name="ble_stop_in_10">10秒后停止扫描</string>
-    <string name="ble_start_scanner">开始扫描</string>
 
     <string name="system_setting">系统设定</string>
     <string name="system_user_setting">个人设定</string>
@@ -186,7 +180,6 @@
     <string name="user_height">身高</string>
     <string name="user_weight">体重</string>
 
-    <string name="not_connect">未连线</string>
     <string name="add_new_remote_account">新增远端监控帐号</string>
     <string name="please_input_other_account">请输入对方的帐号</string>
     <string name="please_input_authorization">请输入对方的授权码</string>
@@ -194,13 +187,11 @@
     <string name="dialog_save">确定</string>
     <string name="api_unavailable">无法取得网路服务请稍后再试</string>
     <string name="body_degree">基础体温 :</string>
-    <string name="please_request_permiss">请返回上一页重新申请权限</string>
+    <string name="not_connect_yet">尚未连接</string>
+
     <string name="param_name">唾液辨识:</string>
     <string name="setting_temperature_unit">温度单位</string>
-    <string name="setting_ble_connect">蓝芽连线</string>
-    <string name="setting_observation">观测者编辑</string>
     <string name="setting_change_password">密码变更</string>
-    <string name="setting_ble_scanner">扫描蓝芽装置</string>
     <string name="setting_basic_info">基本资料</string>
     <string name="setting_verification_style">验证方式</string>
     <string name="real_period">实际经期设定</string>
@@ -212,7 +203,6 @@
     <string name="setting_period">经期设定</string>
     <string name="setting_pregnancy">怀孕设定</string>
     <string name="setting_device_no">装置序号</string>
-    <string name="setting_user_basic">个人设定</string>
     <string name="please_input_old_ps">请输入旧密码</string>
     <string name="please_input_new_ps">请输入新密码</string>
     <string name="not_allow_empty">不允许空白</string>
@@ -265,7 +255,6 @@
     <string name="logout_success">登出成功</string>
     <string name="Title_change_verification_style">修改验证</string>
     <string name="progressdialog_else">请求中</string>
-    <string name="progressdialog_register">注册中</string>
     <string name="progressdialog_wait">请稍候...</string>
     <string name="verification_style">验证方式</string>
     <string name="verification_success">变更验证方式成功</string>
@@ -296,7 +285,6 @@
     <string name="day">天</string>
     <string name="period_out_range">超出本月份周期</string>
     <string name="function_only_today">此功能仅限当日</string>
-    <string name="connect_to_ble">开始连接</string>
     <string name="ble_device_connected">已连线</string>
     <string name="ble_stop_in_5">超时5秒扫描停止</string>
     <string name="ble_start_connected">开始连接</string>
@@ -313,9 +301,9 @@
     <string name="please_press_submit">请按下更新按钮变更授权码</string>
     <string name="update">更新</string>
     <string name="update_auth_code_success">更新授权码成功</string>
-    <string name="plese_input_serial_no">请输入装置序号</string>
+    <string name="please_input_serial_no">请输入装置序号</string>
     <string name="device_has_registered">已注册之装置</string>
-    <string name="device_no_aleard_have">装置序号错误</string>
+    <string name="device_error_number">装置序号错误</string>
     <string name="you_chose_account_no_data">你选择的帐号底下无资料</string>
     <string name="remote_auth_code_error">远端授权码错误</string>
     <string name="title_manager_remote_list">远端监控者编辑</string>

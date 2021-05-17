@@ -162,7 +162,7 @@ public class RegisterActivity extends AppPage {
     private ApiProxy.OnApiListener registerListener = new ApiProxy.OnApiListener() {
         @Override
         public void onPreExecute() {
-            buildProgress(R.string.progressdialog_register, R.string.progressdialog_wait);
+            buildProgress(R.string.progressdialog_else, R.string.progressdialog_wait);
         }
 
         @Override

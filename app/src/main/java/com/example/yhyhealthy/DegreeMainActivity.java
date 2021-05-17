@@ -63,7 +63,9 @@ import static com.example.yhyhealthy.module.ApiProxy.REMOTE_USER_UNDER_LIST;
 
 /*** *****
  * 藍芽量測首頁
- * 藍芽配適器
+ * 藍芽配適器 - BluetoothLeAdapter
+ * 觀測者配適器 - DegreeMainAdapter
+ * 遠端者配飾器 - RemoteAdapter
  * *****/
 
 public class DegreeMainActivity extends DeviceBaseActivity implements View.OnClickListener, DegreeMainAdapter.DegreeMainAdapterListener {

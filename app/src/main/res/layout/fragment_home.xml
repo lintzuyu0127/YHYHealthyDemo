@@ -1,112 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@mipmap/yhy_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/yhy_bg"
     tools:context=".fragment.HomeFragment">
 
-    <ImageView
-        android:id="@+id/announcement"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp"
-        android:background="@drawable/shape_cycle"
-        android:src="@mipmap/announcement"/>
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
 
-    <TextView
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/announcement"
-        android:layout_alignLeft="@+id/announcement"
-        android:textSize="22dp"
-        android:text="@string/announcement"
-        android:layout_marginLeft="30dp"/>
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
 
-    <ImageView
-        android:id="@+id/store"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline62"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/announcement"
-        android:layout_marginLeft="10dp"
-        android:layout_alignTop="@+id/announcement"
-        android:background="@drawable/shape_cycle"
-        android:src="@mipmap/shopping"/>
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.23" />
 
-    <TextView
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline63"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/store"
-        android:layout_alignLeft="@+id/store"
-        android:textSize="22dp"
-        android:text="@string/store"
-        android:layout_marginLeft="30dp"/>
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.48" />
 
-    <ImageView
-        android:id="@+id/training"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline64"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/store"
-        android:layout_alignTop="@+id/store"
-        android:layout_marginLeft="10dp"
-        android:background="@drawable/shape_cycle"
-        android:src="@mipmap/training"/>
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
-    <TextView
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/shape_transparent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/guideline63"
+        app:layout_constraintEnd_toStartOf="@+id/guideline64"
+        app:layout_constraintStart_toStartOf="@+id/guideline17"
+        app:layout_constraintTop_toTopOf="@+id/guideline62">
+        <ImageView
+            android:id="@+id/ivOvulation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/ovul_green_icon"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/title_ovulation"
+            android:text="@string/title_ovul"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/shape_transparent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/guideline63"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintStart_toStartOf="@+id/guideline64"
+        app:layout_constraintTop_toTopOf="@+id/guideline62">
+        <ImageView
+            android:id="@+id/ivTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/temper_green_icon"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/title_bluetooth_temperature"
+            android:text="@string/title_temp"/>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline65"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/training"
-        android:layout_alignLeft="@+id/training"
-        android:textSize="@dimen/font_training"
-        android:text="@string/training"
-        android:layout_marginLeft="30dp"/>
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.73" />
 
-    <Button
-        android:id="@+id/btnOvul"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="170dp"
-        android:layout_marginLeft="20dp"
-        android:textColor="#FFF"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:drawableTop="@mipmap/ovul_icon"
-        android:background="@drawable/shape_oval"
-        android:textSize="22dp"
-        android:text="@string/icon_ovul"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:background="@drawable/shape_transparent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline65"
+        app:layout_constraintEnd_toStartOf="@+id/guideline64"
+        app:layout_constraintStart_toStartOf="@+id/guideline17"
+        app:layout_constraintTop_toTopOf="@+id/guideline63">
+        <ImageView
+            android:id="@+id/ivPregnancy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/preg_green_icon"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_pregnancy"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/title_ovulation"/>
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btnTemp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btnOvul"
-        android:layout_toRightOf="@+id/btnOvul"
-        android:layout_marginLeft="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:drawableTop="@mipmap/temper_icon"
-        android:background="@drawable/shape_oval"
-        android:text="@string/icon_blut_temp"
-        android:textSize="22dp"
-        android:textColor="#FFF"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:background="@drawable/shape_transparent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline65"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintStart_toStartOf="@+id/guideline64"
+        app:layout_constraintTop_toTopOf="@+id/guideline63">
+        <ImageView
+            android:id="@+id/ivBreath"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/breath_green_icon"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/icon_breath"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/title_monitor"/>
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btnPreg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnOvul"
-        android:background="@drawable/shape_oval"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:drawableTop="@mipmap/preg_icon"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:textColor="#FFF"
-        android:textSize="22dp"
-        android:text="@string/icon_pregnancy"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/guideline62"
+        app:layout_constraintEnd_toStartOf="@+id/guideline64"
+        app:layout_constraintStart_toStartOf="@+id/guideline17"
+        app:layout_constraintTop_toTopOf="parent">
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/ivStore"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:src="@mipmap/shopping" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/store"
+            android:textSize="@dimen/title_training" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/guideline62"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintStart_toStartOf="@+id/guideline64"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivGuid"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:src="@mipmap/shopping" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/training"
+            android:textSize="@dimen/title_training" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,9 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textSize="22sp"
+            android:textSize="@dimen/font_Recognized_ovulation"
             android:gravity="center"
-            android:text="排卵辨識"/>
+            android:text="@string/Recognized_ovulation"/>
         <TextView
             android:id="@+id/tvRecordDate"
             android:layout_width="match_parent"
@@ -61,16 +61,15 @@
                     android:src="@mipmap/ovul"/>
                 <Button
                     android:id="@+id/btnTakePhoto"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_toRightOf="@+id/ivPhoto"
                     android:drawableLeft="@drawable/ic_baseline_camera_alt_24"
-                    android:gravity="center"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="50dp"
                     android:textColor="@color/white"
                     android:textAllCaps="false"
                     android:background="@drawable/shape_login_background"
@@ -78,16 +77,15 @@
                     android:text="@string/record_take_picture"/>
                 <Button
                     android:id="@+id/btnPhotoIdf"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_toRightOf="@+id/ivPhoto"
                     android:drawableLeft="@drawable/ic_baseline_camera_alt_24"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:paddingLeft="50dp"
-                    android:paddingRight="20dp"
                     android:textColor="@color/white"
                     android:layout_below="@+id/btnTakePhoto"
                     android:visibility="gone"
@@ -100,6 +98,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
@@ -125,17 +124,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textSize="22sp"
-                    android:layout_marginLeft="55dp"
-                    android:text="基礎體溫"/>
+                    android:textSize="@dimen/font_basal_body_temp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/body_degree"/>
                 <TextView
                     android:id="@+id/tvBleConnectStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textSize="18dp"
+                    android:textSize="18sp"
                     android:layout_marginTop="4dp"
                     android:layout_marginLeft="15dp"
-                    android:text="尚未連接"/>
+                    android:text="@string/not_connect_yet"/>
                 <ImageView
                     android:id="@+id/btnAddBluetooth"
                     android:layout_width="match_parent"
@@ -193,6 +193,7 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:layout_marginLeft="8dp"
                     android:text="36.5"
                     android:textSize="42dp" />
                 <Button
@@ -226,6 +227,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:layout_marginTop="8dp"
+                    android:layout_marginLeft="8dp"
                     android:textSize="@dimen/font_record_body_weight"
                     android:text="@string/body_weight"/>
                 <EditText
@@ -249,6 +251,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="22sp"
+                    android:layout_marginLeft="8dp"
                     android:textColor="@color/black"
                     android:text="@string/ovulation_bleeding"/>
 
@@ -272,6 +275,7 @@
                     android:layout_height="match_parent"
                     android:textColor="@color/black"
                     android:layout_weight="1"
+                    android:layout_marginLeft="8dp"
                     android:textSize="22sp"
                     android:text="@string/breast_pain"/>
 
@@ -294,6 +298,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_marginLeft="8dp"
                     android:textColor="@color/black"
                     android:textSize="22sp"
                     android:text="@string/sleep_together"/>
@@ -311,6 +316,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
                 android:textSize="22dp"
                 android:textColor="@color/black"
                 android:text="@string/fluid"/>
@@ -323,6 +329,7 @@
                 android:layout_height="match_parent"
                 android:textSize="@dimen/font_18"
                 android:textColor="@color/black"
+                android:layout_marginLeft="8dp"
                 android:text="@string/fluid_color"/>
             <View
                 android:layout_height="1px"
@@ -350,6 +357,7 @@
                 android:layout_height="match_parent"
                 android:textSize="@dimen/font_18"
                 android:textColor="@color/black"
+                android:layout_marginLeft="8dp"
                 android:text="@string/fluid_taste"/>
             <View
                 android:layout_height="1px"
@@ -377,6 +385,7 @@
                 android:layout_height="match_parent"
                 android:textSize="@dimen/font_18"
                 android:textColor="@color/black"
+                android:layout_marginLeft="8dp"
                 android:text="@string/fluid_type"/>
             <View
                 android:layout_height="1px"
@@ -404,6 +413,7 @@
                 android:layout_height="match_parent"
                 android:textSize="@dimen/font_18"
                 android:textColor="@color/black"
+                android:layout_marginLeft="8dp"
                 android:text="@string/fluid_symp"/>
             <View
                 android:layout_height="1px"
@@ -434,6 +444,7 @@
                 android:layout_marginBottom="20dp"
                 android:textSize="@dimen/font_18"
                 android:layout_gravity="center"
+                android:textAllCaps="false"
                 android:background="@drawable/shape_btn_pressed"
                 android:textColor="@color/black"
                 android:text="@string/save"/>

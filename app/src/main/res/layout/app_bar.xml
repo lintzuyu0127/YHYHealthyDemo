@@ -19,6 +19,7 @@
         android:layout_height="30dp"
         android:layout_marginLeft="100dp"
         android:gravity="center"
+        android:textStyle="bold"
         android:textSize="22dp"
         android:text="YHY Healthy"/>
 

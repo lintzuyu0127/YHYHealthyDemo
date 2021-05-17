@@ -17,6 +17,7 @@ import android.widget.ImageView;
 
 import com.example.yhyhealthy.DegreeMainActivity;
 import com.example.yhyhealthy.OvulationActivity;
+import com.example.yhyhealthy.PregnancyActivity;
 import com.example.yhyhealthy.R;
 import com.example.yhyhealthy.TeachVideoActivity;
 import com.example.yhyhealthy.TemperatureActivity;
@@ -33,9 +34,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "HomeFragment";
 
-    private View      view;
-    private Button    ovulation, temperature;
-    private ImageView guid;
+    private View         view;
+    private ImageView    ovulation, temperature, pregnancy, monitor;
+    private ImageView    shopping,guid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,12 +45,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         if (view != null) return view;
             view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        ovulation = view.findViewById(R.id.btnOvul);
-        temperature = view.findViewById(R.id.btnTemp);
-        guid = view.findViewById(R.id.training);
+        ovulation = view.findViewById(R.id.ivOvulation);
+        temperature = view.findViewById(R.id.ivTemperature);
+        pregnancy = view.findViewById(R.id.ivPregnancy);
+        monitor = view.findViewById(R.id.ivBreath);
+
+        shopping = view.findViewById(R.id.ivStore);
+        guid = view.findViewById(R.id.ivGuid);
 
         ovulation.setOnClickListener(this);
         temperature.setOnClickListener(this);
+        pregnancy.setOnClickListener(this);
         guid.setOnClickListener(this);
 
         return view;
@@ -61,14 +67,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         Class<?> target = null;
 
         switch (v.getId()){
-            case R.id.btnOvul:
+            case R.id.ivOvulation:
                 checkBeforeSetting();  //檢查婚姻狀況和經期設定是否資料齊全
                 break;
-            case R.id.btnTemp:
+            case R.id.ivTemperature:
 //                target = TemperatureActivity.class;
                 target = DegreeMainActivity.class;
                 break;
-            case R.id.training: //教學影片 2021/05/05
+            case R.id.ivPregnancy:
+                target = PregnancyActivity.class;
+                break;
+            case R.id.ivBreath:
+                break;
+            case R.id.ivGuid:
                 target = TeachVideoActivity.class;
                 break;
         }

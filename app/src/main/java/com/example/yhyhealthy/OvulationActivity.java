@@ -577,6 +577,7 @@ public class OvulationActivity extends AppPage implements View.OnClickListener, 
         });
 
         dialog.show();
+
     }
 
     //查詢經期和週期天數 2021/03/04

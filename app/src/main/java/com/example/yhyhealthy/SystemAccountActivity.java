@@ -125,6 +125,9 @@ public class SystemAccountActivity extends AppPage implements View.OnClickListen
         AlertDialog dialog = builder.create();
         dialog.setView(textView, 350,0,0,0);
         dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setAllCaps(false);
+        dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setAllCaps(false);
+
     }
 
     //要求後台更新本機端的授權碼

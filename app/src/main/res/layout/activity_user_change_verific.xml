@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="true"
-            android:textSize="24dp"
+            android:textSize="@dimen/font_rtoBtnPhoneStyle"
             android:buttonTint="@color/black"
             android:text="@string/email"/>
 
@@ -76,7 +76,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="24dp"
+            android:textSize="@dimen/font_rtoBtnPhoneStyle"
             android:buttonTint="@color/black"
             android:text="@string/phone"/>
 

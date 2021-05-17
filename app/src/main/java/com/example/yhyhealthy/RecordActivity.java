@@ -835,14 +835,16 @@ public class RecordActivity extends DeviceBaseActivity implements View.OnClickLi
                     Toasty.info(RecordActivity.this, getString(R.string.ble_not_connect), Toast.LENGTH_SHORT,true).show();
                     mBleService.release();
                     bleConnectStatus.setText(getString(R.string.ble_is_not_connected));
-                    countDownTimer.cancel();  //取消定時器
+                    if (countDownTimer != null)
+                        countDownTimer.cancel();  //取消定時器
                     break;
 
                 case BleService.ACTION_CONNECTING_FAIL:
                     Toasty.info(RecordActivity.this, getString(R.string.ble_not_connect), Toast.LENGTH_SHORT,true).show();
                     mBleService.disconnect();
                     bleConnectStatus.setText(getString(R.string.ble_connected_fail));
-                    countDownTimer.cancel();  //取消定時器
+                    if (countDownTimer != null)
+                        countDownTimer.cancel();  //取消定時器
                     break;
 
                 case BleService.ACTION_NOTIFY_SUCCESS: //通知成功後變更textView顯示內容
@@ -852,6 +854,7 @@ public class RecordActivity extends DeviceBaseActivity implements View.OnClickLi
                     startMeasure.setVisibility(View.VISIBLE);        //量測按鈕顯示 2021/04/20
                     searchBluetooth.setVisibility(View.INVISIBLE);   //搜尋按鈕隱藏 2021/04/21
                     break;
+
                 case BleService.ACTION_DATA_AVAILABLE:  //2021/03/15
 //                    Log.d(TAG, "收到的原始數據: " + ByteUtils.byteArrayToString(data));
                     String[] str = ByteUtils.byteArrayToString(data).split(","); //以,切割
@@ -859,6 +862,7 @@ public class RecordActivity extends DeviceBaseActivity implements View.OnClickLi
                     double degree = Double.parseDouble(degreeStr)/100;
                     textTemperature.setText(String.valueOf(degree)); //體溫顯示
                     break;
+
                 default:
                     break;
             }

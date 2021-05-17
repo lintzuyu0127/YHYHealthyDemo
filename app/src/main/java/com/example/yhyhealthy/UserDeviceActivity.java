@@ -176,7 +176,7 @@ public class UserDeviceActivity extends AppPage implements UserDeviceAdapter.Use
                             Toasty.success(UserDeviceActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
                             initData();//重刷資料
                         }else if (errorCode == 33){
-                            Toasty.error(UserDeviceActivity.this, getString(R.string.device_no_aleard_have), Toast.LENGTH_SHORT, true).show();
+                            Toasty.error(UserDeviceActivity.this, getString(R.string.device_error_number), Toast.LENGTH_SHORT, true).show();
                         }else {
                             Log.d(TAG, "綁定裝置錯誤代碼: " + errorCode);
                         }

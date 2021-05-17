@@ -4,6 +4,8 @@
 
     <dimen name="font_18">18sp</dimen>
 
+    <dimen name="font_end">22sp</dimen>
+
     <dimen name="font_ovulation_saliva">18sp</dimen>
     <dimen name="font_basal_body_temp">18sp</dimen>
     <dimen name="font_day_of_menstruation">20sp</dimen>
@@ -50,4 +52,8 @@
     <dimen name="font_history_funs_and_day">22dp</dimen>
     <dimen name="font_title_history">22dp</dimen>
     <dimen name="font_title_history_download">22dp</dimen>
+
+    <dimen name="font_Recognized_ovulation">18sp</dimen>
+    <dimen name="font_rtoBtnPhoneStyle">24dp</dimen>
+
 </resources>

@@ -31,7 +31,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:hint="@string/plese_input_serial_no"
+            android:hint="@string/please_input_serial_no"
             android:imeOptions="actionDone"
             android:inputType="textCapCharacters"
             android:maxLines="17"
