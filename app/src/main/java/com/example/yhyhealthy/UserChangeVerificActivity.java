@@ -1,6 +1,7 @@
 package com.example.yhyhealthy;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -135,9 +136,14 @@ public class UserChangeVerificActivity extends AppPage {
                             }else if(code == 2){
                                 finish();
                             }
-                        }else { //修改失敗
-                            Toasty.error(UserChangeVerificActivity.this, getString(R.string.failure), Toasty.LENGTH_SHORT,true).show();
+                        }else if (errorCode == 23){ //token失效
+                            Toasty.error(UserChangeVerificActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(UserChangeVerificActivity.this, LoginActivity.class));
+                            finish();
+                        }else {
+                            Toasty.error(UserChangeVerificActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -213,8 +219,12 @@ public class UserChangeVerificActivity extends AppPage {
                         int errorCode = object.getInt("errorCode");
                         if(errorCode == 5){  //驗證碼失敗
                             Toasty.error(UserChangeVerificActivity.this, getString(R.string.comp_code_error), Toast.LENGTH_SHORT, true).show();
-                        }else if (errorCode == 0){  //驗證碼成功
+                        }else if (errorCode == 0) {  //驗證碼成功
                             Toasty.success(UserChangeVerificActivity.this, getString(R.string.change_verification_success), Toast.LENGTH_SHORT, true).show();
+                            finish();
+                        }else if (errorCode == 23){ //token失效
+                            Toasty.error(UserChangeVerificActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(UserChangeVerificActivity.this, LoginActivity.class));
                             finish();
                         }else {
                             Toasty.error(UserChangeVerificActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();

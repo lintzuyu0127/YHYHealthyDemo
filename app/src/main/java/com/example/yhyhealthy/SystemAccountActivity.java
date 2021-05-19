@@ -153,6 +153,12 @@ public class SystemAccountActivity extends AppPage implements View.OnClickListen
                             Toasty.success(SystemAccountActivity.this, getString(R.string.update_auth_code_success), Toast.LENGTH_SHORT, true).show();
                             //重新取得授權碼
                             getAuthCodeFromApi();
+                        }else if (errorCode == 23) { //token失效
+                            Toasty.error(SystemAccountActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(SystemAccountActivity.this, LoginActivity.class));
+                            finish();
+                        }else {
+                            Toasty.success(SystemAccountActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -191,8 +197,14 @@ public class SystemAccountActivity extends AppPage implements View.OnClickListen
                     try {
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
-                        if (errorCode == 0){
+                        if (errorCode == 0) {
                             authCode = object.getInt("success");
+                        }else if (errorCode == 23){ //token 失效
+                            Toasty.error(SystemAccountActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(SystemAccountActivity.this, LoginActivity.class));
+                            finish();
+                        }else {
+                            Toasty.success(SystemAccountActivity.this, getString(R.string.update_auth_code_success), Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.yhyhealthy.adapter.RemoteAdapter;
 import com.example.yhyhealthy.adapter.RemoteListAdapter;
+import com.example.yhyhealthy.dataBean.Record;
+import com.example.yhyhealthy.dataBean.Remote;
 import com.example.yhyhealthy.module.ApiProxy;
 import com.example.yhyhealthy.tools.SpacesItemDecoration;
 
@@ -80,6 +83,12 @@ public class RemoteListEditActivity extends AppPage implements RemoteListAdapter
                         int errorCode = object.getInt("errorCode");
                         if (errorCode == 0){
                             parserJson(result);
+                        }else if (errorCode == 23){ //失效
+                            Toasty.error(RemoteListEditActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(RemoteListEditActivity.this, LoginActivity.class));
+                            finish();
+                        }else {
+                            Toasty.error(RemoteListEditActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -190,12 +199,16 @@ public class RemoteListEditActivity extends AppPage implements RemoteListAdapter
                     try {
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
-                        if (errorCode == 0){
+                        if (errorCode == 0) {
                             Toasty.success(RemoteListEditActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
                             initData();//重刷資料
                             alertDialog.dismiss();//關閉視窗
+                        }else if (errorCode == 23){
+                            Toasty.error(RemoteListEditActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(RemoteListEditActivity.this, LoginActivity.class));
+                            finish();
                         }else {
-                            Log.d(TAG, "新增觀測者失敗後台回覆碼: " + errorCode);
+                            Toasty.error(RemoteListEditActivity.this, getString(R.string.json_error_code) + errorCode + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
 
@@ -283,11 +296,15 @@ public class RemoteListEditActivity extends AppPage implements RemoteListAdapter
                     try {
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
-                        if (errorCode == 0){
+                        if (errorCode == 0) {
                             Toasty.success(RemoteListEditActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
                             dialog.dismiss(); //關閉視窗
+                        }else if (errorCode == 23){
+                            Toasty.error(RemoteListEditActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(RemoteListEditActivity.this, LoginActivity.class));
+                            finish();
                         }else {
-                            Log.d(TAG, "更新觀測者之授權碼失敗後台回覆碼: " + errorCode);
+                            Toasty.error(RemoteListEditActivity.this, getString(R.string.json_error_code) + errorCode + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
 
@@ -334,11 +351,15 @@ public class RemoteListEditActivity extends AppPage implements RemoteListAdapter
                     try {
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
-                        if (errorCode == 0){
+                        if (errorCode == 0) {
                             Toasty.success(RemoteListEditActivity.this, getString(R.string.delete_success), Toast.LENGTH_SHORT, true).show();
                             initData(); //重刷
+                        }else if (errorCode == 23){
+                            Toasty.error(RemoteListEditActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(RemoteListEditActivity.this, LoginActivity.class));
+                            finish();
                         }else {
-                            Log.d(TAG, "刪除帳號失敗代碼: " + errorCode);
+                            Toasty.error(RemoteListEditActivity.this, getString(R.string.json_error_code) + errorCode + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

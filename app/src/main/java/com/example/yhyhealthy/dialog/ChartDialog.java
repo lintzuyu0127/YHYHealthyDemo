@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -39,7 +40,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 /*******
  *  藍芽體溫圖表視窗
- *  使用者,大頭貼,溫度,開始時間,結束時間
+ *  使用者,大頭貼,溫度,開始時間,結束時間,下一次量測時間
  *  chart採用第三方庫MPAndroidChart
  *  最高溫度固定42
  *  最低溫度固定35.5以下
@@ -158,6 +159,7 @@ public class ChartDialog extends Dialog {
 
         LineDataSet lineDataSet = new LineDataSet(entries,"");
         lineDataSet.setColor(Color.RED);  //軸線顏色
+        lineDataSet.setDrawValues(false); //不顯示原點上的數據
         LineData data = new LineData(lineDataSet);
         bleLineChart.setData(data);
 
@@ -202,6 +204,13 @@ public class ChartDialog extends Dialog {
 
         bleLineChart.getLegend().setEnabled(false);            //隱藏圖例
         bleLineChart.getDescription().setEnabled(false);       //隱藏描述
+        bleLineChart.setScaleEnabled(true);  //可平滑移動
+        bleLineChart.setDragEnabled(true);   //可拖曳
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(1.5f,1.0f);  //x軸1.5倍放大,y軸不變
+        bleLineChart.getViewPortHandler().refresh(matrix, bleLineChart, false);
+
         bleLineChart.invalidate();                             //重新刷圖表
     }
 
@@ -211,7 +220,7 @@ public class ChartDialog extends Dialog {
         private DecimalFormat mFormat;
 
         public MyYAxisValueFormatter() {
-            mFormat = new DecimalFormat("###,###.0");//Y軸數值格式及小數點位數
+            mFormat = new DecimalFormat("0.0");//小數點後一位,四捨五入
         }
 
         @Override

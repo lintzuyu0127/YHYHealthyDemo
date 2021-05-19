@@ -187,10 +187,14 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
                     try {
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
-                        if (errorCode == 0){
+                        if (errorCode == 0) {
                             parserJson(result);
+                        }else if (errorCode == 23) { //失效
+                            Toasty.error(DegreeMainActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(DegreeMainActivity.this, LoginActivity.class));
+                            finish();
                         }else {
-                            Toasty.error(DegreeMainActivity.this, getString(R.string.no_date), Toast.LENGTH_SHORT, true).show();
+                            Toasty.error(DegreeMainActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -285,14 +289,18 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
                     try {
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
-                        if (errorCode == 0){
+                        if (errorCode == 0) {
                             JSONArray array = object.getJSONArray("success");
-                            for (int i=0; i < array.length(); i++){
+                            for (int i = 0; i < array.length(); i++) {
                                 //將資料塞入arrayAdapter
                                 arrayAdapter.add(array.getString(i));
                             }
+                        }else if (errorCode == 23) { //token失效
+                            Toasty.error(DegreeMainActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(DegreeMainActivity.this, LoginActivity.class));
+                            finish();
                         }else {
-                            Log.d(TAG, "後端系統代碼: " + errorCode);
+                            Toasty.error(DegreeMainActivity.this, getString(R.string.json_error_code) + errorCode + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -376,14 +384,18 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
                     try {
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
-                        if (errorCode == 0){
+                        if (errorCode == 0) {
                             Toasty.success(DegreeMainActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
                             initRemoteAccountList(); //重刷資料
+                        }else if (errorCode == 23){ //token失效
+                            Toasty.error(DegreeMainActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(DegreeMainActivity.this, LoginActivity.class));
+                            finish();
                         }else {
-                            Log.d(TAG, "新增觀測者失敗後台回覆碼: " + errorCode);
+                            Toasty.error(DegreeMainActivity.this, getString(R.string.json_error_code)+ errorCode, Toast.LENGTH_SHORT,true).show();
                         }
                     } catch (JSONException e) {
-
+                        Log.d(TAG, "JSONException: " + e.toString());
                     }
                 }
             });
@@ -453,13 +465,17 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
                             parserRemoteData(result);
                         }else if (errorCode == 6) {
                             Toasty.error(DegreeMainActivity.this, getString(R.string.you_chose_account_no_data), Toast.LENGTH_SHORT, true).show();
-                        }else if (errorCode == 32){
+                        }else if (errorCode == 32) {
                             Toasty.error(DegreeMainActivity.this, getString(R.string.remote_auth_code_error), Toast.LENGTH_SHORT, true).show();
+                        }else if (errorCode == 23){ //token失效
+                            Toasty.error(DegreeMainActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(DegreeMainActivity.this, LoginActivity.class));
+                            finish();
                         }else {
-                            Log.d(TAG, getString(R.string.json_error_code) + errorCode);
+                            Toasty.error(DegreeMainActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
-
+                        Log.d(TAG, "JSONException: " + e.toString());
                     }
                 }
             });
@@ -490,6 +506,7 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
 
         //將選擇的帳號顯示在Button上
         selectedAccount.setText(accountInfoClick);
+        selectedAccount.setBackgroundResource(R.drawable.shape_transparent);
         selectedAccount.setTextColor(Color.RED);
     }
 
@@ -537,8 +554,12 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
                         int errorCode = object.getInt("errorCode");
                         if (errorCode == 0){
                             Toasty.success(DegreeMainActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
+                        }else if (errorCode == 23){ //token失效
+                            Toasty.error(DegreeMainActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(DegreeMainActivity.this, LoginActivity.class));
+                            finish();
                         }else {
-                            Log.d(TAG, getString(R.string.json_error_code) + errorCode);
+                            Toasty.error(DegreeMainActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

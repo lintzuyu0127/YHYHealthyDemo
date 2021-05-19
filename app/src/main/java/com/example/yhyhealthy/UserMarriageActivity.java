@@ -1,5 +1,6 @@
 package com.example.yhyhealthy;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -76,8 +77,12 @@ public class UserMarriageActivity extends AppPage implements CompoundButton.OnCh
                             contraceptionStatus.setChecked(false);
                         }else if (errorCode == 0){
                             parser(result);
+                        }else if (errorCode == 23){ //token失效
+                            Toasty.error(UserMarriageActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(UserMarriageActivity.this, LoginActivity.class));
+                            finish();
                         }else {
-                            Log.d(TAG, "後台回覆的錯誤碼: " + errorCode);
+                            Toasty.error(UserMarriageActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -187,8 +192,13 @@ public class UserMarriageActivity extends AppPage implements CompoundButton.OnCh
                     try {
                         JSONObject jsonObject = new JSONObject(result.toString());
                         int errorCode = jsonObject.getInt("errorCode");
-                        if (errorCode == 0){
+                        if (errorCode == 0) {
                             Toasty.success(UserMarriageActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
+                            writeToSharePreferences();
+                        }else if (errorCode == 23) { //token失效
+                            Toasty.error(UserMarriageActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(UserMarriageActivity.this, LoginActivity.class));
+                            finish();
                         }else {
                             Toasty.error(UserMarriageActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }

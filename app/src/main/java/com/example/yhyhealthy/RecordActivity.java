@@ -264,8 +264,23 @@ public class RecordActivity extends DeviceBaseActivity implements View.OnClickLi
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    try {
+                        JSONObject object = new JSONObject(result.toString());
+                        int errorCode = object.getInt("errorCode");
+                        if (errorCode == 0){
+                            parserJson(result);
+                        }else if (errorCode == 23){ //token失效
+                            Toasty.error(RecordActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(RecordActivity.this, LoginActivity.class));
+                            finish();
+                        }else {
+                            Toasty.error(RecordActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     //解析後台來的的資料
-                    parserJson(result);
+
                 }
             });
         }
@@ -469,7 +484,7 @@ public class RecordActivity extends DeviceBaseActivity implements View.OnClickLi
             @Override
             public void onFinish() {
                 sendCommand(deviceAddress);  //量測command
-                Toasty.info(RecordActivity.this, R.string.measure_donw, Toast.LENGTH_SHORT, true).show();
+                Toasty.info(RecordActivity.this, R.string.measure_down, Toast.LENGTH_SHORT, true).show();
                 linearLayout.setVisibility(View.INVISIBLE);  //量測進度條隱藏
                 startMeasure.setVisibility(View.VISIBLE);    //量測按鈕顯示
             }
@@ -513,8 +528,12 @@ public class RecordActivity extends DeviceBaseActivity implements View.OnClickLi
                     try {
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
-                        if (errorCode == 0){
-                                parserPhotoResult(result);
+                        if (errorCode == 0) {
+                            parserPhotoResult(result);
+                        }else if (errorCode == 23){ //token失效
+                            Toasty.error(RecordActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(RecordActivity.this, LoginActivity.class));
+                            finish();
                         }else {
                             Toasty.error(RecordActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
@@ -665,7 +684,24 @@ public class RecordActivity extends DeviceBaseActivity implements View.OnClickLi
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    parserUpdateResult(result);
+                    try {
+                        JSONObject jsonObject = new JSONObject(result.toString());
+                        int errorCode = jsonObject.getInt("errorCode");
+                        if (errorCode == 0) {
+                            Toasty.success(RecordActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
+                            setResult(RESULT_OK);
+                            finish();
+                        }else if (errorCode == 23){ //token失效
+                            Toasty.error(RecordActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(RecordActivity.this, LoginActivity.class));
+                            finish();
+                        }else {
+                            Toasty.error(RecordActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }
@@ -681,22 +717,6 @@ public class RecordActivity extends DeviceBaseActivity implements View.OnClickLi
         }
     };
 
-    private void parserUpdateResult(JSONObject result) {
-        try {
-            JSONObject jsonObject = new JSONObject(result.toString());
-            int errorCode = jsonObject.getInt("errorCode");
-            if (errorCode == 0){
-                Toasty.success(RecordActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
-                setResult(RESULT_OK);
-                finish();
-            }else {
-                Log.d(TAG, "parserUpdateResult: 錯誤code : " + errorCode);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void initBle() {

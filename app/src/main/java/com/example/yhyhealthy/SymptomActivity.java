@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -103,10 +104,14 @@ public class SymptomActivity extends AppPage implements View.OnClickListener {
                     try {
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
-                        if (errorCode == 0){
+                        if (errorCode == 0) {
                             parserSymptom(result);
+                        }else if (errorCode == 23) { //token失效
+                            Toasty.error(SymptomActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(SymptomActivity.this, LoginActivity.class));
+                            finish();
                         }else {
-                            Log.d(TAG, "初始化症狀的錯誤代碼: " + errorCode);
+                            Toasty.error(SymptomActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

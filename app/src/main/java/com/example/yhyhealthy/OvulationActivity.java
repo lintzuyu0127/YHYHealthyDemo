@@ -271,8 +271,12 @@ public class OvulationActivity extends AppPage implements View.OnClickListener, 
                     try {
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
-                        if (errorCode == 0){
+                        if (errorCode == 0) {
                             parserJson(result); //解析json資料
+                        }else if (errorCode == 23) { //token失效
+                            Toasty.error(OvulationActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(OvulationActivity.this, LoginActivity.class));
+                            finish();
                         }else {
                             Toasty.error(OvulationActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
@@ -369,8 +373,12 @@ public class OvulationActivity extends AppPage implements View.OnClickListener, 
                     try {
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
-                        if (errorCode == 0){
+                        if (errorCode == 0) {
                             parserCycleData(result); //解析後台回來的資料
+                        }else if (errorCode == 23){ //token失效
+                            Toasty.error(OvulationActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(OvulationActivity.this, LoginActivity.class));
+                            finish();
                         }else {
                             Toasty.error(OvulationActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
@@ -602,6 +610,12 @@ public class OvulationActivity extends AppPage implements View.OnClickListener, 
                     SharedPreferences pref = getSharedPreferences("yhyHealthy", MODE_PRIVATE);
                     pref.edit().putInt("PERIOD", periodData.getSuccess().getPeriod()).apply();
                     pref.edit().putInt("CYCLE", periodData.getSuccess().getCycle()).apply();
+                }else if (errorCode == 23) { //token失效
+                    Toasty.error(OvulationActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                    startActivity(new Intent(OvulationActivity.this, LoginActivity.class));
+                    finish();
+                }else {
+                    Toasty.error(OvulationActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -643,6 +657,12 @@ public class OvulationActivity extends AppPage implements View.OnClickListener, 
 
                     //關閉對話框
                     dialog.dismiss();
+                }else if (errorCode == 23){
+                    Toasty.error(OvulationActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                    startActivity(new Intent(OvulationActivity.this, LoginActivity.class));
+                    finish();
+                }else {
+                    Toasty.error(OvulationActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -672,7 +692,7 @@ public class OvulationActivity extends AppPage implements View.OnClickListener, 
             try {
                 JSONObject object = new JSONObject(result.toString());
                 int errorCode = object.getInt("errorCode");
-                if(errorCode == 0){
+                if(errorCode == 0) {
                     Toasty.success(OvulationActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
 
                     //清除之前日期mark
@@ -683,6 +703,12 @@ public class OvulationActivity extends AppPage implements View.OnClickListener, 
 
                     //關閉對話框
                     dialog.dismiss();
+                }else if (errorCode == 23){ //token失效
+                    Toasty.error(OvulationActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                    startActivity(new Intent(OvulationActivity.this, LoginActivity.class));
+                    finish();
+                }else {
+                    Toasty.error(OvulationActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

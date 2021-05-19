@@ -267,14 +267,18 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
                     try {
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
-                        if(errorCode == 0){
+                        if(errorCode == 0) {
                             Toasty.success(DegreeEditActivity.this, R.string.update_success, Toast.LENGTH_SHORT, true).show();
 
                             //回到上一頁
                             setResult(RESULT_OK);
                             finish();
+                        }else if (errorCode == 23){ //token失效
+                            Toasty.error(DegreeEditActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(DegreeEditActivity.this, LoginActivity.class));
+                            finish();
                         }else {
-                            Log.d(TAG, "更新資料失敗回傳碼: " + errorCode);
+                            Toasty.error(DegreeEditActivity.this, R.string.json_error_code + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

@@ -92,10 +92,14 @@ public class DegreeListEditActivity extends AppPage implements DegreeListEditAda
                     try {
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
-                        if (errorCode == 0){
+                        if (errorCode == 0) {
                             parserJson(result);
+                        }else if (errorCode == 23){ //token失效
+                            Toasty.error(DegreeListEditActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(DegreeListEditActivity.this, LoginActivity.class));
+                            finish();
                         }else {
-                            Toasty.error(DegreeListEditActivity.this, getString(R.string.no_date), Toast.LENGTH_SHORT, true).show();
+                            Toasty.error(DegreeListEditActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -200,10 +204,14 @@ public class DegreeListEditActivity extends AppPage implements DegreeListEditAda
                     try {
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
-                        if (errorCode == 0){
+                        if (errorCode == 0) {
                             Toasty.success(DegreeListEditActivity.this, getString(R.string.delete_success), Toast.LENGTH_SHORT, true).show();
                             dataList.remove(position);
                             adapter.notifyItemRemoved(position);
+                        }else if (errorCode == 23){ //token失效
+                            Toasty.error(DegreeListEditActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(DegreeListEditActivity.this, LoginActivity.class));
+                            finish();
                         }else {
                             Toasty.error(DegreeListEditActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }

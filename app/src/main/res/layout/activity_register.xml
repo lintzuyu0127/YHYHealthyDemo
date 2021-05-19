@@ -165,7 +165,8 @@
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_gravity="center"
+        android:textAllCaps="false"
         android:background="@drawable/shape_btn_temperature_pressed"
         android:textColor="@color/white"
-        android:text="@string/privacy_confirm"/>
+        android:text="@string/save"/>
 </LinearLayout>

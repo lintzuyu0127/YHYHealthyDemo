@@ -7,132 +7,83 @@
     android:background="@mipmap/yhy_bg"
     tools:context=".PrivacyActivity">
 
-    <ImageView
-        android:id="@+id/privacy_title_bar"
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@mipmap/privacy"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/privacy_title"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline31"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvTitle1"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline31"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/privacy_title1"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.026"
-        app:layout_constraintStart_toStartOf="@+id/privacy_title_bar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.109" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
 
-    <TextView
-        android:id="@+id/tvTitle2"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/privacy_title2"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.031"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle1" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
 
     <ScrollView
-        android:id="@+id/SV_Privacy"
+        android:id="@+id/scrViewPrivacy"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_cb1"
+        app:layout_constraintBottom_toTopOf="@+id/guideline32"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/privacy_title_bar">
+        app:layout_constraintTop_toTopOf="@+id/guideline31">
 
-        <TextView
-            android:id="@+id/privacy_content"
-            android:layout_width="wrap_content"
+        <WebView
+            android:id="@+id/webViewPrivacy"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </ScrollView>
 
-
-    <CheckBox
-        android:id="@+id/chkPrivacy1"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="8dp"
-        android:buttonTint="@color/orange"
-        android:text="@string/privacy_agree1"
-        app:layout_constraintBottom_toTopOf="@+id/btnConfirm"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="32dp" />
-
-
-    <TextView
-        android:id="@+id/tv_cb1"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="@string/privacy_agree2"
-        android:textColor="@color/red"
-        app:layout_constraintBottom_toTopOf="@+id/btnConfirm"
-        app:layout_constraintStart_toEndOf="@+id/chkPrivacy1" />
-
-    <CheckBox
-        android:id="@+id/chkPrivacy2"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/privacy_agree1"
-        android:buttonTint="@color/orange"
-        app:layout_constraintBottom_toTopOf="@+id/btnConfirm"
-        app:layout_constraintEnd_toStartOf="@+id/tv_cb2" />
-
-    <TextView
-        android:id="@+id/tv_cb2"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="@string/privacy_agree3"
-        android:textColor="@color/red"
-        app:layout_constraintBottom_toTopOf="@+id/btnConfirm"
+    <Button
+        android:id="@+id/btnAgree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/shape_login_background"
+        android:textColor="@color/white"
+        android:text="@string/privacy_agree"
+        android:textSize="22sp"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginRight="32dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline32" />
 
     <Button
-        android:id="@+id/btnConfirm"
-        android:layout_width="wrap_content"
-        android:layout_height="38dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/shape_btn_temperature_pressed"
-        android:text="@string/privacy_confirm"
+        android:id="@+id/btnDisagree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/shape_btn_disagree"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
+        android:text="@string/privacy_disagree"
+        android:textSize="22sp"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="@+id/btnAgree"
+        app:layout_constraintStart_toStartOf="@+id/btnAgree"
+        app:layout_constraintTop_toBottomOf="@+id/btnAgree" />
 </androidx.constraintlayout.widget.ConstraintLayout>

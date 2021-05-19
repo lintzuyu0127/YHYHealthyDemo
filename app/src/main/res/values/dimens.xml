@@ -55,5 +55,6 @@
 
     <dimen name="font_Recognized_ovulation">18sp</dimen>
     <dimen name="font_rtoBtnPhoneStyle">24dp</dimen>
+    <dimen name="font_temp_observer">18sp</dimen>
 
 </resources>

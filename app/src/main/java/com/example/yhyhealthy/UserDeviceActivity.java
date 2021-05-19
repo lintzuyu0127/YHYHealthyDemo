@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -101,8 +102,12 @@ public class UserDeviceActivity extends AppPage implements UserDeviceAdapter.Use
                         int errorCode = object.getInt("errorCode");
                         if (errorCode == 0){
                             parserJson(result);
+                        }else if (errorCode == 23){ //token失效
+                            Toasty.error(UserDeviceActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(UserDeviceActivity.this, LoginActivity.class));
+                            finish();
                         }else {
-                            Log.d(TAG, "錯誤代碼: " + errorCode);
+                            Toasty.error(UserDeviceActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -175,10 +180,14 @@ public class UserDeviceActivity extends AppPage implements UserDeviceAdapter.Use
                         if (errorCode == 0){
                             Toasty.success(UserDeviceActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
                             initData();//重刷資料
-                        }else if (errorCode == 33){
+                        }else if (errorCode == 33) {
                             Toasty.error(UserDeviceActivity.this, getString(R.string.device_error_number), Toast.LENGTH_SHORT, true).show();
+                        }else if (errorCode == 23) { //token失效
+                            Toasty.error(UserDeviceActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(UserDeviceActivity.this, LoginActivity.class));
+                            finish();
                         }else {
-                            Log.d(TAG, "綁定裝置錯誤代碼: " + errorCode);
+                            Toasty.error(UserDeviceActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -224,11 +233,15 @@ public class UserDeviceActivity extends AppPage implements UserDeviceAdapter.Use
                     try {
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
-                        if (errorCode == 0){
+                        if (errorCode == 0) {
                             Toasty.success(UserDeviceActivity.this, getString(R.string.delete_success), Toast.LENGTH_SHORT, true).show();
                             initData();//重刷資料
+                        }else if (errorCode == 23){ //token失效
+                            Toasty.error(UserDeviceActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(UserDeviceActivity.this, LoginActivity.class));
+                            finish();
                         }else {
-                            Log.d(TAG, "刪除裝置錯誤代碼: " + errorCode);
+                            Toasty.error(UserDeviceActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

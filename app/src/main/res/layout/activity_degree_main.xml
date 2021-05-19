@@ -37,23 +37,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textAllCaps="false"
             android:background="@drawable/shape_for_temperature"
-            android:text="觀測"
-            android:textSize="18dp" />
+            android:text="@string/temp_observer"
+            android:textSize="@dimen/font_temp_observer" />
 
         <Button
             android:id="@+id/btnRemote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textAllCaps="false"
             android:background="@drawable/shape_for_temperature"
-            android:text="遠端"
-            android:textSize="18dp" />
+            android:text="@string/remoter"
+            android:textSize="@dimen/font_temp_observer" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btnAddLocal"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -62,17 +64,20 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingTop="8dp"
+        android:textAllCaps="false"
         android:gravity="center"
         android:text="@string/temp_add_supervise"
+        android:background="@drawable/shape_transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline28" />
 
     <Button
         android:id="@+id/btnAddRemote"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:textAllCaps="false"
         android:drawableLeft="@drawable/ic_baseline_person_add_24"
         android:paddingBottom="5dp"
         android:paddingLeft="16dp"
@@ -81,6 +86,7 @@
         android:gravity="center"
         android:visibility="invisible"
         android:text="@string/temp_add_remote"
+        android:background="@drawable/shape_transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline28" />
 
@@ -91,7 +97,13 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:visibility="invisible"
-        android:text="選擇帳號"
+        android:textAllCaps="false"
+        android:paddingBottom="5dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:background="@drawable/shape_transparent"
+        android:text="@string/temp_select_remote_account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 

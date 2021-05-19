@@ -17,7 +17,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
         getSupportActionBar().hide(); //title隱藏
         setContentView(R.layout.activity_article_detail);
 
-        webView = findViewById(R.id.webView);
+        webView = findViewById(R.id.web_View);
         webView.setWebViewClient(new WebViewClient());
 
         Bundle bundle = this.getIntent().getExtras();

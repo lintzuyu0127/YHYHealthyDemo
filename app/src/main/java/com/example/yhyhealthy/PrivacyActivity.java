@@ -5,21 +5,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/*
-* 服務 & 隱私權
-* */
+/** ****
+* 服務條款
+* *****/
 
-public class PrivacyActivity extends AppCompatActivity {
+public class PrivacyActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener, ViewTreeObserver.OnScrollChangedListener {
 
-    private CheckBox privacy1, privacy2;
-    private Button confirm;
-    private TextView privacyContent;
+    private Button disagree, agree;
+    private ScrollView scrollView;
+    private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,20 +31,51 @@ public class PrivacyActivity extends AppCompatActivity {
         getSupportActionBar().hide(); //title隱藏
         setContentView(R.layout.activity_privacy);
 
-        privacy1 = findViewById(R.id.chkPrivacy1);
-        privacy2 = findViewById(R.id.chkPrivacy2);
-        confirm = findViewById(R.id.btnConfirm);
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(privacy1.isChecked() && privacy2.isChecked()){ //同意後才能去註冊
-                    startActivity(new Intent(getBaseContext(), RegisterActivity.class)); //註冊
-                    finish();
-                }else{
-                    Toast.makeText(PrivacyActivity.this, getString(R.string.privacy_not_pass), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        agree = findViewById(R.id.btnAgree);
+        disagree = findViewById(R.id.btnDisagree);
+        agree.setVisibility(View.GONE);
+        disagree.setVisibility(View.GONE);
 
+        agree.setOnClickListener(this);
+        disagree.setOnClickListener(this);
+
+        scrollView = findViewById(R.id.scrViewPrivacy);
+        scrollView.setOnTouchListener(this);
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(this);
+        webView = findViewById(R.id.webViewPrivacy);
+        webView.loadData(getResources().getString(R.string.privacy_content), "text/html", null);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnAgree:
+                startActivity(new Intent(getBaseContext(), RegisterActivity.class));
+                finish();
+                break;
+            case R.id.btnDisagree:
+                finish();
+                break;
+        }
+    }
+
+    public void onScrollChanged(){
+        View view = scrollView.getChildAt(scrollView.getChildCount() - 1);
+        int topDetector = scrollView.getScrollY();
+        int bottomDetector = view.getBottom() - (scrollView.getHeight() + scrollView.getScrollY());
+        if (bottomDetector == 0){ //底部
+            agree.setVisibility(View.VISIBLE);
+            disagree.setVisibility(View.VISIBLE);
+        }
+
+//        if(topDetector <= 0){ //頂部
+//
+//        }
+
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        return false;
     }
 }

@@ -19,6 +19,7 @@ import com.example.yhyhealthy.DegreeMainActivity;
 import com.example.yhyhealthy.OvulationActivity;
 import com.example.yhyhealthy.PregnancyActivity;
 import com.example.yhyhealthy.R;
+import com.example.yhyhealthy.ShoppingActivity;
 import com.example.yhyhealthy.TeachVideoActivity;
 import com.example.yhyhealthy.TemperatureActivity;
 import com.example.yhyhealthy.UserBasicActivity;
@@ -56,6 +57,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ovulation.setOnClickListener(this);
         temperature.setOnClickListener(this);
         pregnancy.setOnClickListener(this);
+        shopping.setOnClickListener(this);
         guid.setOnClickListener(this);
 
         return view;
@@ -78,6 +80,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 target = PregnancyActivity.class;
                 break;
             case R.id.ivBreath:
+                break;
+            case R.id.ivStore:
+                target = ShoppingActivity.class;
                 break;
             case R.id.ivGuid:
                 target = TeachVideoActivity.class;

@@ -173,11 +173,15 @@ public class DegreeAddActivity extends DeviceBaseActivity implements RadioGroup.
                     try {
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
-                        if (errorCode == 0){
-                            Toasty.success(DegreeAddActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT,true).show();
+                        if (errorCode == 0) {
+                            Toasty.success(DegreeAddActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
                             Intent resultIntent = new Intent();
                             setResult(RESULT_OK, resultIntent);
                             finish(); //回到上一頁
+                        }else if (errorCode == 23){ //token失效
+                            Toasty.error(DegreeAddActivity.this, getString(R.string.idle_too_long),Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(DegreeAddActivity.this, LoginActivity.class));
+                            finish();
                         }else {
                             Toasty.error(DegreeAddActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT,true).show();
                         }

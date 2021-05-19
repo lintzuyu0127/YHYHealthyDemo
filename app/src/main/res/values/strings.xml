@@ -153,14 +153,6 @@
     <string name="female">女性</string>
     <string name="male">男性</string>
 
-    <!-- 隱私權 -->
-    <string name="privacy_title1">服 務 條 款＆</string>
-    <string name="privacy_title2">隱 私 權 政 策 聲 明</string>
-    <string name="privacy_agree1">同意</string>
-    <string name="privacy_agree2">條款服務</string>
-    <string name="privacy_agree3">隱私權聲明</string>
-    <string name="privacy_confirm">確認</string>
-    <string name="privacy_not_pass">請確認服務條款</string>
 
     <!-- 拍照 -->
     <string name="camera_take">拍照</string>
@@ -308,8 +300,6 @@
     <string name="remote_auth_code_error">遠端授權碼錯誤</string>
     <string name="title_manager_remote_list">遠端監控者編輯</string>
     <string name="remove">刪除</string>
-    <string name="ble_device_fail_connected">連結失敗</string>
-    <string name="ble_device_not_connected">斷開</string>
     <string name="setting_ble_change_name">藍芽設備更名</string>
     <string name="please_chose_unit">請選擇溫度單位</string>
     <string name="celsius">攝氏</string>
@@ -321,11 +311,10 @@
     <string name="yes">Yes</string>
     <string name="title_edit_degree">編輯觀測者資料</string>
     <string name="measuring">量測中</string>
-    <string name="measure_donw">量測完畢</string>
+    <string name="measure_down">量測完畢</string>
     <string name="ble_is_not_connected">設備已斷開</string>
     <string name="ble_connected_fail">設備連接失敗</string>
     <string name="degree_alarm">37.5°C - 38°C\n(99.5°F -100.4°F):\n除去過多衣物、被子、\n多喝水或補充電解水，\n30分鐘後再進行檢測\n體溫</string>
-    <string name="ble_fail">連結失敗</string>
     <string name="fever_alarm">您發燒了!!!</string>
     <string name="fever_degree_is">您目前體溫是:</string>
     <string name="ble_unconnected">已斷開</string>
@@ -383,5 +372,68 @@
     <string name="symptom_black">黑色</string>
     <string name="symptom_waterLike">水樣狀</string>
     <string name="symptom_stickyPus">黏膿</string>
+    <string name="temp_observer">觀測</string>
+    <string name="remoter">遠端</string>
+    <string name="temp_select_remote_account">選擇帳號</string>
+    <string name="title_new_user">輸入觀測者資料</string>
+    <string name="new_user_name">名稱</string>
+    <string name="new_user_gender">性別</string>
+    <string name="new_user_birthday">生日</string>
+    <string name="idle_too_long">閒置過久,請重新登入</string>
+
+    <!-- 隱私權 -->
+    <string name="privacy_title">使用條款</string>
+    <string name="privacy_agree">同意</string>
+    <string name="privacy_disagree">不同意</string>
+    <string name="privacy_content"><![CDATA[<html>]]>
+  <![CDATA[<style>]]>
+     p.small {
+        line-height: 1.5;
+        font-size: 12px;
+     }
+  <![CDATA[</style>]]>
+  <![CDATA[<body><p align="justify" class="small">]]>
+    使用者授權合約
+    YHY INFORMATION TECHNOLOGY (ASIA) PTE. LTD.及其子公司（以下稱為"YHY"或"我們"）授與您使用YHY行動應用程式（以下簡稱「應用程式」），
+    而非以銷售方式供應。應用程式系根據以下授權提供，且需遵守下列條款及條件。
+  <![CDATA[<br><br>]]>
+     重要提示
+     在使用本應用程式之前，請仔細閱讀本授權。使用應用程式表示，您確認您已閱讀本授權合約並且同意其條款。
+     如果您不同意條款內容，請勿使用本應用程式。
+     若您未滿十八歲，應于使用本應用程式前，將本合約請您的法定代理人(家長)或監護人閱讀、瞭解並同意本合約之所有內容，才可以註冊及使用本應用程式。
+     當您使用本應用程式時，則視為您的家長（或監護人）已經閱讀、瞭解並同意本合約之所有內容及其後之修改變更。
+  <![CDATA[<br><br>]]>
+     授權條款和條件
+     YHY授予您非專屬有限使用授權，讓您根據本合約條款使用應用程式。
+     您同意不對應用程式之任何部分另行重制、複製、修改、解編、反向組譯、還原工程或製作衍生作品；
+     您不得以任何形式、出於任何目的傳播或散佈本應用程式。
+     YHY保留隨時修改本應用程式的權利，或是因任何理由隨時停止提供本應用程式的權利，包括但不限於：
+     如任何協力供應商停止供應內容或服務，或YHY與相關供應商間的合約因故終止。如YHY必須停止提供應用程式，
+     則此合約及其授予您之權利，應立即終止。
+     此合約包含的“保證和責任的免責聲明”在此合約終止後仍然有效。
+     若本應用程式之使用被終止，YHY對您或其他第三人均不承擔任何責任。
+  <![CDATA[<br><br>]]>
+     授予App使用您的資料，基於保護您的隱私權，除非符合以下任一條件，本公司不會將您的個人資料提供、出借或出售給與服務或交易無關之任何第三人：
+      1.   事先征得您本人的同意或授權。
+      2.   司法單位或其他主管機關經合法正式的程式要求時。
+      3.   本公司委由對公司有保密責任之合作夥伴（企業、組織或個人）處理個人資訊。
+            本公司要求該合作夥伴根據本公司的指示處理資料，並遵守本《使用者授權合約》和其他適用的任何保密和安全措施。
+      4.   為了提供您其他服務或優惠權益，本公司如與第三人共同行銷而需與第三人共用您的資料時，本公司將依您的個人資料種類，採取下列行為：
+        4.1    一般個人資料（如：姓名、手機號碼、生日及性別）：
+            本公司將與共同行銷之第三人共用您的一般個人資料。如您不同意該共同行銷之第三人使用您的一般個人資料，請通知本公司管理員。
+        4.2    特種個人資料（如：病歷、醫療、健康檢查、產品使用紀錄）：
+            本公司會在活動時提供充分說明並告知，您可以自由選擇是否接受這項服務或優惠，本公司於取得您的同意時，
+            始會將您的特種個人資料提供予與本公司共同行銷之第三人。
+  <![CDATA[<br><br>]]>
+     限制
+     您不得向任何他人或 協力廠商銷售、租賃或借貸本應用程式。
+     您確認本應用程式應只用作一般資訊參考之用，且不得在任何生死攸關情況下依賴本應用程式。
+  <![CDATA[<br><br>]]>
+     無保證
+     本應用程式系按「原樣(AS IS)」提供，您同意自行承擔使用風險。
+     YHY不作出法律或任何層面的保證、聲明或擔保，無論是明示、暗示、法定還是其他保證，
+     包括但不限於，針對本應用程式的內容、品質、正確性、完整性、有效性、可靠性、適銷性、針對於某一特定用途之適用性、實用性、用途或實效，
+     或本應用程式之運作不中斷或正確無誤。
+  <![CDATA[</p></body></html>]]></string>
 
 </resources>

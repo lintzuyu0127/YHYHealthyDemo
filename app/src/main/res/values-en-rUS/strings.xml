@@ -46,9 +46,9 @@
     <string name="title_pregnancy">Pregnancy\nRecord</string>
     <string name="title_ovul_edit">Ovulation Testing</string>
     <string name="Recognized_ovulation">Last Recognized Ovulation</string>
-    <string name="title_article_catalog">文章分類</string>
-    <string name="title_video_catalog">影片分類</string>
-    <string name="title_add_ble_user">新增觀測者資料</string>
+    <string name="title_article_catalog">Article Catalog</string>
+    <string name="title_video_catalog">video Catalog</string>
+    <string name="title_add_ble_user">Create New User</string>
 
     <string name="calendar">Calendar</string>
     <string name="record">Record</string>
@@ -154,13 +154,69 @@
     <string name="male">Male</string>
 
     <!-- 隱私權 -->
-    <string name="privacy_title1">服 務 條 款＆</string>
-    <string name="privacy_title2">隱 私 權 政 策 聲 明</string>
-    <string name="privacy_agree1">同意</string>
-    <string name="privacy_agree2">條款服務</string>
-    <string name="privacy_agree3">隱私權聲明</string>
-    <string name="privacy_confirm">確認</string>
-    <string name="privacy_not_pass">請確認服務條款</string>
+    <string name="privacy_title">End User License Agreement</string>
+    <string name="privacy_agree">Agree</string>
+    <string name="privacy_disagree">Disagree</string>
+    <string name="privacy_content">
+<![CDATA[<html>]]>
+   <![CDATA[<style>]]>
+      p.small {
+         line-height: 1.5;
+         font-size: 12px;
+      }
+   <![CDATA[</style>]]>
+   <![CDATA[<body><p align="justify" class="small">]]>
+     YHY INFORMATION TECHNOLOGY (ASIA) PTE. LTD. and its subsidiaries (hereinafter referred to as "YHY" or "We")
+     authorize the user the use of this mobile application program (hereinafter referred to as "Application" or “App”).
+     The application Application is not provided by means of through a sale.
+     The Application is provided in accordance withunder the following terms and conditions.
+   <![CDATA[<br><br>]]>
+      Important Reminder
+      The authorized user must read this agreement carefully before indicating the acceptance by using the App.
+      By using the App, the user agrees with the terms and conditions of this contract.
+      If the user does not agree to the terms and conditions of this Agreement, he or she should not download, install,
+      and use the Application. Users under 18 years of age must have a legal representative or guardian read, understand,
+      and agree to the content of this contract in order to register for and use this App.
+      By letting their protégé using this App, the guardian or legal representative confirms to have read,
+          understood, and agreed to the content of this contract as well as later alterations or amendments.
+   <![CDATA[<br><br>]]>
+      Terms and Conditions of Use
+      YHY offers the authorized user limited and unexclusive access to this App in accordance withunder
+      the following terms and conditions. By accepting these terms and conditions the authorized user agrees to not reproduce,
+      duplicate, alter, decode, disassemble, plagiarize this app App and its content in any form or for any purposes.
+      YHY reserves the right to alter this app App or stop providing service for it at any time or for any reasons including,
+      but not limited to, a stop of supplied content by or termination of contracts with collaborating suppliers.
+      Should YHY need to stop providing service for this app, this contract,
+      and the rights it gives the user shall be terminated too.
+      The Warranty and Liability Disclaimer included in this contract shall remain valid after the contract is terminated.
+      YHY cannot be held liable to the authorized user or to any third parties for abandoning this app.
+   <![CDATA[<br><br>]]>
+      To protect the authorized user`s privacy, the user`s personal data will not be provided by any means to any third parties not related to YHY`s services or transactions, unless in the events of the following:
+         1.    YHY obtained the authorized user`s consent or authorization.
+         2.    Legal authorities or other governing bodies make a legitimate and official request to obtain the user`s personal data.
+         3.    Upon handling personal user data to collaborating partners of YHY (including enterprises, organizations, or individuals), such collaborative partners will be under a duty of confidentiality to YHY, and thus must comply with this Authorized User Agreement as well as any other applicable confidentiality and security measures, including, but not limited to, YHY`s policy of handling personal data.
+         4.    In order tTo provide the user with services unrelated to this App, and for that purpose conducts marketing measures together with a third party, thus needs to share the user`s information with such a third party, YHY will take the following actions based on the type of the user`s personal data:
+         4.1 General Personal Data (E.G. Name, Mobile Phone Number, Date of Birth and Gender):
+             1.    The authorized user`s personal data can be shared with third parties for marketing purposes. Should the user disagree with YHY providing and sharing personal data to third-party marketing partners, the user must notify YHY accordingly.
+         4.2 Medical Data (E.G. Medical Records, Health Check Records, Records of product Use):
+             1.    YHY will inform the user in the event of having to access medical data. The authorized user is free to decide whether to accept YHY providing and sharing the `s medical data to third-party marketing partners. Only upon receiving the user`s
+             2.     consent, YHY will share medical data with such marketing-partners
+   <![CDATA[<br><br>]]>
+      Restrictions
+      The user shall not sell, lease, or loan this App to any third parties.
+      The user recognizes that the content of this App is only for reference and information purposes.
+      Therefore, in case of emergency or when lives are at risk,
+      the user will restrain from solely relying on this App.
+   <![CDATA[<br><br>]]>
+      No Warranty
+      This App is provided on an “as is” basis. The user agrees to use this app App at his own risk.
+      YHY does not offer any level of warranty, declaration, or guarantee, be it explicable, inexplicable,
+      legitimate, or by any other means of assurance, which includes, but is not limited to,
+      the App content, quality, accuracy, completeness, effectiveness, reliability, merchantability,
+      fitness for a particular purpose, usefulness, use or results to be obtained from the Application,
+      or that the Application will be uninterrupted or error-free, by any legal means.
+   <![CDATA[</p></body></html>]]>
+    </string>
 
     <!-- 拍照 -->
     <string name="camera_take">New\nPicture</string>
@@ -261,12 +317,12 @@
     <string name="api_no_respond">Network Error</string>
     <string name="forget_password">Forget</string>
     <string name="sure">Sure</string>
-    <string name="please_input_new_password">請輸入新密碼</string>
+    <string name="please_input_new_password">Please input new Password</string>
     <string name="data_change_success">Change password is succeed, please input new password to login</string>
-    <string name="start_period_date">經期開始日</string>
-    <string name="end_period_date">經期結束日</string>
+    <string name="start_period_date">Start Day</string>
+    <string name="end_period_date">End Day</string>
     <string name="json_error_code">json error code:</string>
-    <string name="camera_only_today">照相辨識僅限今日</string>
+    <string name="camera_only_today">take picture only today</string>
     <string name="in_period">Ovulation</string>
     <string name="non_period">Non-Ovulation</string>
     <string name="in_low_cell">Low Follicular/Luteal Phase</string>
@@ -275,8 +331,8 @@
     <string name="camera_not_action">Action Canceled</string>
     <string name="take_photo_again">Again</string>
     <string name="identify">Identify</string>
-    <string name="please_chose_really_day">請選擇實際經期日:</string>
-    <string name="delete_really_day">做刪除動作</string>
+    <string name="please_chose_really_day">Please chose period day:</string>
+    <string name="delete_really_day">to delete</string>
     <string name="your_chose_day">you are chose is:</string>
     <string name="period_out_day">out of Range</string>
     <string name="period_Day_no_data">No data</string>
@@ -293,22 +349,20 @@
     <string name="ble_release">Bluetooth is release</string>
     <string name="no_date">no data</string>
     <string name="nothing">Yor do nothing</string>
-    <string name="please_select_one_account">請選擇一組帳號</string>
-    <string name="title_manager_ble_list">觀測者列表編輯</string>
-    <string name="delete_success">刪除成功</string>
+    <string name="please_select_one_account">Please select a account</string>
+    <string name="title_manager_ble_list">Edit Observer List</string>
+    <string name="delete_success">Delete Succeed</string>
     <string name="update_auth_code">Change Authorize Code</string>
     <string name="please_press_submit">Please click update button to change authorize code</string>
     <string name="update">Update</string>
-    <string name="update_auth_code_success">更新授權碼成功</string>
+    <string name="update_auth_code_success">update Succeed</string>
     <string name="please_input_serial_no">Please input device serial number</string>
     <string name="device_has_registered">Registered Devices</string>
     <string name="device_error_number">device number error</string>
-    <string name="you_chose_account_no_data">你選擇的帳號底下無資料</string>
-    <string name="remote_auth_code_error">遠端授權碼錯誤</string>
-    <string name="title_manager_remote_list">遠端監控者編輯</string>
+    <string name="you_chose_account_no_data">There is no information</string>
+    <string name="remote_auth_code_error">Authorization code error</string>
+    <string name="title_manager_remote_list">Edit Remote List</string>
     <string name="remove">Delete</string>
-    <string name="ble_device_fail_connected">連結失敗</string>
-    <string name="ble_device_not_connected">斷開</string>
     <string name="setting_ble_change_name">rename Bluetooth device</string>
     <string name="please_chose_unit">Please chose unit</string>
     <string name="celsius">Celsius</string>
@@ -318,17 +372,16 @@
     <string name="title_symptom">Symptom</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
-    <string name="title_edit_degree">編輯觀測者資料</string>
+    <string name="title_edit_degree">Edit Observer Information</string>
     <string name="measuring">Measuring..</string>
-    <string name="measure_donw">量測完畢</string>
-    <string name="ble_is_not_connected">設備已斷開</string>
-    <string name="ble_connected_fail">設備連接失敗</string>
+    <string name="measure_down">Down</string>
+    <string name="ble_is_not_connected">unconnected</string>
+    <string name="ble_connected_fail">connected fail</string>
     <string name="degree_alarm">37.5°C - 38°C\n(99.5°F -100.4°F):\nRemove extra clothing, \nblankets,offer plenty of\nwater or oral electrolyte\nsolutions.Wait for 30\nminutes,then take the\ntemperature again.</string>
-    <string name="ble_fail">連結失敗</string>
-    <string name="fever_alarm">您發燒了!!!</string>
-    <string name="fever_degree_is">您目前體溫是:</string>
+    <string name="fever_alarm">Yor are Fever!!!</string>
+    <string name="fever_degree_is">Fever degree is :</string>
     <string name="ble_unconnected">unconnected</string>
-    <string name="ble_device_name">藍芽設備:</string>
+    <string name="ble_device_name">device name:</string>
     <string name="ble_disconnect_release">Bluetooth is disconnect and release</string>
     <string name="ble_is_connecting">connecting...</string>
     <string name="ble_connected_fail_and_try_again">connected fail and reconnected</string>
@@ -382,4 +435,12 @@
     <string name="symptom_black">Black</string>
     <string name="symptom_waterLike">Water Like</string>
     <string name="symptom_stickyPus">Sticky Pus</string>
+    <string name="temp_observer">Observation</string>
+    <string name="remoter">Remote</string>
+    <string name="temp_select_remote_account">Select Account</string>
+    <string name="title_new_user">Observation Information</string>
+    <string name="new_user_name">Name</string>
+    <string name="new_user_gender">Gender</string>
+    <string name="new_user_birthday">Birth</string>
+    <string name="idle_too_long">Idle too long</string>
 </resources>

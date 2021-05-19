@@ -1,6 +1,7 @@
 package com.example.yhyhealthy;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -88,8 +89,12 @@ public class UserPeriodActivity extends AppPage implements View.OnClickListener 
                         int errorCode = object.getInt("errorCode");
                         if (errorCode == 0) {
                             parserJson(result);
-                        }else  if (errorCode == 6){
+                        }else  if (errorCode == 6) {
                             setInit();  //新會員
+                        }else if (errorCode == 23){ //token失效
+                            Toasty.error(UserPeriodActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(UserPeriodActivity.this, LoginActivity.class));
+                            finish();
                         }else {
                             Toasty.error(UserPeriodActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
@@ -257,9 +262,13 @@ public class UserPeriodActivity extends AppPage implements View.OnClickListener 
                     try {
                         JSONObject jsonObject = new JSONObject(result.toString());
                         int errorCode = jsonObject.getInt("errorCode");
-                        if (errorCode == 0){
+                        if (errorCode == 0) {
                             Toasty.success(UserPeriodActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
                             writeToSharePreferences();
+                        }else if (errorCode == 23) { //token失效
+                            Toasty.error(UserPeriodActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
+                            startActivity(new Intent(UserPeriodActivity.this, LoginActivity.class));
+                            finish();
                         }else {
                             Toasty.error(UserPeriodActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }

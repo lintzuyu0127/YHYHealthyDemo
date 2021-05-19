@@ -154,13 +154,61 @@
     <string name="male">男性</string>
 
     <!-- 隱私權 -->
-    <string name="privacy_title1">服 务 条 款＆</string>
-    <string name="privacy_title2">隐 私 权 政 策 声 明</string>
-    <string name="privacy_agree1">同意</string>
-    <string name="privacy_agree2">条款服务</string>
-    <string name="privacy_agree3">隐私权声明</string>
-    <string name="privacy_confirm">确认</string>
-    <string name="privacy_not_pass">请确认服务条款</string>
+    <string name="privacy_title">使用条款</string>
+    <string name="privacy_agree">同意</string>
+    <string name="privacy_disagree">不同意</string>
+    <string name="privacy_content"><![CDATA[<html>]]>
+  <![CDATA[<style>]]>
+     p.small {
+        line-height: 1.5;
+        font-size: 12px;
+     }
+  <![CDATA[</style>]]>
+  <![CDATA[<body><p align="justify" class="small">]]>
+     使用者授权合约
+     YHY信息技术（亚洲）PTE。LTD。及其子公司（以下称为“ YHY”或“我们”）授予与您使用的YHY行动应用程序（以下简称“应用程序”），
+     而非以销售方式供应。应用程序系根据以下授权提供，并且需要遵守以下条款及条件。
+    <![CDATA[<br><br>]]>
+     重要提示
+     在使用本应用程序之前，请仔细阅读本授权。使用应用程序表示，您确认您已阅读本授权合约和同意其条款。
+     如果您不同意条款内容，请勿使用本应用程序。
+     若您未满十八岁，应于使用本应用程序前，将本合约请您的法定代理人（家长）或监护人阅读，了解并同意本合约之所有内容，才可以注册及使用本应用程序。
+     当您使用本应用程序时，则认为您的家长（或监护人）已经阅读，了解并同意本合约之所有内容及其后之修改变更。
+    <![CDATA[<br><br>]]>
+     授权条款和条件
+     YHY授权您非专有有限使用授权，让您根据本合约条款使用应用程序。
+     您同意不对应用程式之任何部分补充重制，复制，修改，解编，反向组译，还原工程或制作衍生作品；
+     您不得以任何形式，出于任何目的传播或散布本应用程序。
+     YHY保留随时修改本应用程序的权利，或因任何理由随时停止提供本应用程序的权利，包括但不限于：
+     如任何协力供应商停止供应内容或服务，或YHY与相关供应商间的合约因故终止。
+     则此合约及其授予您的权利，应立即终止。
+     此合约包含的“保证和责任的免责声明”在此合约终止后仍然有效。
+     若本应用程式之使用被终止，YHY对您或其他第三人均不承担任何责任。
+     <![CDATA[<br><br>]]>
+     授予App使用您的资料，基于保护您的专有权，除非符合以下任一条件，本公司不会将您的个人资料提供，出借或出售给与服务或交易无关之任何第三人：
+      1.事先征得您本人的同意或授权。
+      2.司法单位或其他主管机关经合法正式的程序要求时。
+      3.本公司委由对公司有保密责任之合作伙伴（企业，组织或个人）处理个人资讯。
+        本公司要求该合作伙伴根据本公司的指示处理资料，并遵守本《用户授权令牌》和其他适用的任何保密和安全措施。
+      4.为了提供您其他服务或优惠权益，本公司如与第三人共同行销而需与第三人共享您的资料时，本公司将依您的个人资料种类，采取以下行为：
+        4.1一般个人资料（如：姓名，手机号码，生日及性别）：
+            本公司将与共同行销之第三人共享您的一般个人资料。如您不同意该共同行销之第三人使用您的一般个人资料，请通知本公司管理员。
+        4.2特殊个人资料（如：病历，医疗，健康检查，产品使用纪录）：
+            本公司会在活动时提供充分说明并告知，您可以自由选择是否接受此服务或优惠，本公司于取得您的同意时，
+            始创您的特种个人资料提供予与本公司共同行销之第三人。
+     <![CDATA[<br><br>]]>
+     限制条件
+     您不得向任何其他人或协力厂商销售，租赁或借贷本应用程序。
+     您确认本应用程式应只使用一般资讯参考之用，且不得在任何生死攸关情况下依赖本应用程式。
+     <![CDATA[<br><br>]]>
+     无保证
+     本应用程序系按「原样（AS IS）」提供，您同意自行承担使用风险。
+     YHY不承诺法律或任何宪法的保证，声明或担保，无论是明示，暗示，法定还是其他保证，
+     包括但不限于，针对本应用程式的内容，品质，正确性，本身，有效性，可靠性，适销性，针对于特定用途的适用性，实用性，用途或实效，
+     或本应用程序之运作不中断或正确无误。
+  <![CDATA[</p></body></html>]]>
+
+    </string>
 
     <!-- 拍照 -->
     <string name="camera_take">拍照</string>
@@ -308,8 +356,6 @@
     <string name="remote_auth_code_error">远端授权码错误</string>
     <string name="title_manager_remote_list">远端监控者编辑</string>
     <string name="remove">删除</string>
-    <string name="ble_device_fail_connected">连结失败</string>
-    <string name="ble_device_not_connected">断开</string>
     <string name="setting_ble_change_name">蓝芽设备更名</string>
     <string name="please_chose_unit">请选择温度单位</string>
     <string name="celsius">摄氏</string>
@@ -321,11 +367,10 @@
     <string name="yes">Yes</string>
     <string name="title_edit_degree">编辑观测者资料</string>
     <string name="measuring">量测中</string>
-    <string name="measure_donw">量测完毕</string>
+    <string name="measure_down">量测完毕</string>
     <string name="ble_is_not_connected">设备已断开</string>
     <string name="ble_connected_fail">设备连接失败</string>
     <string name="degree_alarm">37.5°C - 38°C\n(99.5°F -100.4°F):\n除去过多衣物、被子、\n多喝水或补充电解水，\n30分钟后再进行检测\n体温</string>
-    <string name="ble_fail">连结失败</string>
     <string name="fever_alarm">您发烧了!!!</string>
     <string name="fever_degree_is">您目前体温是:</string>
     <string name="ble_unconnected">已断开</string>
@@ -382,4 +427,14 @@
     <string name="symptom_black">黑色</string>
     <string name="symptom_waterLike">水样状</string>
     <string name="symptom_stickyPus">黏脓</string>
+    <string name="temp_observer">观测</string>
+    <string name="remoter">远端</string>
+    <string name="temp_select_remote_account">选择帐号</string>
+    <string name="title_new_user">输入观测者资料</string>
+    <string name="new_user_name">名称</string>
+    <string name="new_user_gender">性别</string>
+    <string name="new_user_birthday">生日</string>
+    <string name="idle_too_long">闲置过久,请重新登入</string>
+
+
 </resources>
