@@ -47,6 +47,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -693,26 +694,39 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
         if (devAddress != null){
             statusMemberBean.setBleMac(devAddress);
             statusMemberBean.setBleConnectStatus(devName+bleStatus);
+            statusMemberBean.setBleDeviceName(devName);  //2021/05/21增加
             dAdapter.updateItem(statusMemberBean, statusPosition);
         }
     }
 
     /*** 更新體溫跟電量 ***/
     private void updateBleData(String receiverData, String macAddress) {
+        DecimalFormat dt = new DecimalFormat("#.##");
+
         String[] str = receiverData.split(","); //以,分割
-        String degreeStr = str[2];
-        String batteryStr = str[3];
-        double degree = Double.parseDouble(degreeStr)/100;
-        double battery = Double.parseDouble(batteryStr);
+        double degree = Double.parseDouble(str[2])/100;
+        double battery = Double.parseDouble(str[3]);
+        String batteryStr = dt.format(battery);
 
         if (degree != 0){
             //將溫度電量等資訊傳到adapter
-            dAdapter.updateByMac(degree,battery,macAddress);
+            dAdapter.updateByMac(degree,batteryStr,macAddress);
 
             //如果chart存在就將資料直接傳遞
             if(chartDialog != null && chartDialog.isShowing())
                 //以mac分開dataBean 2021/05/03
                 chartDialog.update(dAdapter.getDegreeByMac(macAddress));
+
+            //電量低於40%通知  2021/05/21
+            if (battery < 40) {
+                String deviceName = dAdapter.findDeviceNameByMac(macAddress);
+                Toasty.warning(DegreeMainActivity.this, deviceName + getString(R.string.battery_is_low_40), Toast.LENGTH_SHORT, true).show();
+            }
+            //體溫低於25度C 2021/05/21
+            if (degree <= 25){
+                String userName = dAdapter.findNameByMac(macAddress);
+                Toasty.warning(DegreeMainActivity.this, userName + getString(R.string.under_25_degree), Toast.LENGTH_SHORT, true).show();
+            }
 
             //假如體溫超過37.5出現警示
             if (degree > 37.5)

@@ -154,24 +154,23 @@ public class DegreeListEditActivity extends AppPage implements DegreeListEditAda
     @Override  //編輯使用者
     public void onEditClick(BleUserData.SuccessBean data) {
 
-        //大頭貼的資料轉成bitmap
-        Bitmap bitmap = ImageUtils.base64ToBitmap(data.getHeadShot());
-
-        //將大頭貼bitmap存到本地端手機+避免沒資料而閃退 因為後台沒給url所以暫用將照片存到本地端
-        if(bitmap != null)
-            saveBitmap(bitmap);
-
-        //將必要的資訊傳到編輯頁面
         Intent intent = new Intent();
         intent.setClass(this, DegreeEditActivity.class);
         Bundle bundle = new Bundle();
+
+        //大頭貼的資料轉成bitmap
+        if (!data.getHeadShot().isEmpty()) {
+            Bitmap bitmap = ImageUtils.base64ToBitmap(data.getHeadShot());
+            saveBitmap(bitmap);
+            bundle.putString("HeadShot", tmpPhoto.toString());
+        }
+
         bundle.putInt("targetId", data.getTargetId());
         bundle.putString("name", data.getBleConnectListUserName());
         bundle.putString("gender", data.getGender());
         bundle.putString("birthday", data.getBirthday());
         bundle.putString("weight", String.valueOf(data.getWeight()));
         bundle.putString("height", String.valueOf(data.getBleConnectListUserHeight()));
-        bundle.putString("HeadShot", tmpPhoto.toString());
         intent.putExtras(bundle);
         startActivityForResult(intent, EDIT_CODE);
     }

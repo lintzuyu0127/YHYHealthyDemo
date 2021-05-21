@@ -142,7 +142,7 @@
 
     <string-array name="functions">
         <item>Ovulation Record</item>
-        <item>Bluetooth Temperature</item>
+        <item>Bluetooth body Temperature</item>
         <item>Pregnancy Reports</item>
         <item>Breath Monitoring</item>
     </string-array>
@@ -443,4 +443,7 @@
     <string name="new_user_gender">Gender</string>
     <string name="new_user_birthday">Birth</string>
     <string name="idle_too_long">Idle too long</string>
+    <string name="title_temperature">Bluetooth Body Temperature</string>
+    <string name="battery_is_low_40">Battery is less than 40%</string>
+    <string name="under_25_degree">your temperature is below 25 degrees</string>
 </resources>

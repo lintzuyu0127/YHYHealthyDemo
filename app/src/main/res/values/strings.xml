@@ -435,5 +435,8 @@
      包括但不限於，針對本應用程式的內容、品質、正確性、完整性、有效性、可靠性、適銷性、針對於某一特定用途之適用性、實用性、用途或實效，
      或本應用程式之運作不中斷或正確無誤。
   <![CDATA[</p></body></html>]]></string>
+    <string name="title_temperature">藍芽體溫</string>
+    <string name="battery_is_low_40">電量低於40%</string>
+    <string name="under_25_degree">體溫低於25度</string>
 
 </resources>

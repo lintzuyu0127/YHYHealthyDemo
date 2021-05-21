@@ -2,6 +2,7 @@ package com.example.yhyhealthy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ public class PrivacyActivity extends AppCompatActivity implements View.OnClickLi
     private ScrollView scrollView;
     private WebView webView;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +63,7 @@ public class PrivacyActivity extends AppCompatActivity implements View.OnClickLi
 
     public void onScrollChanged(){
         View view = scrollView.getChildAt(scrollView.getChildCount() - 1);
-        int topDetector = scrollView.getScrollY();
+        //int topDetector = scrollView.getScrollY();
         int bottomDetector = view.getBottom() - (scrollView.getHeight() + scrollView.getScrollY());
         if (bottomDetector == 0){ //底部
             agree.setVisibility(View.VISIBLE);

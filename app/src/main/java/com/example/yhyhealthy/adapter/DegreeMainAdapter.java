@@ -74,15 +74,15 @@ public class DegreeMainAdapter extends RecyclerView.Adapter<DegreeMainAdapter.Vi
     }
 
     //更新溫度電量項目
-    public void updateByMac(double degree, double battery, String mac){
+    public void updateByMac(double degree, String battery, String mac){
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd HH:mm");
-        String todayWithTime = sdf.format(new Date());
+        String todayWithTime = sdf.format(new Date());  //目前的時間
         if (dataList.size() != 0){
             for (int i = 0; i < dataList.size(); i++){
                 BleUserData.SuccessBean data = dataList.get(i);
                 if (!TextUtils.isEmpty(data.getBleMac())){
                     if (data.getBleMac().equals(mac)){
-                        data.setBattery(String.valueOf(battery) + "%");
+                        data.setBattery(battery + "%");
                         data.setDegree(degree,todayWithTime);  //將得到的體溫跟時間往資料塞,圖表需要用到
                         notifyItemChanged(i); //刷新
                         updateBeforeApi(mac); //上傳後台前的檢查
@@ -90,6 +90,20 @@ public class DegreeMainAdapter extends RecyclerView.Adapter<DegreeMainAdapter.Vi
                 }
             }
         }
+    }
+
+    //藉由mac取得裝置名稱 2021/04/28
+    public String findDeviceNameByMac(String mac){
+        if (dataList.size() != 0){
+            for(int i = 0; i < dataList.size(); i++){
+                BleUserData.SuccessBean data = dataList.get(i);
+                if (!TextUtils.isEmpty(data.getBleMac())){
+                    if (data.getBleMac().equals(mac))
+                        return data.getBleDeviceName();
+                }
+            }
+        }
+        return null;
     }
 
     //藉由mac取得使用者名稱 2021/04/28

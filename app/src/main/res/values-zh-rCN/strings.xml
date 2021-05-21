@@ -435,6 +435,9 @@
     <string name="new_user_gender">性别</string>
     <string name="new_user_birthday">生日</string>
     <string name="idle_too_long">闲置过久,请重新登入</string>
+    <string name="title_temperature">蓝芽体温</string>
+    <string name="battery_is_low_40">电量低于40%</string>
+    <string name="under_25_degree">体温低于25度</string>
 
 
 </resources>

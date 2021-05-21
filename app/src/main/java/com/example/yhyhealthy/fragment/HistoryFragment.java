@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +20,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yhyhealthy.R;
+import com.example.yhyhealthy.adapter.FunctionsAdapter;
+import com.example.yhyhealthy.tools.SpacesItemDecoration;
+
+import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,7 +38,7 @@ import ru.slybeaver.slycalendarview.SlyCalendarDialog;
  * 歷史紀錄
  * **/
 
-public class HistoryFragment extends Fragment implements View.OnClickListener {
+public class HistoryFragment extends Fragment implements View.OnClickListener, FunctionsAdapter.onRecycleItemClickListener {
 
     private static final String TAG = "HistoryFragment";
 
@@ -40,8 +46,12 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
 
     private Button btnFunction;
     private Button btnDate;
-    private List<String> fxnList;
+    private List<String> fxnList = new ArrayList<>();
     private TextView textHint;
+    private String startDay = "";
+    private String endDay = "";
+
+    private RecyclerView recordResult;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +63,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
         btnFunction = view.findViewById(R.id.btnSelectFunction);  //功能選擇
         btnDate = view.findViewById(R.id.btnSelectDate);          //日期選擇
         textHint = view.findViewById(R.id.tvHint);                //提示messages
+        recordResult = view.findViewById(R.id.rvRecordResult);
 
         btnFunction.setOnClickListener(this);
         btnDate.setOnClickListener(this);
@@ -106,25 +117,26 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
         public void onDataSelected(Calendar firstDate, Calendar secondDate, int hours, int minutes) {
             if (firstDate != null){
                 if (secondDate == null){ //單日
-                    //firstDate.set(Calendar.HOUR_OF_DAY, hours);
-
-                }else {  //範圍
-                    String SelectDate = getString(
-                            R.string.slycalendar_period,
-                            new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault()).format(firstDate.getTime()),
-                            new SimpleDateFormat(getString(R.string.timeFormat), Locale.getDefault()).format(secondDate.getTime())
-                    );
-                    Log.d(TAG, "onDataSelected: " + SelectDate);
+                    DateTime dtFirst = new DateTime(firstDate);
+                    startDay = dtFirst.toString("yyyy-MM-dd");
+                    endDay = dtFirst.toString("yyyy-MM-dd");
+                }else {  //多日
+                    DateTime dtFirst = new DateTime(firstDate);
+                    DateTime dtSecond = new DateTime(secondDate);
+                    startDay = dtFirst.toString("yyyy-MM-dd");
+                    endDay = dtSecond.toString("yyyy-MM-dd");
                 }
             }
             //隱藏提示messages
             textHint.setVisibility(View.INVISIBLE);
+            //顯示recyclerView
+            recordResult.setVisibility(View.VISIBLE);
+            setData();
         }
     };
 
     //功能選擇彈跳視窗
     private void dialogSelectFunction() {
-        fxnList = new ArrayList<>();
         //data source from String
         String arrays[] = getActivity().getResources().getStringArray(R.array.functions);
 
@@ -145,13 +157,8 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
 
         // Set the action buttons
         dialogBuilder.setPositiveButton(R.string.sure, (dialog, which) ->{
-            String data = "";
-            data = fxnList.toString().replace("[", "").replace("]", "");
-            if (data.equals("")){
+            if (fxnList.isEmpty()){
                 Toasty.error(getActivity(),getString(R.string.functions_is_not_allow_empty), Toast.LENGTH_SHORT,true).show();
-            }else{
-                //顯示選擇的功能,要與日期合併去跟後端要資料
-
             }
         });
 
@@ -160,9 +167,42 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
         AlertDialog alert = dialogBuilder.create();
         alert.setCanceledOnTouchOutside(false); //dismiss the dialog with click on outside of the dialog
         alert.show();
+
         //Button內的英文字小寫
         alert.getButton(AlertDialog.BUTTON_POSITIVE).setAllCaps(false);
         alert.getButton(AlertDialog.BUTTON_NEGATIVE).setAllCaps(false);
     }
 
+    //將得到的資料傳到RecyclerView
+    private void setData() {
+        if (null != fxnList && !fxnList.isEmpty()){
+            FunctionsAdapter functionsAdapter = new FunctionsAdapter(getActivity(), fxnList, startDay, endDay, this);
+            recordResult.setHasFixedSize(true);
+            recordResult.setAdapter(functionsAdapter);
+            recordResult.setLayoutManager(new LinearLayoutManager(getActivity()));
+            recordResult.addItemDecoration(new SpacesItemDecoration(20));
+
+        }else { //功能不得空白
+            Toasty.error(getActivity(), getString(R.string.functions_is_not_allow_empty), Toast.LENGTH_SHORT, true).show();
+        }
+    }
+
+    @Override
+    public void onClick(String functionName, String start, String end) {
+        switch (functionName){
+            case "Ovulation Testing":
+
+                //Log.d(TAG, "Ovulation Testing"+ ",startDay:" + startDay + ",endDay:" + endDay);
+                break;
+            case "Bluetooth Body Temperature":
+                //Log.d(TAG, "Bluetooth Body Temperature"+ ",startDay:" + startDay + ",endDay:" + endDay);
+                break;
+            case "Pregnancy Record":
+                //Log.d(TAG, "Pregnancy"+ ",startDay:" + startDay + ",endDay:" + endDay);
+                break;
+            case "Breath Monitoring":
+                //Log.d(TAG, "Breath Monitoring"+ ",startDay:" + startDay + ",endDay:" + endDay);
+                break;
+        }
+    }
 }

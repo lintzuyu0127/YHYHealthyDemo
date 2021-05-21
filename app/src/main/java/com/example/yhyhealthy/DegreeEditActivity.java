@@ -69,7 +69,7 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
     private ImageView takePhoto;
     private ImageView photoShow;        //照片顯示
     private String photoPath = "";      //原始照片位置全域宣告
-    private File tmpPhoto;       //照片壓縮後的位置
+    private File tmpPhoto;               //照片壓縮後的位置
 
     //更新使用者需要此id
     private int targetId = 0;
@@ -270,6 +270,13 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
                         if(errorCode == 0) {
                             Toasty.success(DegreeEditActivity.this, R.string.update_success, Toast.LENGTH_SHORT, true).show();
 
+                            //如果檔案存在就砍掉 2021/05/21
+                            if (tmpPhoto != null){
+                                if (tmpPhoto.exists()){
+                                    tmpPhoto.getAbsoluteFile().delete();
+                                }
+                            }
+
                             //回到上一頁
                             setResult(RESULT_OK);
                             finish();
@@ -397,6 +404,10 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
     protected void onDestroy() {
         super.onDestroy();
         //如果照片還存在本機端,要做刪除
-        if(headShotFile.exists()) headShotFile.delete();
+        if (headShotFile != null){
+            if (headShotFile.exists()){
+                headShotFile.getAbsoluteFile().delete();
+            }
+        }
     }
 }
