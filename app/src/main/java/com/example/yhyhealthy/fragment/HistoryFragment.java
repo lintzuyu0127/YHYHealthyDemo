@@ -3,15 +3,14 @@ package com.example.yhyhealthy.fragment;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,17 +18,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yhyhealthy.OvulationRecordActivity;
+import com.example.yhyhealthy.TempRecordActivity;
 import com.example.yhyhealthy.R;
 import com.example.yhyhealthy.adapter.FunctionsAdapter;
 import com.example.yhyhealthy.tools.SpacesItemDecoration;
 
 import org.joda.time.DateTime;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import es.dmoral.toasty.Toasty;
 import ru.slybeaver.slycalendarview.SlyCalendarDialog;
@@ -188,21 +187,22 @@ public class HistoryFragment extends Fragment implements View.OnClickListener, F
     }
 
     @Override
-    public void onClick(String functionName, String start, String end) {
-        switch (functionName){
-            case "Ovulation Testing":
+    public void onClick(int functionNameID, String startDay, String endDay) {
 
-                //Log.d(TAG, "Ovulation Testing"+ ",startDay:" + startDay + ",endDay:" + endDay);
+//        Intent intent = new Intent();
+//        Bundle bundle = new Bundle();
+//        bundle.putString("startDay", startDay);
+//        bundle.putString("endDay", endDay);
+
+        switch (functionNameID){
+            case 0:
+            case 1:
+                Toasty.info(getActivity(), getString(R.string.fxn_is_coming_soon), Toast.LENGTH_SHORT, true).show();
+                //intent = new Intent(getActivity(), OvulationRecordActivity.class);
                 break;
-            case "Bluetooth Body Temperature":
-                //Log.d(TAG, "Bluetooth Body Temperature"+ ",startDay:" + startDay + ",endDay:" + endDay);
-                break;
-            case "Pregnancy Record":
-                //Log.d(TAG, "Pregnancy"+ ",startDay:" + startDay + ",endDay:" + endDay);
-                break;
-            case "Breath Monitoring":
-                //Log.d(TAG, "Breath Monitoring"+ ",startDay:" + startDay + ",endDay:" + endDay);
-                break;
+            //intent = new Intent(getActivity(), TempRecordActivity.class);
         }
+//        intent.putExtras(bundle);
+//        startActivity(intent);
     }
 }

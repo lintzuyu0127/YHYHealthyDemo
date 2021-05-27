@@ -32,6 +32,7 @@ import es.dmoral.toasty.Toasty;
 
 import static com.example.yhyhealthy.module.ApiProxy.MENSTRUAL_RECORD_INFO;
 import static com.example.yhyhealthy.module.ApiProxy.MENSTRUAL_RECORD_UPDATE;
+import static com.example.yhyhealthy.module.ApiProxy.menstrualSetting;
 
 /*****
  *  設定 - 個人設定 - 經期設定
@@ -264,7 +265,7 @@ public class UserPeriodActivity extends AppPage implements View.OnClickListener 
                         int errorCode = jsonObject.getInt("errorCode");
                         if (errorCode == 0) {
                             Toasty.success(UserPeriodActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
-                            writeToSharePreferences();
+                            menstrualSetting = true; //經期設定
                         }else if (errorCode == 23) { //token失效
                             Toasty.error(UserPeriodActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
                             startActivity(new Intent(UserPeriodActivity.this, LoginActivity.class));
@@ -289,14 +290,6 @@ public class UserPeriodActivity extends AppPage implements View.OnClickListener 
             hideProgress();
         }
     };
-
-    //經期設定寫入local
-    private void writeToSharePreferences() {
-        SharedPreferences pref = getSharedPreferences("yhyHealthy", MODE_PRIVATE);
-        pref.edit().putInt("PERIOD", Integer.parseInt(periodLength.getText().toString())).apply();
-        pref.edit().putInt("CYCLE", Integer.parseInt(cycleLength.getText().toString())).apply();
-        pref.edit().putBoolean("MENSTRUAL", true).apply();
-    }
 
     @Override
     public void onClick(View v) {

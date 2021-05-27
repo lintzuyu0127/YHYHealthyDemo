@@ -203,6 +203,10 @@ public class RegisterActivity extends AppPage {
                 }
             }else if (errorCode == 2){ //帳號已存在
                 Toasty.error(RegisterActivity.this, getString(R.string.account_has_already), Toast.LENGTH_SHORT, true).show();
+            }else if (errorCode == 28) {//信箱已存在
+                Toasty.error(RegisterActivity.this, getString(R.string.mail_account_has_already), Toast.LENGTH_SHORT, true).show();
+            }else {
+                Toasty.error(RegisterActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();

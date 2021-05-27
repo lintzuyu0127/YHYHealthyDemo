@@ -143,8 +143,8 @@
     <string-array name="functions">
         <item>排卵紀錄</item>
         <item>藍芽體溫</item>
-        <item>懷孕紀錄</item>
-        <item>呼吸監測</item>
+        <!--        <item>懷孕紀錄</item>-->
+        <!--        <item>呼吸監測</item>-->
     </string-array>
 
     <!-- -->
@@ -190,8 +190,8 @@
     <string name="setting_autho_code">遠端授權碼</string>
     <string name="setting_marriage">婚姻狀況</string>
     <string name="setting_marriage_status">已婚/未婚</string>
-    <string name="setting_contraception_status">是否避孕</string>
-    <string name="setting_child_status">小孩(無/有)</string>
+    <string name="setting_contraception_status">避孕(否/是)</string>
+    <string name="setting_child_status">小孩(否/有)</string>
     <string name="setting_period">經期設定</string>
     <string name="setting_pregnancy">懷孕設定</string>
     <string name="setting_device_no">裝置序號</string>
@@ -268,7 +268,7 @@
     <string name="camera_not_action">未作任何拍攝</string>
     <string name="take_photo_again">重新拍照</string>
     <string name="identify">辨識</string>
-    <string name="please_chose_really_day">請選擇實際經期日:</string>
+    <string name="please_chose_really_day">請選擇實際經期日做刪除</string>
     <string name="delete_really_day">做刪除動作</string>
     <string name="your_chose_day">您選擇:</string>
     <string name="period_out_day">超出本月週期</string>
@@ -438,5 +438,9 @@
     <string name="title_temperature">藍芽體溫</string>
     <string name="battery_is_low_40">電量低於40%</string>
     <string name="under_25_degree">體溫低於25度</string>
+    <string name="fxn_is_coming_soon">功能尚未開放</string>
+    <string name="coming_soon">施工中....敬請期待</string>
+    <string name="title_tech">教學影片</string>
+    <string name="mail_account_has_already">信箱已存在</string>
 
 </resources>

@@ -11,7 +11,7 @@ import android.widget.VideoView;
  * 教學影片
  * create 2021/05/18
  * **/
-public class TeachVideoActivity extends AppCompatActivity {
+public class TeachVideoActivity extends AppPage {
 
     //暫時
     private static final String VIDEO_SAMPLE =
@@ -20,24 +20,26 @@ public class TeachVideoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide(); //title隱藏
         setContentView(R.layout.activity_teach_video);
+        setTitle(R.string.title_tech);
 
-        VideoView videoView = (VideoView) findViewById(R.id.videoView);
-
-        //creating MediaController
-        MediaController mediaController = new MediaController(this);
-
-        //set anchor view for video view
-        mediaController.setAnchorView(videoView);
-
-        //set the media controller for video view
-        videoView.setMediaController(mediaController);
-
-        //set the uri for video view
-        Uri uri = Uri.parse(VIDEO_SAMPLE);
-        videoView.setVideoURI(uri);
-
-        //start a video
-        videoView.start();
+//        VideoView videoView = (VideoView) findViewById(R.id.videoView);
+//
+//        //creating MediaController
+//        MediaController mediaController = new MediaController(this);
+//
+//        //set anchor view for video view
+//        mediaController.setAnchorView(videoView);
+//
+//        //set the media controller for video view
+//        videoView.setMediaController(mediaController);
+//
+//        //set the uri for video view
+//        Uri uri = Uri.parse(VIDEO_SAMPLE);
+//        videoView.setVideoURI(uri);
+//
+//        //start a video
+//        videoView.start();
     }
 }

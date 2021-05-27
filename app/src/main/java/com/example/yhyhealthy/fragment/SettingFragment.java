@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.yhyhealthy.LoginActivity;
 import com.example.yhyhealthy.R;
 import com.example.yhyhealthy.SystemAccountActivity;
+import com.example.yhyhealthy.SystemProvisionActivity;
 import com.example.yhyhealthy.SystemSettingActivity;
 import com.example.yhyhealthy.SystemUserActivity;
 
@@ -61,6 +62,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
             case R.id.imgSystemVideo:   //教學影片
                 break;
             case R.id.imgSystemProvision:  //使用條款
+                startActivity(new Intent(getActivity(), SystemProvisionActivity.class));
                 break;
             case R.id.tvLogout:       //登出
                 startActivity(new Intent(getActivity(), LoginActivity.class));

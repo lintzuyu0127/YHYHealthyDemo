@@ -119,6 +119,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
+        android:visibility="gone"
         android:background="@drawable/shape_transparent"
         app:layout_constraintBottom_toTopOf="@+id/guideline65"
         app:layout_constraintEnd_toStartOf="@+id/guideline64"
@@ -150,6 +151,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
+        android:visibility="gone"
         android:background="@drawable/shape_transparent"
         app:layout_constraintBottom_toTopOf="@+id/guideline65"
         app:layout_constraintEnd_toStartOf="@+id/guideline18"
@@ -221,7 +223,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
-            android:src="@mipmap/shopping" />
+            android:src="@mipmap/training" />
 
         <TextView
             android:layout_width="wrap_content"

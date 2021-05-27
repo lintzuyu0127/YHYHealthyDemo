@@ -39,7 +39,9 @@ public class EducationFragment extends Fragment implements View.OnClickListener 
         btnArticle = view.findViewById(R.id.btnArticle);
         btnVideo = view.findViewById(R.id.btnVideo);
         btnForum = view.findViewById(R.id.btnDiscuss);
+        btnForum.setVisibility(View.GONE);
         btnOnline = view.findViewById(R.id.onlineCall);
+        btnOnline.setVisibility(View.GONE);
 
         btnArticle.setOnClickListener(this);
         btnVideo.setOnClickListener(this);

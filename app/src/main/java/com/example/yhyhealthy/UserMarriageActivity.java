@@ -21,6 +21,7 @@ import es.dmoral.toasty.Toasty;
 
 import static com.example.yhyhealthy.module.ApiProxy.MARRIAGE_INFO;
 import static com.example.yhyhealthy.module.ApiProxy.MARRIAGE_UPDATE;
+import static com.example.yhyhealthy.module.ApiProxy.marriageSetting;
 
 /**  ******** ******
  *  設定 - 個人設定 - 婚姻狀況
@@ -194,7 +195,7 @@ public class UserMarriageActivity extends AppPage implements CompoundButton.OnCh
                         int errorCode = jsonObject.getInt("errorCode");
                         if (errorCode == 0) {
                             Toasty.success(UserMarriageActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
-                            writeToSharePreferences();
+                            marriageSetting = true; //婚姻狀況
                         }else if (errorCode == 23) { //token失效
                             Toasty.error(UserMarriageActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
                             startActivity(new Intent(UserMarriageActivity.this, LoginActivity.class));
@@ -219,10 +220,4 @@ public class UserMarriageActivity extends AppPage implements CompoundButton.OnCh
             hideProgress();
         }
     };
-
-    //寫到local
-    private void writeToSharePreferences() {
-        SharedPreferences pref = getSharedPreferences("yhyHealthy", MODE_PRIVATE);
-        pref.edit().putBoolean("MARRIAGE", true).apply();
-    }
 }

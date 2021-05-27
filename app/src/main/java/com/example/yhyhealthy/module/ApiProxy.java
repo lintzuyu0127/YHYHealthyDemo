@@ -33,7 +33,8 @@ public class ApiProxy {
     private static ApiProxy INSTANCE = null;
 
     //Api網址
-    private static final String URL = "http://192.168.1.108:8080/";
+    private static final String URL = "https://www.yhihc.com/services/";
+//    private static final String URL = "http://192.168.1.108:8080/";  //內部測試用
 
     //使用者api目錄
     private static final String USER_API = "allUser/users/";
@@ -181,6 +182,11 @@ public class ApiProxy {
     private static final String SYSTEM = "system";
     private String authToken;
     private String scepterToken;
+
+    //記錄使用者相關資料 2021/05/26
+    public static boolean marriageSetting = false;
+    public static boolean menstrualSetting = false;
+    public static boolean userSetting = false;
 
     //註冊專用Authorization token
     private static final String REGISTER_AUTH_CODE = "$2a$10$x42hx/UBe.PxFEoAk0RyuO0ImZ4h71hptmgvIF1sRZxA1HFqjJUAK";

@@ -48,7 +48,6 @@ public class AppPage extends AppCompatActivity {
     private View.OnClickListener onBackListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Log.d(TAG, "onClick: " );
             onBackPressed();
         }
     };

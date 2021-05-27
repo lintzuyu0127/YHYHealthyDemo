@@ -190,6 +190,8 @@ public class DegreeMainActivity extends DeviceBaseActivity implements View.OnCli
                         int errorCode = object.getInt("errorCode");
                         if (errorCode == 0) {
                             parserJson(result);
+                        }else if (errorCode == 6){ //沒有資料
+                            Toasty.error(DegreeMainActivity.this, getString(R.string.no_date), Toast.LENGTH_SHORT, true).show();
                         }else if (errorCode == 23) { //失效
                             Toasty.error(DegreeMainActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
                             startActivity(new Intent(DegreeMainActivity.this, LoginActivity.class));

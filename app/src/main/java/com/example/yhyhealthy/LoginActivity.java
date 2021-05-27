@@ -25,6 +25,9 @@ import es.dmoral.toasty.Toasty;
 
 import static com.example.yhyhealthy.module.ApiProxy.COMP;
 import static com.example.yhyhealthy.module.ApiProxy.LOGIN;
+import static com.example.yhyhealthy.module.ApiProxy.marriageSetting;
+import static com.example.yhyhealthy.module.ApiProxy.menstrualSetting;
+import static com.example.yhyhealthy.module.ApiProxy.userSetting;
 
 /** *** ***
  * 登入頁面
@@ -33,7 +36,7 @@ import static com.example.yhyhealthy.module.ApiProxy.LOGIN;
  * 忘記密碼
  * * ****** ******/
 
-public class LoginActivity extends AppPage implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "LoginActivity";
 
@@ -147,28 +150,27 @@ public class LoginActivity extends AppPage implements View.OnClickListener {
             int errorCode = object.getInt("errorCode");
             if(errorCode == 1){ //密碼或帳號錯誤
                 Toasty.error(LoginActivity.this, getString(R.string.account_is_error), Toast.LENGTH_SHORT, true).show();
+
             } else if (errorCode == 6) {
                 Toasty.error(LoginActivity.this, getString(R.string.account_not_register), Toast.LENGTH_SHORT, true).show();
+
             } else if (errorCode == 34) { //帳號未開通
                 showCompInfo(); //驗證碼彈跳視窗
+
             } else if (errorCode == 0) { //登入成功
-                //另外解析success內容並寫入sharePreference
+                //解析success內容並賦予全域變數
                 JSONObject success = object.getJSONObject("success");
-                boolean marriageStatus = success.getBoolean("maritalSet");
-                boolean menstrualStatus = success.getBoolean("menstrualSet");
-                boolean userSet = success.getBoolean("userSet");
-                SharedPreferences pref = getSharedPreferences("yhyHealthy", MODE_PRIVATE);
-                pref.edit().putString("ACCOUNT", account.getText().toString())
-                        .putString("PASSWORD", password.getText().toString())
-                        .putBoolean("MARRIAGE", marriageStatus)
-                        .putBoolean("MENSTRUAL", menstrualStatus)
-                        .putBoolean("USERSET", userSet).apply();
+                marriageSetting = success.getBoolean("maritalSet");
+                menstrualSetting = success.getBoolean("menstrualSet");
+                userSetting = success.getBoolean("userSet");
 
                 Toasty.success(LoginActivity.this, getString(R.string.login_success), Toast.LENGTH_SHORT, true).show();
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
+
+            }else {
+                Toasty.error(LoginActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -202,6 +204,7 @@ public class LoginActivity extends AppPage implements View.OnClickListener {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setAllCaps(false); //英文字小寫顯示
     }
 
     //後台驗證(比對)
@@ -220,7 +223,7 @@ public class LoginActivity extends AppPage implements View.OnClickListener {
     private ApiProxy.OnApiListener compCodeListener = new ApiProxy.OnApiListener() {
         @Override
         public void onPreExecute() {
-            buildProgress(R.string.progressdialog_else, R.string.progressdialog_wait);
+            //buildProgress(R.string.progressdialog_else, R.string.progressdialog_wait);
         }
 
         @Override
@@ -240,7 +243,7 @@ public class LoginActivity extends AppPage implements View.OnClickListener {
 
         @Override
         public void onPostExecute() {
-            hideProgress();
+            //hideProgress();
         }
     };
 
@@ -252,6 +255,8 @@ public class LoginActivity extends AppPage implements View.OnClickListener {
                 Toasty.error(LoginActivity.this, getString(R.string.comp_code_error), Toast.LENGTH_SHORT, true).show();
             }else if (errorCode == 0){
                 Toasty.success(LoginActivity.this, getString(R.string.comp_code_correct), Toast.LENGTH_SHORT, true).show();
+            }else {
+                Toasty.error(LoginActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();

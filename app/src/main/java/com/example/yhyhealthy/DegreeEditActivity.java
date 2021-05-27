@@ -265,6 +265,7 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
                 @Override
                 public void run() {
                     try {
+                        Log.d(TAG, "DegreeEdit: " + result.toString());
                         JSONObject object = new JSONObject(result.toString());
                         int errorCode = object.getInt("errorCode");
                         if(errorCode == 0) {
@@ -285,7 +286,7 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
                             startActivity(new Intent(DegreeEditActivity.this, LoginActivity.class));
                             finish();
                         }else {
-                            Toasty.error(DegreeEditActivity.this, R.string.json_error_code + errorCode, Toast.LENGTH_SHORT, true).show();
+                            Toasty.error(DegreeEditActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT, true).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -358,7 +359,7 @@ public class DegreeEditActivity extends DeviceBaseActivity implements RadioGroup
     //儲存圖片
     private void saveBitmap(Bitmap bitmap) {
         //壓縮照片
-        Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/6, bitmap.getHeight()/6, true);
+        Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/10, bitmap.getHeight()/10, true);
 
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);

@@ -143,8 +143,8 @@
     <string-array name="functions">
         <item>Ovulation Record</item>
         <item>Bluetooth body Temperature</item>
-        <item>Pregnancy Reports</item>
-        <item>Breath Monitoring</item>
+<!--        <item>Pregnancy Reports</item>-->
+<!--        <item>Breath Monitoring</item>-->
     </string-array>
 
     <!-- -->
@@ -331,12 +331,12 @@
     <string name="camera_not_action">Action Canceled</string>
     <string name="take_photo_again">Again</string>
     <string name="identify">Identify</string>
-    <string name="please_chose_really_day">Please chose period day:</string>
+    <string name="please_chose_really_day">Please chose correct period day to delete</string>
     <string name="delete_really_day">to delete</string>
     <string name="your_chose_day">you are chose is:</string>
     <string name="period_out_day">out of Range</string>
     <string name="period_Day_no_data">No data</string>
-    <string name="period_day">Today is the</string>
+    <string name="period_day">Today is the </string>
     <string name="day">th Day of Menstrual Period</string>
     <string name="period_out_range">out of Range</string>
     <string name="function_only_today">only Today</string>
@@ -446,4 +446,8 @@
     <string name="title_temperature">Bluetooth Body Temperature</string>
     <string name="battery_is_low_40">Battery is less than 40%</string>
     <string name="under_25_degree">your temperature is below 25 degrees</string>
+    <string name="fxn_is_coming_soon">function is coming soon</string>
+    <string name="coming_soon">Coming Soon....</string>
+    <string name="title_tech">Teaching</string>
+    <string name="mail_account_has_already">Mailbox already exists</string>
 </resources>

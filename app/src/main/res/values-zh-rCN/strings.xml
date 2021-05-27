@@ -143,8 +143,8 @@
     <string-array name="functions">
         <item>排卵纪录</item>
         <item>蓝芽体温</item>
-        <item>怀孕纪录</item>
-        <item>呼吸监测</item>
+<!--        <item>怀孕纪录</item>-->
+<!--        <item>呼吸监测</item>-->
     </string-array>
 
     <!-- -->
@@ -246,7 +246,7 @@
     <string name="setting_autho_code">远端授权码</string>
     <string name="setting_marriage">婚姻状况</string>
     <string name="setting_marriage_status">已婚/未婚</string>
-    <string name="setting_contraception_status">是否避孕</string>
+    <string name="setting_contraception_status">避孕(无/有)</string>
     <string name="setting_child_status">小孩(无/有)</string>
     <string name="setting_period">经期设定</string>
     <string name="setting_pregnancy">怀孕设定</string>
@@ -324,7 +324,7 @@
     <string name="camera_not_action">未作任何拍摄</string>
     <string name="take_photo_again">重新拍照</string>
     <string name="identify">辨识</string>
-    <string name="please_chose_really_day">请选择实际经期日:</string>
+    <string name="please_chose_really_day">请选择实际经期日做删除动作</string>
     <string name="delete_really_day">做删除动作</string>
     <string name="your_chose_day">您选择:</string>
     <string name="period_out_day">超出本月周期</string>
@@ -438,6 +438,10 @@
     <string name="title_temperature">蓝芽体温</string>
     <string name="battery_is_low_40">电量低于40%</string>
     <string name="under_25_degree">体温低于25度</string>
+    <string name="fxn_is_coming_soon">功能尚未开放</string>
+    <string name="coming_soon">施工中....敬请期待</string>
+    <string name="title_tech">教学影片</string>
+    <string name="mail_account_has_already">信箱已存在</string>
 
 
 </resources>

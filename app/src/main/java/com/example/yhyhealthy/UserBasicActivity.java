@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -35,6 +36,7 @@ import es.dmoral.toasty.Toasty;
 
 import static com.example.yhyhealthy.module.ApiProxy.USER_INFO;
 import static com.example.yhyhealthy.module.ApiProxy.USER_UPDATE;
+import static com.example.yhyhealthy.module.ApiProxy.userSetting;
 
 /**
  * 設定 - 個人設定 - 基本資料
@@ -276,6 +278,7 @@ public class UserBasicActivity extends AppPage implements View.OnClickListener {
                         int errorCode = jsonObject.getInt("errorCode");
                         if (errorCode == 0) {
                             Toasty.success(UserBasicActivity.this, getString(R.string.update_success), Toast.LENGTH_SHORT, true).show();
+                            userSetting = true; // 使用者設定
                         }else if (errorCode == 23){ //token失效
                             Toasty.error(UserBasicActivity.this, getString(R.string.idle_too_long), Toast.LENGTH_SHORT, true).show();
                             startActivity(new Intent(UserBasicActivity.this, LoginActivity.class));
@@ -301,6 +304,7 @@ public class UserBasicActivity extends AppPage implements View.OnClickListener {
         }
     };
 
+
     //體重EditText's Listener
     private TextWatcher weightListener = new TextWatcher() {
         @Override
@@ -310,9 +314,11 @@ public class UserBasicActivity extends AppPage implements View.OnClickListener {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            double w = Double.parseDouble(userWeight.getText().toString()); //體重
-            double h = Double.parseDouble(userHeight.getText().toString()); //身高
-            calculate(h,w);
+            if (!userWeight.getText().toString().isEmpty()) { //避免空字串會crash 2021/05/27
+                double w = Double.parseDouble(userWeight.getText().toString()); //體重
+                double h = Double.parseDouble(userHeight.getText().toString()); //身高
+                calculate(h, w);
+            }
         }
 
         @Override

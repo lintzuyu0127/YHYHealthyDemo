@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
 import com.example.yhyhealthy.module.ApiProxy;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -120,7 +122,7 @@ public class ForgetPassActivity extends AppPage implements View.OnClickListener 
                             Toasty.success(ForgetPassActivity.this, getString(R.string.data_change_success), Toasty.LENGTH_SHORT, true).show();
                             finish();
                         }else {
-                            Log.d(TAG, getString(R.string.json_error_code) + errorCode);
+                            Toasty.error(ForgetPassActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT,true).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -206,7 +208,7 @@ public class ForgetPassActivity extends AppPage implements View.OnClickListener 
                     finish();
                 }
             }else{
-                Log.d(TAG, getString(R.string.json_error_code) + errorCode);
+                Toasty.error(ForgetPassActivity.this, getString(R.string.json_error_code) + errorCode, Toast.LENGTH_SHORT,true).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();

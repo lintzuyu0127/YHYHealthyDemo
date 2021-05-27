@@ -26,6 +26,10 @@ import com.example.yhyhealthy.UserBasicActivity;
 import com.example.yhyhealthy.UserMarriageActivity;
 import com.example.yhyhealthy.UserPeriodActivity;
 
+import static com.example.yhyhealthy.module.ApiProxy.marriageSetting;
+import static com.example.yhyhealthy.module.ApiProxy.menstrualSetting;
+import static com.example.yhyhealthy.module.ApiProxy.userSetting;
+
 /***********
  *  首頁 4個功能
  *  目前僅有排卵記錄與藍芽體溫
@@ -48,15 +52,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         ovulation = view.findViewById(R.id.ivOvulation);
         temperature = view.findViewById(R.id.ivTemperature);
-        pregnancy = view.findViewById(R.id.ivPregnancy);
-        monitor = view.findViewById(R.id.ivBreath);
+//        pregnancy = view.findViewById(R.id.ivPregnancy);
+//        monitor = view.findViewById(R.id.ivBreath);
 
         shopping = view.findViewById(R.id.ivStore);
         guid = view.findViewById(R.id.ivGuid);
 
         ovulation.setOnClickListener(this);
         temperature.setOnClickListener(this);
-        pregnancy.setOnClickListener(this);
+//        pregnancy.setOnClickListener(this);
         shopping.setOnClickListener(this);
         guid.setOnClickListener(this);
 
@@ -76,15 +80,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //                target = TemperatureActivity.class;
                 target = DegreeMainActivity.class;
                 break;
-            case R.id.ivPregnancy:
-                target = PregnancyActivity.class;
-                break;
-            case R.id.ivBreath:
-                break;
+//            case R.id.ivPregnancy:
+//                target = PregnancyActivity.class;
+//                break;
+//            case R.id.ivBreath:
+//                break;
             case R.id.ivStore:
                 target = ShoppingActivity.class;
                 break;
-            case R.id.ivGuid:
+            case R.id.ivGuid: //教學影片
                 target = TeachVideoActivity.class;
                 break;
         }
@@ -93,15 +97,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void checkBeforeSetting(){
-        boolean marriageStatus = this.getActivity().getSharedPreferences("yhyHealthy", Context.MODE_PRIVATE).getBoolean("MARRIAGE", false);
-        boolean menstrualStatus = this.getActivity().getSharedPreferences("yhyHealthy", Context.MODE_PRIVATE).getBoolean("MENSTRUAL", false);
-        boolean userInfoStatus = this.getActivity().getSharedPreferences("yhyHealthy", Context.MODE_PRIVATE).getBoolean("USERSET", false);
-
-        if (!userInfoStatus){
+        //判斷進入排系統功能必須的設定是否齊全
+        if (!userSetting){
             startActivity(new Intent(getActivity(), UserBasicActivity.class));
-        }else if (!menstrualStatus){
+        }else if (!menstrualSetting){
             startActivity(new Intent(getActivity(), UserPeriodActivity.class));
-        }else if (!marriageStatus){
+        }else if (!marriageSetting){
             startActivity(new Intent(getActivity(), UserMarriageActivity.class));
         }else {
             startActivity(new Intent(getActivity(), OvulationActivity.class));
